@@ -1,11 +1,8 @@
-import Layout from '../../ui/components/Layout'
+import { RouterProvider } from 'react-router-dom'
+import router from '../Router'
 
 const Root = () => {
-  return (
-    <Layout>
-      <div>SOME CODE</div>
-    </Layout>
-  )
+  return <RouterProvider router={router} />
 }
 
 export default Root
