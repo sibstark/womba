@@ -2,10 +2,10 @@ import React from 'react'
 
 import './style.scss'
 
-type TProps = {
+type TPropsLayout = {
   children: React.ReactNode
 }
-const Layout: React.FC<TProps> = ({ children }) => {
+const Layout: React.FC<TPropsLayout> = ({ children }) => {
   return <div className="layout">{children}</div>
 }
 
