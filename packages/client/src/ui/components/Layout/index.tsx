@@ -2,10 +2,10 @@ import React from 'react'
 
 import './style.scss'
 
-type TPropsLayout = {
+type TLayoutProps = {
   children: React.ReactNode
 }
-const Layout: React.FC<TPropsLayout> = ({ children }) => {
+const Layout: React.FC<TLayoutProps> = ({ children }) => {
   return <div className="layout">{children}</div>
 }
 
