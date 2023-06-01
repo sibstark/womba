@@ -1,7 +1,7 @@
 import React from 'react'
-
 import './style.scss'
 
+// TODO: There is PropsWithChildren in React types to define comp with children
 type TLayoutProps = {
   children: React.ReactNode
 }

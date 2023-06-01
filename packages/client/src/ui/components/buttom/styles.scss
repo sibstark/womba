@@ -1,0 +1,16 @@
+.button {
+  border: none;
+  border-radius: .5rem;
+  height: 1.5rem;
+  padding: .2rem .3rem;
+
+  &--blue {
+    background-color: $blue-color;
+    color: $white-color;
+  }
+
+  &--black {
+    background-color: $black-color;
+    color: $white-color;
+  }
+}
