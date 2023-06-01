@@ -1,9 +1,11 @@
 import { classnames } from '@utils'
-import React from 'react'
+import React, { forwardRef } from 'react'
 import './styles.scss'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>
-export const Input: React.FC<InputProps> = ({ className, ...rest }) => {
-  const classes = classnames(className, 'input')
-  return <input {...rest} className={classes} />
-}
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, ...rest }, ref) => {
+    const classes = classnames(className, 'input')
+    return <input {...rest} ref={ref} className={classes} />
+  }
+)
