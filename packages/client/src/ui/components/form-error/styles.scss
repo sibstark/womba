@@ -1,0 +1,9 @@
+.form-error {
+  color: $red-color;
+  display: none;
+  font-size: 0.75rem;
+
+  &--shown {
+    display: block;
+  }
+}

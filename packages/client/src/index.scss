@@ -1,3 +1,10 @@
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 /* Can be redefined if smb minds or wants to change*/
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -5,7 +12,7 @@
   font-weight: 400;
   font-size: 16px;
   font-synthesis: none;
-  background-color: $blue-color;
+  background-color: $white-color;
 }
 
 .card {
@@ -15,10 +22,6 @@
   width: fit-content;
 }
 
-.page {
-
-}
-
-.login-page {
-
+.w-100 {
+  width: 100%;
 }

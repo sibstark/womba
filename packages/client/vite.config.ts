@@ -17,6 +17,8 @@ export default defineConfig({
     alias: {
       '@ui/components': path.resolve(__dirname, './src/ui/components'),
       '@utils': path.resolve(__dirname, './src/utils'),
+      '@types': path.resolve(__dirname, './src/types'),
+      '@containers': path.resolve(__dirname, './src/containers'),
     },
   },
   css: {
