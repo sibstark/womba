@@ -1,5 +1,5 @@
 import React from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { FieldValues } from 'react-hook-form/dist/types/fields'
 import { UseFormProps } from 'react-hook-form/dist/types'
 import {
@@ -8,11 +8,13 @@ import {
 } from 'react-hook-form/dist/types/form'
 
 type OmitHandleSubmit<T> = Omit<T, 'handleSubmit'>
+
 export type TChildrenArguments<
   TFieldValues extends FieldValues = FieldValues,
   TContext = any,
   TTransformedValues extends FieldValues | undefined = undefined
 > = OmitHandleSubmit<UseFormReturn<TFieldValues, TContext, TTransformedValues>>
+
 export type TWithFormChildren<
   TFieldValues extends FieldValues = FieldValues,
   TContext = any,
@@ -20,17 +22,29 @@ export type TWithFormChildren<
 > = (
   props: TChildrenArguments<TFieldValues, TContext, TTransformedValues>
 ) => React.ReactNode
+
+export type OwnSubmitHandler<
+  TFieldValues extends FieldValues,
+  TContext = any,
+  TTransformedValues extends FieldValues | undefined = undefined
+> = (
+  data: TFieldValues,
+  helpers: TChildrenArguments<TFieldValues, TContext, TTransformedValues>,
+  event?: React.BaseSyntheticEvent
+) => unknown | Promise<unknown>
+
 type TWithFormParams<
   TFieldValues extends FieldValues = FieldValues,
   TContext = any,
   TTransformedValues extends FieldValues | undefined = undefined
 > = {
   onValid: TTransformedValues extends FieldValues
-    ? SubmitHandler<TTransformedValues>
-    : SubmitHandler<TFieldValues>
+    ? OwnSubmitHandler<TTransformedValues, TContext, TTransformedValues>
+    : OwnSubmitHandler<TFieldValues, TContext, TTransformedValues>
   onInvalid?: SubmitErrorHandler<TFieldValues>
   props?: UseFormProps<TFieldValues, TContext>
 }
+
 export function withForm<
   TFieldValues extends FieldValues = FieldValues,
   TContext = any,
@@ -46,9 +60,16 @@ export function withForm<
       TContext,
       TTransformedValues
     >(props)
-    // @ts-ignore
+    const onSubmit = (
+      values: FieldValues,
+      event?: React.BaseSyntheticEvent
+    ) => {
+      // @ts-ignore
+      onValid(values, rest, event)
+    }
     return (
-      <form onSubmit={handleSubmit(onValid, onInvalid)}>{children(rest)}</form>
+      // @ts-ignore
+      <form onSubmit={handleSubmit(onSubmit, onInvalid)}>{children(rest)}</form>
     )
   }
 }

@@ -1,7 +1,14 @@
 import { Button, FormControl, FormError, Input, Label } from '@ui/components'
 import { TChildrenArguments, withForm } from '../form'
 import React from 'react'
-import { classnames } from '@utils'
+import {
+  classnames,
+  emailValidation,
+  loginValidation,
+  nameValidation,
+  passValidation,
+  phoneValidation,
+} from '@utils'
 
 type TRegistrationForm = {
   name: string
@@ -12,15 +19,19 @@ type TRegistrationForm = {
   password: string
   confirmPassword: string
 }
-
-const onSubmit = (values: TRegistrationForm) => {
+type RenderRegistrationFormProps = TChildrenArguments<TRegistrationForm>
+const onSubmit = (
+  values: TRegistrationForm,
+  helpers: RenderRegistrationFormProps
+) => {
+  const { setError } = helpers
   console.log(values)
 }
 
-type RenderRegistrationFormProps = TChildrenArguments<TRegistrationForm>
 const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
   register,
   formState,
+  watch,
 }) => {
   const { errors } = formState
   return (
@@ -29,7 +40,10 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         <Label>Имя</Label>
         <Input
           placeholder="Имя"
-          {...register('name')}
+          {...register('name', {
+            required: 'Обязательно',
+            validate: nameValidation,
+          })}
           className={classnames({ 'input--error': errors.name })}
         />
         {errors.name && (
@@ -42,7 +56,10 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         <Label>Фамилия</Label>
         <Input
           placeholder="Фамилия"
-          {...register('surname')}
+          {...register('surname', {
+            required: 'Обязательно',
+            validate: nameValidation,
+          })}
           className={classnames({
             'input--error': errors.surname,
           })}
@@ -57,7 +74,10 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         <Label>Email</Label>
         <Input
           placeholder="Email"
-          {...register('email')}
+          {...register('email', {
+            required: 'Обязательно',
+            validate: emailValidation,
+          })}
           className={classnames({ 'input--error': errors.email })}
         />
         {errors.email && (
@@ -70,7 +90,10 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         <Label>Телефон</Label>
         <Input
           placeholder="Телефон"
-          {...register('phone')}
+          {...register('phone', {
+            required: 'Обязательно',
+            validate: phoneValidation,
+          })}
           className={classnames({ 'input--error': errors.phone })}
         />
         {errors.phone && (
@@ -83,7 +106,10 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         <Label>Логин</Label>
         <Input
           placeholder="Логин"
-          {...register('login')}
+          {...register('login', {
+            required: 'Обязательно',
+            validate: loginValidation,
+          })}
           className={classnames({ 'input--error': errors.login })}
         />
         {errors.login && (
@@ -97,7 +123,10 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         <Input
           type="password"
           placeholder="Пароль"
-          {...register('password')}
+          {...register('password', {
+            required: 'Обязательно',
+            validate: passValidation,
+          })}
           className={classnames({ 'input--error': errors.password })}
         />
         {errors.password && (
@@ -110,7 +139,15 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         <Input
           type="password"
           placeholder="Пороль еще раз"
-          {...register('confirmPassword')}
+          {...register('confirmPassword', {
+            required: 'Обязательно',
+            validate: (val: string) => {
+              if (watch('password') !== val) {
+                return 'Пароли не совпадают'
+              }
+              return true
+            },
+          })}
           className={classnames({ 'input--error': errors.confirmPassword })}
         />
         {errors.confirmPassword && (
