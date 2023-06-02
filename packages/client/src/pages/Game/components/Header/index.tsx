@@ -1,0 +1,39 @@
+import React, { useState } from 'react'
+
+import './styles.scss';
+
+export const Header: React.FC = () => {
+  const [score, setScore] = useState(340);
+  const [bestScore, setBestScore] = useState(340);
+
+  return (
+    <div className="header">
+      <div className="header__block">
+        <span className="header__block_title">
+          Score
+        </span>
+        <div className="header__block_content">
+          {score}
+        </div>
+      </div>
+      <div className="header__block">
+        <span className="header__block_title">
+          Best
+        </span>
+        <div className="header__block_content">
+          {bestScore}
+        </div>
+      </div>
+      <div className="header__new">
+        <button
+          className="header__new_button"
+          onClick={() => {
+            setScore(0);
+          }}
+        >
+          New Game
+        </button>
+      </div>
+    </div>
+  );
+};
