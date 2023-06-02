@@ -1,4 +1,4 @@
-import { classnames } from '@utils'
+import classnames from 'classnames'
 import React, { forwardRef } from 'react'
 import './styles.scss'
 

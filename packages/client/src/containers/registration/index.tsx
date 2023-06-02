@@ -1,8 +1,8 @@
 import { Button, FormControl, FormError, Input, Label } from '@ui/components'
 import { TChildrenArguments, withForm } from '../form'
 import React from 'react'
+import classnames from 'classnames'
 import {
-  classnames,
   emailValidation,
   loginValidation,
   nameValidation,

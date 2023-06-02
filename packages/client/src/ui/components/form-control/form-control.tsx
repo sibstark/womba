@@ -1,9 +1,8 @@
 import React from 'react'
-import { classnames } from '@utils'
+import classnames from 'classnames'
 import './styles.scss'
 
-type FormControlProps = React.HTMLAttributes<HTMLDivElement>
-export const FormControl: React.FC<FormControlProps> = ({
+export const FormControl: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...rest
 }) => {
