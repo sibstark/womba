@@ -48,7 +48,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         />
         {errors.name && (
           <FormError className="form-error--shown">
-            {errors.name?.message}
+            {errors.name.message}
           </FormError>
         )}
       </FormControl>
@@ -66,7 +66,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         />
         {errors.surname && (
           <FormError className="form-error--shown">
-            {errors.surname?.message}
+            {errors.surname.message}
           </FormError>
         )}
       </FormControl>
@@ -82,7 +82,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         />
         {errors.email && (
           <FormError className="form-error--shown">
-            {errors.email?.message}
+            {errors.email.message}
           </FormError>
         )}
       </FormControl>
@@ -98,7 +98,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         />
         {errors.phone && (
           <FormError className="form-error--shown">
-            {errors.phone?.message}
+            {errors.phone.message}
           </FormError>
         )}
       </FormControl>
@@ -114,7 +114,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         />
         {errors.login && (
           <FormError className="form-error--shown">
-            {errors.login?.message}
+            {errors.login.message}
           </FormError>
         )}
       </FormControl>
@@ -131,7 +131,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         />
         {errors.password && (
           <FormError className="form-error--shown">
-            {errors.password?.message}
+            {errors.password.message}
           </FormError>
         )}
       </FormControl>
@@ -152,7 +152,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = ({
         />
         {errors.confirmPassword && (
           <FormError className="form-error--shown">
-            {errors.confirmPassword?.message}
+            {errors.confirmPassword.message}
           </FormError>
         )}
       </FormControl>
