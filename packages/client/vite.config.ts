@@ -19,6 +19,7 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, './src/utils'),
       '@types': path.resolve(__dirname, './src/types'),
       '@containers': path.resolve(__dirname, './src/containers'),
+      '@pages': path.resolve(__dirname, './src/pages'),
     },
   },
   css: {
