@@ -4,6 +4,7 @@ import React from 'react'
 import { classnames } from '@utils'
 import { Link } from 'react-router-dom'
 import { Routes } from '../Router'
+import { authController } from '@controllers'
 
 type TLoginForm = {
   login: string
@@ -11,6 +12,7 @@ type TLoginForm = {
 }
 type RenderLoginFormProps = TChildrenArguments<TLoginForm>
 const onSubmit = (values: TLoginForm, helpers: RenderLoginFormProps) => {
+  authController.signin(values)
   const { setError } = helpers
   console.log(values)
 }
@@ -56,7 +58,10 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = ({
       <FormControl>
         <Link to={Routes.Registration}>У вас нет аккаунта? Регистриация</Link>
       </FormControl>
-      <Button type="submit" className="button--blue w-100">
+      <Button
+        type="submit"
+        className="button--blue w-100"
+        disabled={formState.isSubmitting}>
         Авторизоваться
       </Button>
     </>
@@ -68,7 +73,7 @@ export const LoginForm = withForm<TLoginForm>(
     onValid: onSubmit,
     props: {
       defaultValues: {
-        login: 'Oleg',
+        login: '',
         password: '',
       },
     },
