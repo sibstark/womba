@@ -7,8 +7,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "format": "prettier --write .",
-    "test": "jest ."
+    "format": "prettier --write ."
   },
   "dependencies": {
     "dotenv": "16.0.2",
