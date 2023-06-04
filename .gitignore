@@ -7,3 +7,5 @@ tmp
 
 .yarn/
 .yarnrc.yml
+.yarn/releases/yarn-1.22.19.cjs
+yarn-error.log
