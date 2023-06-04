@@ -20,7 +20,7 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
   const { formState } = props
   return (
     <>
-      <FormControlInputTemplate
+      <FormControlInputTemplate<TLoginForm>
         {...props}
         title="Логин"
         placeholder="Логин"
@@ -29,7 +29,7 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
           required: 'Обязательно',
         }}
       />
-      <FormControlInputTemplate
+      <FormControlInputTemplate<TLoginForm>
         {...props}
         title="Пароль"
         placeholder="Пароль"
