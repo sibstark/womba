@@ -6,6 +6,10 @@ export const Header: React.FC = () => {
   const [score, setScore] = useState(340);
   const [bestScore, setBestScore] = useState(340);
 
+  const startNewGame = () => {
+    setScore(0);
+  };
+
   return (
     <div className="header">
       <div className="header__block">
@@ -27,9 +31,7 @@ export const Header: React.FC = () => {
       <div className="header__new">
         <button
           className="header__new_button"
-          onClick={() => {
-            setScore(0);
-          }}
+          onClick={startNewGame}
         >
           New Game
         </button>
