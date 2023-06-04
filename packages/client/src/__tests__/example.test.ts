@@ -1,5 +1,4 @@
 const magic = '🪄'
-
 const cast = (spell: string, item: any) => {
   if (spell.startsWith(magic)) {
     return '🐷'
@@ -12,3 +11,5 @@ test('spell casting', () => {
   const result = cast(magic, '🪄')
   expect(result).toBe('🐷')
 })
+
+export {}
