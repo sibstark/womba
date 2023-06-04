@@ -1,0 +1,9 @@
+.form-error {
+  color: rgba(243, 86, 47, 1);
+  display: none;
+  font-size: 0.75rem;
+
+  &--shown {
+    display: block;
+  }
+}

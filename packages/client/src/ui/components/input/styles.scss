@@ -1,0 +1,23 @@
+.input {
+  border: 1px solid #000000;
+  border-radius: 0.5rem;
+  height: 2rem;
+  padding: 0.2rem 0.3rem;
+  width: 100%;
+
+  &--error {
+    border-color: rgba(243, 86, 47, 1);
+  }
+
+  &--profile {
+    margin: 0;
+    height: auto;
+    min-height: 15px;
+    font-size: 15px;
+    line-height: 15px;
+    border: 0;
+    background-color: rgba(255, 255, 255, 0);
+    margin-left: 5px;
+    font-size: 15px;
+  }
+}

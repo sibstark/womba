@@ -8,8 +8,12 @@ const RootLayout = () => {
         <nav>
           <h1>WOMBA 2048</h1>
           <NavLink to="/">Home</NavLink>
+          <br />
           <NavLink to="/login">Login</NavLink>
+          <br />
           <NavLink to="/forum">Forum</NavLink>
+          <br />
+          <NavLink to="/profile">Profile</NavLink>
         </nav>
       </header>
       <Layout>

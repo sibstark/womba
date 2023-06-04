@@ -8,6 +8,7 @@ import Login from '../Login'
 import Forum from '../Forum'
 import Layout from '../Layout'
 import Error from '../Error'
+import ProfilePage from '../../pages/Profile/profile'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -15,6 +16,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="login" element={<Login />} />
       <Route path="forum" element={<Forum />} />
+      <Route path="profile" element={<ProfilePage />} />
       <Route path="*" element={<Error />} />
     </Route>
   )
