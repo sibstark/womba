@@ -1,5 +1,5 @@
 import React from 'react'
-import { classnames } from '@utils'
+import classnames from 'classnames'
 import './styles.scss'
 
 type CardProps = React.HTMLAttributes<HTMLDivElement>

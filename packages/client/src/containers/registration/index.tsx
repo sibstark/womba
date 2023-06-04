@@ -29,7 +29,6 @@ const onSubmit = (
 
 const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
   const { formState, watch } = props
-  const { errors } = formState
   return (
     <>
       <FormControlInputTemplate<TRegistrationForm>
@@ -112,7 +111,10 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
           type: 'password',
         }}
       />
-      <Button type="submit" className="button--blue w-100">
+      <Button
+        type="submit"
+        disabled={formState.isSubmitting}
+        className="button--blue w-100">
         Зарегистрироваться
       </Button>
     </>
