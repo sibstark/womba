@@ -1,6 +1,6 @@
 import getNameWithTimeColored from './getNameWithTimeColored'
 
-const backgroundColor = 'red'
+const backgroundColor = '#ff0000'
 
 const debugResolve = (moduleName = '', { method = 'debug' } = {}) => {
   // @ts-ignore
