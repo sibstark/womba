@@ -58,7 +58,7 @@ export class HTTPTransport implements IHTTPTransport {
     this.request(url, { ...options, method: METHODS.PATCH })
 
   request = async <T>(url: string, options: TRequestOptions): Promise<T> => {
-    const { method, data, headers = {} } = options
+    const { data, method, headers = {} } = options
     const response = await makeRequest({
       path: this.endpoint + url,
       method,
@@ -82,10 +82,7 @@ export function defaultHeaders(headers: Headers, contentType = true) {
 }
 
 function checkStatus(response: Response): boolean {
-  if (response?.status && response.status >= 200 && response.status < 300) {
-    return true
-  }
-  return false
+  return !!(response?.status && response.status >= 200 && response.status < 300)
 }
 
 export const errorProcessing = (response: any) => {
@@ -108,20 +105,22 @@ function makeRequest({
   headers,
   ignoreContentType,
 }: Request): Promise<Response> {
-  let q = ''
+  let query = ''
   if (method === METHODS.GET && body) {
-    q = queryToString(body as any)
+    query = queryToString(body as any)
   }
-  const h = new Headers(headers)
-  defaultHeaders(h, !ignoreContentType)
-  const b =
-    contentIs(h, 'application/json') && !(body instanceof FormData) && body
+  const processedHeaders = new Headers(headers)
+  defaultHeaders(processedHeaders, !ignoreContentType)
+  const data =
+    contentIs(processedHeaders, 'application/json') &&
+    !(body instanceof FormData) &&
+    body
       ? JSON.stringify(body)
       : body
-  return fetch(path + q, {
+  return fetch(path + query, {
     method: method,
-    headers: h,
-    body: b,
+    headers: processedHeaders,
+    body: data,
     credentials: 'include',
   })
 }
