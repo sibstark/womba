@@ -5,7 +5,10 @@
       "@types": ["src/types"],
       "@utils": ["src/utils"],
       "@ui/components": ["src/ui/components"],
-      "@containers": ["src/containers"]
+      "@containers": ["src/containers"],
+      "@pages/*": ["src/pages/*"],
+      "@api": ["src/api"],
+      "@controllers": ["src/controllers"]
     },
     "target": "ESNext",
     "useDefineForClassFields": true,
