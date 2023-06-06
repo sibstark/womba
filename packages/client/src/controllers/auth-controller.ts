@@ -10,10 +10,9 @@ class AuthController {
   async signup(data: SignupRequest) {
     try {
       await this.api.signup(data)
-    } catch (e) {
-      console.log('signup', e)
-    } finally {
       console.log('signed up')
+    } catch (e) {
+      console.log('signup error', e)
     }
   }
 
@@ -22,10 +21,8 @@ class AuthController {
       await this.api.singin(data)
       alert('Вы залогинены')
     } catch (e: any) {
-      alert(`Ошбка логина ${e.reason}`)
-      console.log('signed in', e)
-    } finally {
-      console.log('signed in')
+      alert(`Ошибка логина ${e.reason}`)
+      console.log('signed in error', e)
     }
   }
 
@@ -33,7 +30,7 @@ class AuthController {
     try {
       await this.api.logout()
     } catch (e) {
-      console.log('logout', e)
+      console.log('logout error', e)
     }
   }
 }

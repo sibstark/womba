@@ -4,6 +4,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Routes } from '../Router'
 import { authController } from '@controllers'
+import { ValidationMessage } from '@utils'
 
 type TLoginForm = {
   login: string
@@ -12,7 +13,6 @@ type TLoginForm = {
 type RenderLoginFormProps = TChildrenArguments<TLoginForm>
 const onSubmit = (values: TLoginForm, helpers: RenderLoginFormProps) => {
   authController.signin(values)
-  const { setError } = helpers
   console.log(values)
 }
 
@@ -26,7 +26,7 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         placeholder="Логин"
         name="login"
         options={{
-          required: 'Обязательно',
+          required: ValidationMessage.Required,
         }}
       />
       <FormControlInputTemplate<TLoginForm>
@@ -35,7 +35,7 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         placeholder="Пароль"
         name="password"
         options={{
-          required: 'Обязательно',
+          required: ValidationMessage.Required,
         }}
         inputProps={{
           type: 'password',

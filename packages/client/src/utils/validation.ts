@@ -34,3 +34,7 @@ export function emailValidation(value: string): boolean | string {
   const isMatched = rule.test(value)
   return isMatched || 'Неверный email'
 }
+
+export enum ValidationMessage {
+  Required = 'Обязательно',
+}
