@@ -8,6 +8,7 @@ import {
   Label,
 } from '../../ui/components'
 import './style.scss'
+import { validateLengthCommon, validateLengthName } from '../../utils/profile'
 
 const ProfileForm: React.FC = () => {
   const [isEditMode, setEditMode] = useState<boolean>(false)
@@ -31,7 +32,10 @@ const ProfileForm: React.FC = () => {
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Имя</Label>
           <Input
-            {...register('example')}
+            {...(register('name'),
+            {
+              validate: validateLengthName,
+            })}
             className="input--profile"
             disabled={!isEditMode}
             placeholder=""
@@ -40,6 +44,9 @@ const ProfileForm: React.FC = () => {
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Фамилия</Label>
           <Input
+            {...register('lastName', {
+              validate: validateLengthName,
+            })}
             className="input--profile"
             disabled={!isEditMode}
             placeholder=""
@@ -48,6 +55,9 @@ const ProfileForm: React.FC = () => {
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Никнейм</Label>
           <Input
+            {...register('nickName', {
+              validate: validateLengthCommon,
+            })}
             className="input--profile"
             disabled={!isEditMode}
             placeholder=""
@@ -56,35 +66,68 @@ const ProfileForm: React.FC = () => {
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Email</Label>
           <Input
+            {...register('email')}
             className="input--profile"
             disabled={!isEditMode}
+            type="email"
             placeholder=""
           />
         </FormControl>
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Телефон</Label>
           <Input
+            {...register('phone', {
+              validate: validateLengthCommon,
+            })}
             className="input--profile"
             disabled={!isEditMode}
-            placeholder=""
-          />
-        </FormControl>
-        <FormControl className="form-control form-control--profile">
-          <Label className="form-label--profile">Пароль</Label>
-          <Input
-            className="input--profile"
-            disabled={!isEditMode}
+            type="phone"
             placeholder=""
           />
         </FormControl>
         {isEditMode && (
-          <FormControl className="form-control form-control--button">
-            <Button
-              type="submit"
-              className="button button--blue button--center">
-              Сохранить
-            </Button>
-          </FormControl>
+          <>
+            <FormControl className="form-control form-control--profile">
+              <Label className="form-label--profile">Пароль</Label>
+              <Input
+                {...register('password')}
+                className="input--profile"
+                disabled={!isEditMode}
+                type="password"
+                placeholder=""
+              />
+            </FormControl>
+            <FormControl className="form-control form-control--profile">
+              <Label className="form-label--profile">Пароль еще раз</Label>
+              <Input
+                {...register('confirmPassword', {
+                  required: 'Обязательно',
+                  validate: (pass: string) => {
+                    if (watch('password') !== pass) {
+                      return 'Пароли не совпадают'
+                    }
+                    return true
+                  },
+                })}
+                className="input--profile"
+                disabled={!isEditMode}
+                type="password"
+                placeholder=""
+              />
+              {errors.confirmPassword && (
+                <FormError className="form-error--shown">
+                  {errors?.confirmPassword?.message as string}
+                </FormError>
+              )}
+            </FormControl>
+            <FormControl className="form-control form-control--button">
+              <Button
+                type="submit"
+                className="button button--blue button--center">
+                Сохранить
+              </Button>
+            </FormControl>
+          </>
         )}
       </form>
     </>
