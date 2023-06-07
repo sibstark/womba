@@ -1,31 +1,8 @@
 .button {
   border: none;
-<<<<<<< HEAD
   border-radius: 0.5rem;
   height: 2rem;
   padding: 0.2rem 0.3rem;
-  min-height: 50px;
-  border-radius: 25px;
-  font-size: 25px;
-  line-height: 50px;
-  cursor: pointer;
-
-  &--blue {
-    background-color: rgba(20, 122, 237, 1);
-    color: #ffffff;
-  }
-
-  &--black {
-    background-color: #000000;
-    color: #ffffff;
-  }
-
-  &--center {
-    min-width: 200px;
-=======
-  border-radius: .5rem;
-  height: 2rem;
-  padding: .2rem .3rem;
   cursor: pointer;
 
   &--blue {
@@ -36,6 +13,14 @@
   &--black {
     background-color: $black-color;
     color: $white-color;
->>>>>>> 66e76dbcb00ecd6e0463fd8180d2ed4978ea45d9
+  }
+
+  &--black {
+    background-color: $black-color;
+    color: $white-color;
+  }
+
+  &--center {
+    min-width: 200px;
   }
 }

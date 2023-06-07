@@ -59,6 +59,7 @@ export class HTTPTransport implements IHTTPTransport {
 
   request = async <T>(url: string, options: TRequestOptions): Promise<T> => {
     const { data, method, headers = {} } = options
+    console.log(options)
     const response = await makeRequest({
       path: this.endpoint + url,
       method,

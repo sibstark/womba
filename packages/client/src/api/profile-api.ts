@@ -1,5 +1,6 @@
 import { User, TPassword } from '@types'
 import BaseAPI from './base-api'
+import { TOptions } from '@utils'
 
 class ProfileAPI extends BaseAPI {
   constructor() {
@@ -11,21 +12,17 @@ class ProfileAPI extends BaseAPI {
     })
   }
 
-  public updateAvatar(data: User): Promise<unknown> {
-    return this.http.put(`/profile/avatar`, { data })
+  public updateAvatar(data: TOptions): Promise<unknown> {
+    data.headers = {
+      accept: 'application/json',
+      'Content-Type': 'multipart/form-data',
+    }
+    return this.http.put(`/profile/avatar`, data)
   }
 
   public updatePassword(data: TPassword): Promise<unknown> {
     return this.http.put(`/password`, { data })
   }
-
-  create = undefined
-
-  update = undefined
-
-  delete = undefined
-
-  read = undefined
 }
 
 export { ProfileAPI }
