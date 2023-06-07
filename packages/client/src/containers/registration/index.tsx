@@ -7,6 +7,7 @@ import {
   nameValidation,
   passValidation,
   phoneValidation,
+  ValidationMessage,
 } from '@utils'
 
 type TRegistrationForm = {
@@ -29,7 +30,6 @@ const onSubmit = (
 
 const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
   const { formState, watch } = props
-  const { errors } = formState
   return (
     <>
       <FormControlInputTemplate<TRegistrationForm>
@@ -38,7 +38,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
         name="name"
         title="Имя"
         options={{
-          required: 'Обязательно',
+          required: ValidationMessage.Required,
           validate: nameValidation,
         }}
       />
@@ -48,7 +48,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
         name="surname"
         title="Фамилия"
         options={{
-          required: 'Обязательно',
+          required: ValidationMessage.Required,
           validate: nameValidation,
         }}
       />
@@ -58,7 +58,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
         name="email"
         title="Email"
         options={{
-          required: 'Обязательно',
+          required: ValidationMessage.Required,
           validate: emailValidation,
         }}
       />
@@ -68,7 +68,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
         name="phone"
         title="Телефон"
         options={{
-          required: 'Обязательно',
+          required: ValidationMessage.Required,
           validate: phoneValidation,
         }}
       />
@@ -78,7 +78,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
         name="login"
         title="Логин"
         options={{
-          required: 'Обязательно',
+          required: ValidationMessage.Required,
           validate: loginValidation,
         }}
       />
@@ -88,7 +88,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
         name="password"
         title="Пароль"
         options={{
-          required: 'Обязательно',
+          required: ValidationMessage.Required,
           validate: passValidation,
         }}
         inputProps={{
@@ -100,7 +100,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
         placeholder="Пороль еще раз"
         name="confirmPassword"
         options={{
-          required: 'Обязательно',
+          required: ValidationMessage.Required,
           validate: (val: string) => {
             if (watch('password') !== val) {
               return 'Пароли не совпадают'
@@ -112,7 +112,10 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
           type: 'password',
         }}
       />
-      <Button type="submit" className="button--blue w-100">
+      <Button
+        type="submit"
+        disabled={formState.isSubmitting}
+        className="button--blue w-100">
         Зарегистрироваться
       </Button>
     </>
