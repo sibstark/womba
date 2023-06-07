@@ -13,18 +13,18 @@ export const Header: React.FC = () => {
   return (
     <div className="header">
       <div className="header__block">
-        <span className="header__block_title">
+        <span className="header__block__title">
           Score
         </span>
-        <div className="header__block_content">
+        <div className="header__block__content">
           {score}
         </div>
       </div>
       <div className="header__block">
-        <span className="header__block_title">
+        <span className="header__block__title">
           Best
         </span>
-        <div className="header__block_content">
+        <div className="header__block__content">
           {bestScore}
         </div>
       </div>

@@ -8,4 +8,5 @@ tmp
 .yarn/
 .yarnrc.yml
 .yarn/releases/yarn-1.22.19.cjs
+.DS_Store
 yarn-error.log
