@@ -4,3 +4,7 @@ node_modules/
 .vscode
 dist
 tmp
+.DS_Store
+.yarn/
+.yarnrc.yml
+yarn-error.log
