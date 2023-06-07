@@ -25,12 +25,4 @@ export class AuthAPI extends BaseAPI {
   getUser() {
     return this.http.get<User>('/user')
   }
-
-  create = undefined
-
-  update = undefined
-
-  delete = undefined
-
-  read = undefined
 }

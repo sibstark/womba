@@ -1,4 +1,5 @@
 .input {
+<<<<<<< HEAD
   border: 1px solid #000000;
   border-radius: 0.5rem;
   height: 2rem;
@@ -19,5 +20,15 @@
     background-color: rgba(255, 255, 255, 0);
     margin-left: 5px;
     font-size: 15px;
+=======
+  border: 1px solid $black-color;
+  border-radius: .5rem;
+  height: 2rem;
+  padding: .2rem .3rem;
+  width: 100%;
+
+  &--error {
+    border-color: $red-color;
+>>>>>>> 66e76dbcb00ecd6e0463fd8180d2ed4978ea45d9
   }
 }

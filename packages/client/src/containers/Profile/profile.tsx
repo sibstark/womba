@@ -7,8 +7,12 @@ import {
   Input,
   Label,
 } from '../../ui/components'
-import { validateLengthCommon, validateLengthName } from '../../utils/profile'
+// import { validateLengthCommon, validateLengthName } from '../../utils/profile'
+import { profileController } from 'src/controllers/profile-controller'
 import './styles.scss'
+
+const validateLengthName = () => true
+const validateLengthCommon = () => true
 
 const ProfileForm: React.FC = () => {
   const [isEditMode, setEditMode] = useState<boolean>(false)
