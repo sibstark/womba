@@ -1,5 +1,5 @@
 import ProfileForm from '../../containers/Profile/profile'
-import './style.scss'
+import './styles.scss'
 
 const ProfilePage = () => {
   return (

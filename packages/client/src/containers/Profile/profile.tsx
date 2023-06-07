@@ -7,8 +7,8 @@ import {
   Input,
   Label,
 } from '../../ui/components'
-import './style.scss'
 import { validateLengthCommon, validateLengthName } from '../../utils/profile'
+import './styles.scss'
 
 const ProfileForm: React.FC = () => {
   const [isEditMode, setEditMode] = useState<boolean>(false)
@@ -18,11 +18,14 @@ const ProfileForm: React.FC = () => {
     watch,
     formState: { errors },
   } = useForm()
-  const onSubmit = (data: any) => console.log(data)
+  const onSubmit = (data: any) => {
+    console.log(data)
+  }
 
   const switchEditMode = () => {
     setEditMode(prev => !prev)
   }
+  console.log(errors)
   return (
     <>
       <button onClick={switchEditMode} className="link">
@@ -32,14 +35,16 @@ const ProfileForm: React.FC = () => {
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Имя</Label>
           <Input
-            {...(register('name'),
-            {
+            {...register('name', {
               validate: validateLengthName,
             })}
             className="input--profile"
             disabled={!isEditMode}
             placeholder=""
           />
+          {errors.name && (
+            <FormError className="form-error--shown">*</FormError>
+          )}
         </FormControl>
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Фамилия</Label>
@@ -51,6 +56,9 @@ const ProfileForm: React.FC = () => {
             disabled={!isEditMode}
             placeholder=""
           />
+          {errors.name && (
+            <FormError className="form-error--shown">*</FormError>
+          )}
         </FormControl>
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Никнейм</Label>
@@ -62,16 +70,24 @@ const ProfileForm: React.FC = () => {
             disabled={!isEditMode}
             placeholder=""
           />
+          {errors.name && (
+            <FormError className="form-error--shown">*</FormError>
+          )}
         </FormControl>
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Email</Label>
           <Input
-            {...register('email')}
+            {...register('email', {
+              validate: validateLengthCommon,
+            })}
             className="input--profile"
             disabled={!isEditMode}
             type="email"
             placeholder=""
           />
+          {errors.name && (
+            <FormError className="form-error--shown">*</FormError>
+          )}
         </FormControl>
         <FormControl className="form-control form-control--profile">
           <Label className="form-label--profile">Телефон</Label>
