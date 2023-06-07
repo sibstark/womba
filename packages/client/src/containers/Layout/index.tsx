@@ -13,8 +13,6 @@ const RootLayout = () => {
           <NavLink to={Routes.Login}>Login</NavLink>
           <NavLink to={Routes.Forum}>Forum</NavLink>
           <NavLink to={Routes.Registration}>Registration</NavLink>
-          <NavLink to={Routes.ApplicationError}>400</NavLink>
-          <NavLink to={Routes.ServerError}>500</NavLink>
         </nav>
       </header>
       <Layout>
