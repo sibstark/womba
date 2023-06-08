@@ -10,6 +10,7 @@ import Error from '../Error'
 import { Routes } from './routes'
 import { RegistrationPage } from '@pages/registration'
 import { LoginPage } from '@pages/login'
+import { GamePage } from '@pages/Game'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path={Routes.Forum} element={<Forum />} />
       <Route path={Routes.Registration} element={<RegistrationPage />} />
       <Route path={Routes.Login} element={<LoginPage />} />
+      <Route path={Routes.Game} element={<GamePage />} />
       <Route path="*" element={<Error />} />
     </Route>
   )
