@@ -8,10 +8,10 @@
     color: #776e65;
     padding: 10px;
     text-align: center;
-  }
 
-  &_cell:first-child {
-    text-align: left;
-    padding: 10px 20px;
+    &:first-child {
+      text-align: left;
+      padding: 10px 20px;
+    }
   }
 }

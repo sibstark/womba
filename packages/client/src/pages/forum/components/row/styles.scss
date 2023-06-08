@@ -10,6 +10,22 @@
     border: 1px solid #bbada0;
     border-radius: 20px;
 
+    &:first-child {
+      cursor: pointer;
+      text-align: left;
+      padding: 10px 20px;
+      background-color: #bbada0;
+    }
+
+    &:first-child:active {
+      transform: scale(0.97);
+    }
+
+    &:nth-child(2) {
+      display: grid;
+      grid-template-columns: auto min-content;
+    }
+
     &_button {
       width: 26px;
       height: 26px;
@@ -18,26 +34,10 @@
       border: none;
       cursor: pointer;
       background-color: #bbada0;
+
+      &:active {
+        transform: scale(0.9);
+      }
     }
-
-    &_button:active {
-      transform: scale(0.9);
-    }
-  }
-
-  &_cell:first-child {
-    cursor: pointer;
-    text-align: left;
-    padding: 10px 20px;
-    background-color: #bbada0;
-  }
-
-  &_cell:first-child:active {
-    transform: scale(0.97);
-  }
-
-  &_cell:nth-child(2) {
-    display: grid;
-    grid-template-columns: auto min-content;
   }
 }
