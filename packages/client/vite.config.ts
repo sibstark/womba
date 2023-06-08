@@ -22,6 +22,7 @@ export default defineConfig({
       '@pages': path.resolve(__dirname, './src/pages'),
       '@api': path.resolve(__dirname, './src/api'),
       '@controllers': path.resolve(__dirname, './src/controllers'),
+      '@static': path.resolve(__dirname, './src/static'),
     },
   },
   css: {
