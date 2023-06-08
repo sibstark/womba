@@ -13,6 +13,7 @@ const RootLayout = () => {
           <NavLink to={Routes.Forum}>Forum</NavLink>
           <NavLink to={Routes.Registration}>Registration</NavLink>
           <NavLink to={Routes.Start}>Start</NavLink>
+          <NavLink to={Routes.End}>End</NavLink>
         </nav>
       </header>
       <Layout>

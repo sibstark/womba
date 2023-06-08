@@ -3,4 +3,5 @@ export enum Routes {
   Forum = '/forum',
   Registration = '/registration',
   Start = '/start',
+  End = '/end',
 }

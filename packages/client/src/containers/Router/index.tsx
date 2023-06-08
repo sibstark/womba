@@ -11,6 +11,7 @@ import { Routes } from './routes'
 import { RegistrationPage } from '@pages/registration'
 import { LoginPage } from '@pages/login'
 import { StartPage } from '@pages/start'
+import { EndPage } from '@pages/end'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route path={Routes.Registration} element={<RegistrationPage />} />
       <Route path={Routes.Login} element={<LoginPage />} />
       <Route path={Routes.Start} element={<StartPage />} />
+      <Route path={Routes.End} element={<EndPage />} />
       <Route path="*" element={<Error />} />
     </Route>
   )
