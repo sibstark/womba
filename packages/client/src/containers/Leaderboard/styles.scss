@@ -1,0 +1,19 @@
+.leader-board {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  list-style: none;
+
+  &_nickname {
+    margin: 0 10px;
+  }
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    justify-content: center;
+    align-items: center;
+  }
+}

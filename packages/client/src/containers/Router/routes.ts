@@ -3,4 +3,5 @@ export enum Routes {
   Forum = '/forum',
   Registration = '/registration',
   Profile = '/profile',
+  LeaderBoard = '/leaders',
 }
