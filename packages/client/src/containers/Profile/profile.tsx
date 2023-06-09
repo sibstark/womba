@@ -27,7 +27,6 @@ type TProfileForm = {
 }
 
 const onSubmit = (data: any) => {
-  console.log(data)
   if (data.oldPassword && data.newPassword && data.confirmPassword) {
     profileController.updatePassword(data)
   } else {
