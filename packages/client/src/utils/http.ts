@@ -59,7 +59,6 @@ export class HTTPTransport implements IHTTPTransport {
 
   request = async <T>(url: string, options: TRequestOptions): Promise<T> => {
     const { data, method, headers = {} } = options
-    console.log(options)
     const response = await makeRequest({
       path: this.endpoint + url,
       method,
@@ -112,6 +111,7 @@ function makeRequest({
   }
   const processedHeaders = new Headers(headers)
   defaultHeaders(processedHeaders, !ignoreContentType)
+  console.log(body instanceof FormData)
   const data =
     contentIs(processedHeaders, 'application/json') &&
     !(body instanceof FormData) &&

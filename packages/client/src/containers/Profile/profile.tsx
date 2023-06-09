@@ -1,12 +1,8 @@
 import { useState, useRef } from 'react'
-import { useForm } from 'react-hook-form'
-import {
-  Button,
-  FormControl,
-  FormError,
-  Input,
-  Label,
-} from '../../ui/components'
+// import { useForm } from 'react-hook-form'
+import { Button, FormControl, FormError, Input, Label } from '@ui/components'
+import { FormControlInputTemplate, withForm } from '../form'
+import { TChildrenArguments } from '../form'
 import {
   emailValidation,
   loginValidation,
@@ -18,29 +14,33 @@ import {
 import { profileController } from '@controllers'
 import './styles.scss'
 
-const validateLengthName = () => true
-const validateLengthCommon = () => true
+type TProfileForm = {
+  first_name: string
+  second_name: string
+  display_name: string
+  email: string
+  phone: string
+  login: string
+  oldPassword: string
+  newPassword: string
+  confirmPassword: string
+}
 
-const ProfileForm: React.FC = () => {
+const onSubmit = (data: any) => {
+  console.log(data)
+  if (data.oldPassword && data.newPassword && data.confirmPassword) {
+    profileController.updatePassword(data)
+  } else {
+    profileController.updateProfile(data)
+  }
+}
+
+type RenderProfileFormProps = TChildrenArguments<TProfileForm>
+const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
   const [isEditMode, setEditMode] = useState<boolean>(false)
   const [isPasswordMode, setPasswordMode] = useState<boolean>(false)
   const inputFileRef = useRef<HTMLInputElement>(null)
-  const [selectedFile, setSelectedFile] = useState()
-
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm()
-  const onSubmit = (data: any) => {
-    if (isEditMode) {
-      profileController.updateProfile(data)
-    }
-    if (isPasswordMode) {
-      profileController.updatePassword(data)
-    }
-  }
+  const { formState, watch } = props
 
   const switchEditMode = () => {
     setEditMode(prev => !prev)
@@ -68,14 +68,14 @@ const ProfileForm: React.FC = () => {
 
   return (
     <>
-      <button onClick={switchEditMode} className="link">
+      <Button onClick={switchEditMode} className="button--link">
         {!isEditMode && 'Редактировать профиль'}
         {isEditMode && 'Вернуться'}
-      </button>
-      <button onClick={switchPasswordMode} className="link">
+      </Button>
+      <Button onClick={switchPasswordMode} className="button--link">
         {!isPasswordMode && 'Обновить пароль'}
         {isPasswordMode && 'Вернуться'}
-      </button>
+      </Button>
       <FormControl className="form-control form-control--profile">
         <img
           onClick={onChooseAvatar}
@@ -90,153 +90,147 @@ const ProfileForm: React.FC = () => {
           accept="image/*"
         />
       </FormControl>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {!isPasswordMode && (
-          <>
-            <FormControl className="form-control form-control--profile">
-              <Label className="form-label--profile">Имя</Label>
-              <Input
-                {...register('first_name', {
-                  validate: validateLengthName,
-                })}
-                className="input--profile"
-                disabled={!isEditMode}
-                placeholder=""
-                type="text"
-              />
-              {errors.name && (
-                <FormError className="form-error--shown">*</FormError>
-              )}
-            </FormControl>
-            <FormControl className="form-control form-control--profile">
-              <Label className="form-label--profile">Фамилия</Label>
-              <Input
-                {...register('second_name', {
-                  validate: validateLengthName,
-                })}
-                className="input--profile"
-                disabled={!isEditMode}
-                placeholder=""
-                type="text"
-              />
-              {errors.name && (
-                <FormError className="form-error--shown">*</FormError>
-              )}
-            </FormControl>
-            <FormControl className="form-control form-control--profile">
-              <Label className="form-label--profile">Никнейм</Label>
-              <Input
-                {...register('display_name', {
-                  validate: validateLengthCommon,
-                })}
-                className="input--profile"
-                disabled={!isEditMode}
-                placeholder=""
-                type="text"
-              />
-              {errors.name && (
-                <FormError className="form-error--shown">*</FormError>
-              )}
-            </FormControl>
-            <FormControl className="form-control form-control--profile">
-              <Label className="form-label--profile">Email</Label>
-              <Input
-                {...register('email', {
-                  validate: validateLengthCommon,
-                })}
-                className="input--profile"
-                disabled={!isEditMode}
-                type="email"
-                placeholder=""
-              />
-              {errors.name && (
-                <FormError className="form-error--shown">*</FormError>
-              )}
-            </FormControl>
-            <FormControl className="form-control form-control--profile">
-              <Label className="form-label--profile">Телефон</Label>
-              <Input
-                {...register('phone', {
-                  validate: validateLengthCommon,
-                })}
-                className="input--profile"
-                disabled={!isEditMode}
-                type="phone"
-                placeholder=""
-              />
-            </FormControl>
-            <FormControl className="form-control form-control--profile">
-              <Label className="form-label--profile">Login</Label>
-              <Input
-                {...register('login', {
-                  validate: validateLengthCommon,
-                })}
-                className="input--profile"
-                disabled={!isEditMode}
-                placeholder=""
-              />
-              {errors.name && (
-                <FormError className="form-error--shown">*</FormError>
-              )}
-            </FormControl>
-          </>
-        )}
-        {isPasswordMode && (
-          <>
-            <FormControl className="form-control form-control--profile">
-              <Label className="form-label--profile">Текущий пароль</Label>
-              <Input
-                {...register('oldPassword')}
-                className="input--profile"
-                type="password"
-                placeholder=""
-              />
-            </FormControl>
-            <FormControl className="form-control form-control--profile">
-              <Label className="form-label--profile">Пароль</Label>
-              <Input
-                {...register('newPassword')}
-                className="input--profile"
-                type="password"
-                placeholder=""
-              />
-            </FormControl>
-            <FormControl className="form-control form-control--profile">
-              <Label className="form-label--profile">Пароль еще раз</Label>
-              <Input
-                {...register('confirmPassword', {
-                  // required: 'Обязательно',
-                  validate: (pass: string) => {
-                    if (watch('password') !== pass) {
-                      return 'Пароли не совпадают'
-                    }
-                    return true
-                  },
-                })}
-                className="input--profile"
-                type="password"
-                placeholder=""
-              />
-              {errors.confirmPassword && (
-                <FormError className="form-error--shown">
-                  {errors?.confirmPassword?.message as string}
-                </FormError>
-              )}
-            </FormControl>
-          </>
-        )}
-        {(isEditMode || isPasswordMode) && (
-          <FormControl className="form-control form-control--button">
-            <Button
-              type="submit"
-              className="button button--blue button--center">
-              Сохранить
-            </Button>
-          </FormControl>
-        )}
-      </form>
+
+      {/* <form onSubmit={handleSubmit(onSubmit)}> */}
+      {!isPasswordMode && (
+        <>
+          <FormControlInputTemplate<TProfileForm>
+            {...props}
+            placeholder="Имя"
+            name="first_name"
+            title="Имя"
+            disabled={!isEditMode}
+            options={{
+              required: ValidationMessage.Required,
+              validate: nameValidation,
+            }}
+          />
+          <FormControlInputTemplate<TProfileForm>
+            {...props}
+            placeholder="Фамилия"
+            name="second_name"
+            title="Фамилия"
+            disabled={!isEditMode}
+            options={{
+              required: ValidationMessage.Required,
+              validate: nameValidation,
+            }}
+          />
+          <FormControlInputTemplate<TProfileForm>
+            {...props}
+            placeholder="NickName"
+            name="display_name"
+            title="NickName"
+            disabled={!isEditMode}
+            options={{
+              required: ValidationMessage.Required,
+              validate: nameValidation,
+            }}
+          />
+          <FormControlInputTemplate<TProfileForm>
+            {...props}
+            placeholder="E-Mail"
+            name="email"
+            title="E-Mail"
+            disabled={!isEditMode}
+            options={{
+              required: ValidationMessage.Required,
+              validate: emailValidation,
+            }}
+          />
+
+          <FormControlInputTemplate<TProfileForm>
+            {...props}
+            placeholder="Телефон"
+            name="phone"
+            title="Телефон"
+            disabled={!isEditMode}
+            options={{
+              required: ValidationMessage.Required,
+              validate: phoneValidation,
+            }}
+          />
+
+          <FormControlInputTemplate<TProfileForm>
+            {...props}
+            placeholder="Login"
+            name="login"
+            title="Login"
+            disabled={!isEditMode}
+            options={{
+              required: ValidationMessage.Required,
+              validate: loginValidation,
+            }}
+          />
+        </>
+      )}
+      {isPasswordMode && (
+        <>
+          <FormControlInputTemplate<TProfileForm>
+            {...props}
+            placeholder="Текущий пароль"
+            name="oldPassword"
+            title="Текущий пароль"
+            options={{
+              required: ValidationMessage.Required,
+              validate: passValidation,
+            }}
+            inputProps={{
+              type: 'password',
+            }}
+          />
+          <FormControlInputTemplate<TProfileForm>
+            {...props}
+            placeholder="Новый пароль"
+            name="newPassword"
+            title="Новый пароль"
+            options={{
+              required: ValidationMessage.Required,
+              validate: passValidation,
+            }}
+            inputProps={{
+              type: 'password',
+            }}
+          />
+          <FormControlInputTemplate<TProfileForm>
+            {...props}
+            placeholder="Новый пароль еще раз"
+            name="confirmPassword"
+            options={{
+              required: ValidationMessage.Required,
+              validate: (val: string) => {
+                if (watch('newPassword') !== val) {
+                  return 'Пароли не совпадают'
+                }
+                return true
+              },
+            }}
+            inputProps={{
+              type: 'password',
+            }}
+          />
+        </>
+      )}
+      {(isEditMode || isPasswordMode) && (
+        <FormControl className="form-control form-control--button">
+          <Button type="submit" className="button button--blue button--center">
+            Сохранить
+          </Button>
+        </FormControl>
+      )}
+      {/* </form> */}
     </>
   )
 }
 
-export default ProfileForm
+// export default ProfileForm
+
+export const ProfileForm = withForm<TProfileForm>(
+  {
+    onValid: onSubmit,
+    props: {
+      defaultValues: {},
+    },
+  },
+  RenderProfileForm
+)

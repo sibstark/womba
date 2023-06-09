@@ -13,6 +13,7 @@ type FormControlInputTemplateProps<T extends FieldValues> =
     name: FieldPath<T>
     options?: RegisterOptions<T>
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>
+    disabled?: boolean
   }
 
 export const FormControlInputTemplate = <T extends FieldValues>({
@@ -22,6 +23,7 @@ export const FormControlInputTemplate = <T extends FieldValues>({
   placeholder,
   name,
   options,
+  disabled,
   inputProps = {},
 }: FormControlInputTemplateProps<T>) => {
   const error = errors[name] as Record<string, string> | undefined
@@ -30,6 +32,7 @@ export const FormControlInputTemplate = <T extends FieldValues>({
       {title && <Label>{title}</Label>}
       <Input
         {...inputProps}
+        disabled={disabled}
         placeholder={placeholder}
         {...register(name, options)}
         className={classnames({ 'input--error': error })}

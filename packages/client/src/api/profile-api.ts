@@ -14,7 +14,6 @@ class ProfileAPI extends BaseAPI {
 
   public updateAvatar(data: TOptions): Promise<unknown> {
     data.headers = {
-      accept: 'application/json',
       'Content-Type': 'multipart/form-data',
     }
     return this.http.put(`/profile/avatar`, data)

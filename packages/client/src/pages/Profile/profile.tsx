@@ -1,4 +1,4 @@
-import ProfileForm from '../../containers/Profile/profile'
+import { ProfileForm } from '../../containers/Profile/profile'
 import './styles.scss'
 
 const ProfilePage = () => {
