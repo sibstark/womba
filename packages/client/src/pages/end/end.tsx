@@ -1,5 +1,5 @@
 import './styles.scss'
-import { EndScreen } from '../../containers/EndScreen/inedx'
+import { EndScreen } from '../../containers/EndScreen'
 
 export const EndPage = () => {
   return (
