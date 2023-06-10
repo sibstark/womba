@@ -4,16 +4,18 @@
   flex-wrap: wrap;
   width: 100%;
   list-style: none;
+  padding: 5px;
+  margin: 0;
 
   &_nickname {
     margin: 0 10px;
+    margin-right: auto;
   }
 
   li {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 5px;
-    justify-content: center;
     align-items: center;
   }
 }
