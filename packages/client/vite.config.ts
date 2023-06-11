@@ -13,6 +13,9 @@ export default defineConfig({
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   plugins: [react()],
+  esbuild: {
+    logOverride: { 'this-is-undefined-in-esm': 'silent' },
+  },
   resolve: {
     alias: {
       '@ui/components': path.resolve(__dirname, './src/ui/components'),
@@ -24,14 +27,14 @@ export default defineConfig({
       '@controllers': path.resolve(__dirname, './src/controllers'),
     },
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@import "${path.resolve(
-          __dirname,
-          './src/_variables'
-        )}";`,
-      },
-    },
-  },
+  // css: {
+  //   preprocessorOptions: {
+  //     scss: {
+  //       additionalData: `@import "${path.resolve(
+  //         __dirname,
+  //         './src/_variables'
+  //       )}";`,
+  //     },
+  //   },
+  // },
 })

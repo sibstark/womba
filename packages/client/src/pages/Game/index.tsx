@@ -1,8 +1,8 @@
-import { Header } from './components/Header';
-import { Main } from './components/Main';
-import { Footer } from './components/Footer';
+import { Header } from './components/Header'
+import { Main } from './components/Main'
+import { Footer } from './components/Footer'
 
-import "./styles.scss";
+import './styles.scss'
 
 export const GamePage = () => {
   return (
@@ -11,5 +11,5 @@ export const GamePage = () => {
       <Main />
       <Footer />
     </div>
-  );
-};
+  )
+}
