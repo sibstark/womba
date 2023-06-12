@@ -194,6 +194,8 @@ class BoardArray {
   }
 
   mergeUp() {
+    debug('mergeUp')
+
     for (let col = 0; col < BOARD_WIDTH; col++) {
       for (let row = 1; row < BOARD_HEIGHT; row++) {
         if (!this.board[row][col].val) {
@@ -211,7 +213,7 @@ class BoardArray {
           currentCell.val = 0
           currentCell.isAvailable = !currentCell.val
 
-          let nextRow = ++row
+          let nextRow = row + 1
 
           while (nextRow < BOARD_HEIGHT) {
             const nextRowCell = this.board[nextRow][col]
@@ -268,6 +270,8 @@ class BoardArray {
   }
 
   mergeDown() {
+    debug('mergeDown')
+
     for (let col = BOARD_WIDTH - 1; col >= 0; col--) {
       for (let row = BOARD_HEIGHT - 2; row >= 0; row--) {
         if (!this.board[row][col].val) {
@@ -285,7 +289,7 @@ class BoardArray {
           currentCell.val = 0
           currentCell.isAvailable = !currentCell.val
 
-          let nextRow = --row
+          let nextRow = row - 1
 
           while (nextRow >= 0) {
             const nextRowCell = this.board[nextRow][col]
@@ -363,7 +367,7 @@ class BoardArray {
           currentCell.val = 0
           currentCell.isAvailable = !currentCell.val
 
-          let nextCol = ++col
+          let nextCol = col + 1
 
           while (nextCol < BOARD_HEIGHT) {
             const nextRowCell = this.board[row][nextCol]
@@ -436,7 +440,7 @@ class BoardArray {
           currentCell.val = 0
           currentCell.isAvailable = !currentCell.val
 
-          let prevCol = --col
+          let prevCol = col - 1
 
           while (prevCol >= 0) {
             const prevRowCol = this.board[row][prevCol]
