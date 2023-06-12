@@ -99,6 +99,11 @@ class BoardCanvas {
     this.#boardArray.setRandomValue()
   }
 
+  reset() {
+    this.#boardArray.resetBoard()
+    this.#boardArray.resetScore()
+  }
+
   drawSquares() {
     this.#boardArray.board.forEach((row, rowIdx) => {
       row.forEach(({ val }, colIdx) => {

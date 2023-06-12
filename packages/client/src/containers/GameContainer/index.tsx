@@ -8,6 +8,7 @@ const debug = debugResolve('GameContainer')
 type TCanvasProps = {
   height: string
   width: string
+  newGame: boolean
   setScore: Dispatch<SetStateAction<number>>
 }
 
@@ -20,7 +21,12 @@ const KEY_CODE_S = 'KeyS'
 const KEY_CODE_A = 'KeyA'
 const KEY_CODE_D = 'KeyD'
 
-const GameContainer: React.FC<TCanvasProps> = ({ height, width, setScore }) => {
+const GameContainer: React.FC<TCanvasProps> = ({
+  height,
+  width,
+  newGame,
+  setScore,
+}) => {
   const canvasRef = useRef(null)
   const gameRef = useRef<Game | null>(null)
 
@@ -65,6 +71,12 @@ const GameContainer: React.FC<TCanvasProps> = ({ height, width, setScore }) => {
 
     gameRef.current?.start()
   }, [])
+
+  useEffect(() => {
+    if (newGame && canvasRef.current && gameRef.current) {
+      gameRef.current.restart()
+    }
+  }, [newGame])
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress)

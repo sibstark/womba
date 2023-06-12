@@ -11,9 +11,22 @@ const debug = debugResolve('GamePage')
 export const GamePage = () => {
   const [score, setScore] = useState(0)
   const [bestScore, setBestScore] = useState(0)
+  const [newGame, setNewGame] = useState(false)
+
+  const startNewGame = useCallback(() => {
+    setNewGame(true)
+
+    setTimeout(() => {
+      setNewGame(false)
+    }, 100)
+  }, [])
 
   const handleStartNewGame = useCallback(() => {
     debug('handleStartNewGame')
+
+    setScore(0)
+
+    startNewGame()
   }, [])
 
   useEffect(() => {
@@ -29,7 +42,7 @@ export const GamePage = () => {
         bestScore={bestScore}
         startNewGame={handleStartNewGame}
       />
-      <Main setScore={setScore} />
+      <Main setScore={setScore} newGame={newGame} />
       <Footer />
     </div>
   )

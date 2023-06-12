@@ -115,6 +115,10 @@ class BoardArray {
     return this.#score
   }
 
+  set score(newScore) {
+    this.#score = newScore
+  }
+
   updateScore(score: number) {
     this.#score += score
   }
@@ -133,6 +137,19 @@ class BoardArray {
 
       return acc
     }, [])
+  }
+
+  resetBoard() {
+    this.board.forEach(row => {
+      row.forEach(col => {
+        col.val = 0
+        col.isAvailable = true
+      })
+    })
+  }
+
+  resetScore() {
+    this.score = 0
   }
 
   getRandomValues(): number {

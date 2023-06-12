@@ -16,6 +16,14 @@ class Game {
     this.drawBoard()
   }
 
+  restart() {
+    debug('restart')
+
+    this.#boardCanvas.reset()
+
+    this.drawBoard()
+  }
+
   drawBoard() {
     this.#boardCanvas.drawBoard()
   }
