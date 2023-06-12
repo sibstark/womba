@@ -6,12 +6,12 @@
   cursor: pointer;
 
   &--blue {
-    background-color: #0000ff;
-    color: #ffffff;
+    background-color: $blue-color;
+    color: $white-color;
   }
 
   &--black {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: $black-color;
+    color: $white-color;
   }
 }

@@ -27,14 +27,14 @@ export default defineConfig({
       '@controllers': path.resolve(__dirname, './src/controllers'),
     },
   },
-  // css: {
-  //   preprocessorOptions: {
-  //     scss: {
-  //       additionalData: `@import "${path.resolve(
-  //         __dirname,
-  //         './src/_variables'
-  //       )}";`,
-  //     },
-  //   },
-  // },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "${path.resolve(
+          __dirname,
+          './src/_variables'
+        )}";`,
+      },
+    },
+  },
 })

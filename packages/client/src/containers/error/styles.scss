@@ -12,11 +12,11 @@
     font-size: 3rem;
 
     &--application {
-      color: #0000ff;
+      color: $blue-color;
     }
 
     &--server {
-      color: #ff0000;
+      color: $red-color;
     }
   }
 }
