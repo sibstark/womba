@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import './styles.scss'
 
-export const Header: React.FC = () => {
-  const [score, setScore] = useState(340)
-  const [bestScore, setBestScore] = useState(340)
+type THeaderProps = {
+  score: number
+  bestScore: number
+  startNewGame: () => void
+}
 
-  const startNewGame = () => {
-    setScore(0)
-  }
-
+export const Header: React.FC<THeaderProps> = ({
+  startNewGame,
+  score,
+  bestScore,
+}) => {
   return (
     <div className="header">
       <div className="header__block">

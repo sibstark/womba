@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useCallback } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 import debugResolve from '../../logger/debugResolve'
 import Game from '../../core/game/Game'
 
@@ -7,28 +8,29 @@ const debug = debugResolve('GameContainer')
 type TCanvasProps = {
   height: string
   width: string
+  setScore: Dispatch<SetStateAction<number>>
 }
 
-const KEY_CODE_ARROW_UP = 38
-const KEY_CODE_ARROW_DOWN = 40
-const KEY_CODE_ARROW_LEFT = 37
-const KEY_CODE_ARROW_RIGHT = 39
-const KEY_CODE_W = 87
-const KEY_CODE_S = 83
-const KEY_CODE_A = 65
-const KEY_CODE_D = 68
+const KEY_CODE_ARROW_UP = 'ArrowUp'
+const KEY_CODE_ARROW_DOWN = 'ArrowDown'
+const KEY_CODE_ARROW_LEFT = 'ArrowLeft'
+const KEY_CODE_ARROW_RIGHT = 'ArrowRight'
+const KEY_CODE_W = 'KeyW'
+const KEY_CODE_S = 'KeyS'
+const KEY_CODE_A = 'KeyA'
+const KEY_CODE_D = 'KeyD'
 
-const GameContainer: React.FC<TCanvasProps> = ({ height, width }) => {
+const GameContainer: React.FC<TCanvasProps> = ({ height, width, setScore }) => {
   const canvasRef = useRef(null)
   const gameRef = useRef<Game | null>(null)
 
   const handleKeyPress = useCallback((event: KeyboardEvent) => {
-    const { keyCode } = event
+    const { code } = event
 
-    debug('keyCode', keyCode)
+    debug('code', code)
 
     if (gameRef.current) {
-      switch (keyCode) {
+      switch (code) {
         case KEY_CODE_ARROW_UP:
         case KEY_CODE_W:
           gameRef.current.moveUp()
@@ -49,6 +51,8 @@ const GameContainer: React.FC<TCanvasProps> = ({ height, width }) => {
 
       gameRef.current.updateScore(currentScore => {
         debug('currentScore', currentScore)
+
+        setScore(currentScore)
       })
       gameRef.current.checkEndConditions()
     }
