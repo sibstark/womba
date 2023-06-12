@@ -252,6 +252,10 @@ class BoardCanvas {
     this.#boardArray.moveRight()
   }
 
+  hasGameOver() {
+    return this.#boardArray.hasGameOver()
+  }
+
   get currentScore() {
     return this.#boardArray.score
   }

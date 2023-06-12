@@ -60,7 +60,11 @@ const GameContainer: React.FC<TCanvasProps> = ({
 
         setScore(currentScore)
       })
-      gameRef.current.checkEndConditions()
+      gameRef.current.checkEndConditions(isGameOver => {
+        if (isGameOver) {
+          alert('Game over!')
+        }
+      })
     }
   }, [])
 

@@ -68,8 +68,12 @@ class Game {
     callback(this.#boardCanvas.currentScore)
   }
 
-  checkEndConditions() {
+  checkEndConditions(callback: (isGameOver: boolean) => void) {
     debug('checkEndConditions')
+
+    const isGameOver = this.#boardCanvas.hasGameOver()
+
+    callback(isGameOver)
   }
 }
 

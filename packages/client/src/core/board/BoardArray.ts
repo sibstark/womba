@@ -103,6 +103,9 @@ class BoardArray {
       },
     ],
   ]
+
+  boardSnapshot: string = JSON.stringify(this.board)
+
   #score = 0
 
   possibleValues: number[] = [2, 2, 2, 2, 2, 2, 2, 2, 2, 4]
@@ -152,6 +155,61 @@ class BoardArray {
     this.score = 0
   }
 
+  hasPossibleMove() {
+    let isPossibleToMakeAMove = false
+
+    for (let i = 0; i < BOARD_HEIGHT; i++) {
+      for (let j = 0; j < BOARD_WIDTH; j++) {
+        const currentCell = this.board[i][j]
+        let leftNeighbour = undefined
+        let rightNeighbour = undefined
+        let topNeighbour = undefined
+        let bottomNeighbour = undefined
+
+        if (j !== 0) {
+          leftNeighbour = this.board[i][j - 1]
+        }
+
+        if (j < BOARD_WIDTH - 1) {
+          rightNeighbour = this.board[i][j + 1]
+        }
+
+        if (i !== 0) {
+          topNeighbour = this.board[i - 1][j]
+        }
+
+        if (i < BOARD_HEIGHT - 1) {
+          bottomNeighbour = this.board[i + 1][j]
+        }
+
+        if (!!leftNeighbour && leftNeighbour.val === currentCell.val) {
+          isPossibleToMakeAMove = true
+        }
+
+        if (!!rightNeighbour && rightNeighbour.val === currentCell.val) {
+          isPossibleToMakeAMove = true
+        }
+
+        if (!!topNeighbour && topNeighbour.val === currentCell.val) {
+          isPossibleToMakeAMove = true
+        }
+
+        if (!!bottomNeighbour && bottomNeighbour.val === currentCell.val) {
+          isPossibleToMakeAMove = true
+        }
+      }
+    }
+
+    return isPossibleToMakeAMove
+  }
+
+  hasGameOver() {
+    return (
+      JSON.stringify(this.board) === this.boardSnapshot &&
+      !this.hasPossibleMove()
+    )
+  }
+
   getRandomValues(): number {
     const randomValue =
       this.possibleValues[getRandomIndex(this.possibleValuesLength)]
@@ -191,6 +249,10 @@ class BoardArray {
     })
 
     debug('board', this.board)
+  }
+
+  saveSnapshot() {
+    this.boardSnapshot = JSON.stringify(this.board)
   }
 
   mergeUp() {
@@ -235,6 +297,8 @@ class BoardArray {
   }
 
   moveUp() {
+    this.saveSnapshot()
+
     for (let i = 1; i < BOARD_HEIGHT; i++) {
       for (let j = 0; j < BOARD_WIDTH; j++) {
         if (!this.board[i][j].val) {
@@ -312,6 +376,8 @@ class BoardArray {
 
   moveDown() {
     debug('moveDown')
+
+    this.saveSnapshot()
 
     for (let i = BOARD_HEIGHT - 2; i >= 0; i--) {
       for (let j = BOARD_WIDTH - 1; j >= 0; j--) {
@@ -391,6 +457,8 @@ class BoardArray {
   moveLeft() {
     debug('moveLeft')
 
+    this.saveSnapshot()
+
     for (let i = 1; i < BOARD_HEIGHT; i++) {
       for (let j = 0; j < BOARD_WIDTH; j++) {
         if (!this.board[j][i].val) {
@@ -463,6 +531,8 @@ class BoardArray {
 
   moveRight() {
     debug('moveRight')
+
+    this.saveSnapshot()
 
     for (let i = BOARD_WIDTH - 2; i >= 0; i--) {
       for (let j = BOARD_HEIGHT - 1; j >= 0; j--) {
