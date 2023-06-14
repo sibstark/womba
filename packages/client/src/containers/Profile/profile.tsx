@@ -1,5 +1,4 @@
 import { useState, useRef } from 'react'
-// import { useForm } from 'react-hook-form'
 import { Button, FormControl, FormError, Input, Label } from '@ui/components'
 import { FormControlInputTemplate, withForm } from '../form'
 import { TChildrenArguments } from '../form'
@@ -12,23 +11,15 @@ import {
   ValidationMessage,
 } from '@utils'
 import { profileController } from '@controllers'
+import { TProfileForm } from '@types'
 import './styles.scss'
 
-type TProfileForm = {
-  first_name: string
-  second_name: string
-  display_name: string
-  email: string
-  phone: string
-  login: string
-  oldPassword: string
-  newPassword: string
-  confirmPassword: string
-}
-
-const onSubmit = (data: any) => {
+const onSubmit = (data: TProfileForm) => {
   if (data.oldPassword && data.newPassword && data.confirmPassword) {
-    profileController.updatePassword(data)
+    profileController.updatePassword({
+      oldPassword: data.oldPassword,
+      newPassword: data.newPassword,
+    })
   } else {
     profileController.updateProfile(data)
   }
@@ -62,8 +53,12 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
     inputFileRef.current?.click()
   }
 
+  const isEditMode = () => mode === EditModes.EDIT
+  const isPassMode = () => mode === EditModes.PASS
+  const isViewMode = () => mode === EditModes.VIEW
+
   const onAvatarSelect = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    if (evt && evt.target && evt.target.files) {
+    if (evt.target.files) {
       const form = new FormData()
       form.append('avatar', evt.target.files[0], evt.target?.files[0].name)
       profileController.updateAvatar({
@@ -74,17 +69,17 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
 
   return (
     <>
-      {mode !== EditModes.EDIT && (
+      {!isEditMode() && (
         <Button onClick={switchEditMode} className="button--link">
           Редактировать профиль
         </Button>
       )}
-      {mode !== EditModes.PASS && (
+      {!isPassMode() && (
         <Button onClick={switchPasswordMode} className="button--link">
           Обновить пароль
         </Button>
       )}
-      {mode !== EditModes.VIEW && (
+      {!isViewMode() && (
         <Button onClick={switchViewMode} className="button--link">
           Отменить редактирование
         </Button>
@@ -104,15 +99,14 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
         />
       </FormControl>
 
-      {/* <form onSubmit={handleSubmit(onSubmit)}> */}
-      {EditModes.PASS !== mode && (
+      {!isPassMode() && (
         <>
           <FormControlInputTemplate<TProfileForm>
             {...props}
             placeholder="Имя"
             name="first_name"
             title="Имя"
-            disabled={EditModes.EDIT !== mode}
+            disabled={!isEditMode()}
             options={{
               required: ValidationMessage.Required,
               validate: nameValidation,
@@ -123,7 +117,7 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
             placeholder="Фамилия"
             name="second_name"
             title="Фамилия"
-            disabled={EditModes.EDIT !== mode}
+            disabled={!isEditMode()}
             options={{
               required: ValidationMessage.Required,
               validate: nameValidation,
@@ -134,7 +128,7 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
             placeholder="NickName"
             name="display_name"
             title="NickName"
-            disabled={EditModes.EDIT !== mode}
+            disabled={!isEditMode()}
             options={{
               required: ValidationMessage.Required,
               validate: nameValidation,
@@ -145,7 +139,7 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
             placeholder="E-Mail"
             name="email"
             title="E-Mail"
-            disabled={EditModes.EDIT !== mode}
+            disabled={!isEditMode()}
             options={{
               required: ValidationMessage.Required,
               validate: emailValidation,
@@ -157,7 +151,7 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
             placeholder="Телефон"
             name="phone"
             title="Телефон"
-            disabled={EditModes.EDIT !== mode}
+            disabled={!isEditMode()}
             options={{
               required: ValidationMessage.Required,
               validate: phoneValidation,
@@ -169,7 +163,7 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
             placeholder="Login"
             name="login"
             title="Login"
-            disabled={EditModes.EDIT !== mode}
+            disabled={!isEditMode()}
             options={{
               required: ValidationMessage.Required,
               validate: loginValidation,
@@ -177,7 +171,7 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
           />
         </>
       )}
-      {EditModes.PASS === mode && (
+      {isPassMode() && (
         <>
           <FormControlInputTemplate<TProfileForm>
             {...props}
@@ -224,19 +218,16 @@ const RenderProfileForm: React.FC<RenderProfileFormProps> = props => {
           />
         </>
       )}
-      {EditModes.VIEW !== mode && (
+      {!isViewMode() && (
         <FormControl className="form-control form-control--button">
           <Button type="submit" className="button button--blue button--center">
             Сохранить
           </Button>
         </FormControl>
       )}
-      {/* </form> */}
     </>
   )
 }
-
-// export default ProfileForm
 
 export const ProfileForm = withForm<TProfileForm>(
   {

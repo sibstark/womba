@@ -1,5 +1,5 @@
 import { ProfileAPI } from '@api'
-import { User, TPassword } from '@types'
+import { User, TPassword, TProfileForm } from '@types'
 
 class ProfileController {
   private api: ProfileAPI
@@ -7,7 +7,7 @@ class ProfileController {
     this.api = new ProfileAPI()
   }
 
-  async updateProfile(data: User) {
+  async updateProfile(data: TProfileForm) {
     try {
       await this.api.updateProfile(data)
       console.log('Profile updated')
