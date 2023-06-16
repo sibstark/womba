@@ -14,7 +14,7 @@ export const StartScreen = () => {
             <Typography variant='p' component='p'>8</Typography>
           </div>
         </div>
-        <Button className='start__btn'>Начать играть</Button>
+        <Button>Начать играть</Button>
       </div>
     </>
   )
