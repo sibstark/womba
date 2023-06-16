@@ -1,0 +1,38 @@
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from 'react-router-dom'
+import Home from '../Home'
+import Layout from '../Layout'
+import { Routes } from './routes'
+import { RegistrationPage } from '@pages/registration'
+import { LoginPage } from '@pages/login'
+import { RulesPage } from '@pages/rules'
+import { ApplicationErrorPage } from '@pages/400'
+import { ServerErrorPage } from '@pages/500'
+import { ForumPage } from '@pages/forum'
+import { GamePage } from '@pages/Game'
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Layout />}>
+      <Route index element={<Home />} />
+      <Route path={Routes.Login} element={<LoginPage />} />
+      <Route path={Routes.Forum} element={<ForumPage />} />
+      <Route path={Routes.Registration} element={<RegistrationPage />} />
+      <Route path={Routes.Login} element={<LoginPage />} />
+      <Route path={Routes.Rules} element={<RulesPage />} />
+      <Route path="*" element={<ApplicationErrorPage />} />
+      <Route
+        path={Routes.ApplicationError}
+        element={<ApplicationErrorPage />}
+      />
+      <Route path={Routes.ServerError} element={<ServerErrorPage />} />
+      <Route path={Routes.Game} element={<GamePage />} />
+    </Route>
+  )
+)
+
+export * from './routes'
+export default router
