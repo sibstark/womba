@@ -53,11 +53,8 @@ this.addEventListener("activate", function (event) {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames
-          .filter(name => {/* Нужно вернуть true, если хотите удалить этот файл из кеша совсем */ })
           .map(name => caches.delete(name))
       )
     })
   );
 });
-
-export { }
