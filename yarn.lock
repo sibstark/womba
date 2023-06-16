@@ -370,10 +370,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@evilmartians/lefthook@1.3.9":
-  version "1.3.9"
-  resolved "https://registry.yarnpkg.com/@evilmartians/lefthook/-/lefthook-1.3.9.tgz#3425f170c2f205d0441c1a90ef554b0d7847db66"
-  integrity sha512-qR2Q0NLKOOx7eNrW99y3IK2eVKWPmhstTUXOulFxWhzQYIpo4W08D+GDUzWC8cTcqI0Ai6f6MM9dY801lyWlHg==
+"@evilmartians/lefthook@1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@evilmartians/lefthook/-/lefthook-1.4.0.tgz#cef7bbef569a63a1b50f4af798053efd578eb889"
+  integrity sha512-1Wppuw/Vi0F+HfTm5n9TykzTIHphFUl+nNlHc15rFlFSGm+l0mo7zi9Y1AE4+9Z9Bx3eK6Tes98MLojiSreL5Q==
 
 "@gar/promisify@^1.1.3":
   version "1.1.3"
@@ -1969,7 +1969,7 @@
 
 "@types/react@*", "@types/react@18.0.17":
   version "18.0.17"
-  resolved "https://registry.npmjs.org/@types/react/-/react-18.0.17.tgz"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.17.tgz#4583d9c322d67efe4b39a935d223edcc7050ccf4"
   integrity sha512-38ETy4tL+rn4uQQi7mB81G7V1g0u2ryquNmsVIOKUAEIDK+3CUjZ6rSRpdvS99dNBnkLFL83qfmtLacGOTIhwQ==
   dependencies:
     "@types/prop-types" "*"

@@ -1,0 +1,22 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 30rem;
+  align-items: center;
+
+  &__header {
+    margin-bottom: 0;
+  }
+
+  &__code {
+    font-size: 3rem;
+
+    &--application {
+      color: $blue-color;
+    }
+
+    &--server {
+      color: $red-color;
+    }
+  }
+}
