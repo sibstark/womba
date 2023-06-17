@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from '@ui/components'
 import './styles.scss'
+import { useFullscreenStatus } from '@utils'
 
 type HeaderProps = {
   onFullscreen: () => void
@@ -8,7 +9,7 @@ type HeaderProps = {
 export const Header: React.FC<HeaderProps> = ({ onFullscreen }) => {
   const [score, setScore] = useState(340)
   const [bestScore] = useState(340)
-
+  const isFullscreen = useFullscreenStatus()
   const startNewGame = () => {
     setScore(0)
   }
@@ -27,9 +28,11 @@ export const Header: React.FC<HeaderProps> = ({ onFullscreen }) => {
         <Button className="header__new_button" onClick={startNewGame}>
           New Game
         </Button>
-        <Button className="header__new_button" onClick={onFullscreen}>
-          Fullscreen
-        </Button>
+        {!isFullscreen && (
+          <Button className="header__new_button" onClick={onFullscreen}>
+            Full screen
+          </Button>
+        )}
       </div>
     </div>
   )

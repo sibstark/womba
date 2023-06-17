@@ -1,4 +1,4 @@
-import { RefObject, useEffect } from 'react'
+import { RefObject, useEffect, useState } from 'react'
 
 interface FullscreenHTMLElement extends HTMLElement {
   fullscreenElement?: () => Promise<void>
@@ -9,10 +9,48 @@ interface FullscreenHTMLElement extends HTMLElement {
   mozRequestFullScreen?: () => Promise<void>
 }
 interface FullscreenDocument extends Document {
-  exitFullscreen: () => Promise<void>
-  mozCancelFullScreen: () => Promise<void>
-  webkitExitFullscreen: () => Promise<void>
+  mozCancelFullScreen?: () => Promise<void>
+  webkitExitFullscreen?: () => Promise<void>
+  mozFullScreenElement?: Element | null
+  webkitFullscreenElement?: Element | null
+  msFullscreenElement?: Element | null
 }
+export function useFullscreenStatus(): boolean {
+  const [isFullscreenEnabled, setIsFullscreenEnabled] = useState(false)
+
+  const handleFullscreenChange = () => {
+    const target = document as FullscreenDocument
+    setIsFullscreenEnabled(
+      !!target.fullscreenElement ||
+        !!target.mozFullScreenElement ||
+        !!target.webkitFullscreenElement ||
+        !!target.msFullscreenElement
+    )
+  }
+
+  useEffect(() => {
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    document.addEventListener('mozfullscreenchange', handleFullscreenChange)
+    document.addEventListener('webkitfullscreenchange', handleFullscreenChange)
+    document.addEventListener('msfullscreenchange', handleFullscreenChange)
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+      document.removeEventListener(
+        'mozfullscreenchange',
+        handleFullscreenChange
+      )
+      document.removeEventListener(
+        'webkitfullscreenchange',
+        handleFullscreenChange
+      )
+      document.removeEventListener('msfullscreenchange', handleFullscreenChange)
+    }
+  }, [])
+
+  return isFullscreenEnabled
+}
+
 export function useFullScreen(ref: RefObject<HTMLElement> | null) {
   function activateFullscreen() {
     if (ref?.current) {
