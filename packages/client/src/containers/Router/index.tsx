@@ -11,6 +11,7 @@ import { Routes } from './routes'
 import { LoginPage } from '@pages/login'
 import { LeaderBoardPage } from '@pages/Leaderboard'
 import { RegistrationPage } from '@pages/registration'
+import { StartPage } from '@pages/start'
 import { RulesPage } from '@pages/rules'
 import { ApplicationErrorPage } from '@pages/400'
 import { ServerErrorPage } from '@pages/500'
@@ -27,6 +28,8 @@ const router = createBrowserRouter(
       <Route path={Routes.Login} element={<LoginPage />} />
       <Route path={Routes.Profile} element={<ProfilePage />} />
       <Route path={Routes.LeaderBoard} element={<LeaderBoardPage />} />
+      <Route path={Routes.Start} element={<StartPage />} />
+      <Route path={Routes.Profile} element={<ProfilePage />} />
       <Route path={Routes.Rules} element={<RulesPage />} />
       <Route
         path={Routes.ApplicationError}

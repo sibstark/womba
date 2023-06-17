@@ -15,6 +15,8 @@ const RootLayout = () => {
           <NavLink to={Routes.Registration}>Registration</NavLink>
           <NavLink to={Routes.Profile}>Profile</NavLink>
           <NavLink to={Routes.LeaderBoard}>LeaderBoard</NavLink>
+          <NavLink to={Routes.Start}>Start</NavLink>
+          <NavLink to={Routes.Profile}>Profile</NavLink>
           <NavLink to={Routes.Rules}>Rules</NavLink>
           <NavLink to={Routes.Game}>Game</NavLink>
         </nav>
