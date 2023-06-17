@@ -62,18 +62,16 @@ class Game {
     this.#boardCanvas.updateBoard()
   }
 
-  updateScore(callback: (score: number) => void) {
+  updateScore(): number {
     debug('updateScore')
 
-    callback(this.#boardCanvas.currentScore)
+    return this.#boardCanvas.currentScore
   }
 
-  checkEndConditions(callback: (isGameOver: boolean) => void) {
+  checkEndConditions(): boolean {
     debug('checkEndConditions')
 
-    const isGameOver = this.#boardCanvas.hasGameOver()
-
-    callback(isGameOver)
+    return this.#boardCanvas.hasGameOver()
   }
 }
 

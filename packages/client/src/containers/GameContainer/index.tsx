@@ -55,16 +55,13 @@ const GameContainer: React.FC<TGameProps> = ({
           break
       }
 
-      gameRef.current.updateScore(currentScore => {
-        debug('currentScore', currentScore)
+      setScore(gameRef.current.updateScore())
 
-        setScore(currentScore)
-      })
-      gameRef.current.checkEndConditions(isGameOver => {
-        if (isGameOver) {
-          alert('Game over!')
-        }
-      })
+      const isGameOver = gameRef.current.checkEndConditions()
+
+      if (isGameOver) {
+        alert('Game over!')
+      }
     }
   }, [])
 
