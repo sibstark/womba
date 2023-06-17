@@ -3,7 +3,7 @@
 // Длина строки должна быть от 3 до 20 символов.
 // Строка не должна заканчиваться на цифру.
 export function loginValidation(value: string): boolean | string {
-  const rule = /^[a-zA-Z0-9_-]{3,20}(?<!\d)$/
+  const rule = /^[A-z0-9\_\-]{3,20}(?<!\d)$/
   const isMatched = rule.test(value)
   return isMatched || 'Неверный логин'
 }
@@ -24,7 +24,7 @@ export function phoneValidation(value: string): boolean | string {
   return isMatched || 'Неверный телефон'
 }
 export function nameValidation(value: string): boolean | string {
-  const rule = /^[А-ЯЁA-Z][а-яёa-z\-]*$/
+  const rule = /^[А-яЁA-z0-9\-\_]*$/
   const isMatched = rule.test(value)
   return isMatched || 'Неверное имя'
 }
