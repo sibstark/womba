@@ -10,6 +10,7 @@ import ProfilePage from '../../pages/Profile/profile'
 import { Routes } from './routes'
 import { RegistrationPage } from '@pages/registration'
 import { LoginPage } from '@pages/login'
+import { StartPage } from '@pages/start'
 import { RulesPage } from '@pages/rules'
 import { ApplicationErrorPage } from '@pages/400'
 import { ServerErrorPage } from '@pages/500'
@@ -24,6 +25,7 @@ const router = createBrowserRouter(
       <Route path={Routes.Forum} element={<ForumPage />} />
       <Route path={Routes.Registration} element={<RegistrationPage />} />
       <Route path={Routes.Login} element={<LoginPage />} />
+      <Route path={Routes.Start} element={<StartPage />} />
       <Route path={Routes.Profile} element={<ProfilePage />} />
       <Route path={Routes.Rules} element={<RulesPage />} />
       <Route
