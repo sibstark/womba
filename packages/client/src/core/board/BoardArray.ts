@@ -285,7 +285,7 @@ class BoardArray {
             currentRowCell.isAvailable = !currentRowCell.val
 
             nextRowCell.val = 0
-            nextRowCell.isAvailable = !nextRowCell.val
+            nextRowCell.isAvailable = true
 
             nextRow += 1
           }
@@ -320,7 +320,7 @@ class BoardArray {
             prevCell.val = currentCell.val
             prevCell.isAvailable = !prevCell.val
             currentCell.val = 0
-            currentCell.isAvailable = !currentCell.val
+            currentCell.isAvailable = true
           }
 
           row -= 1
@@ -351,7 +351,7 @@ class BoardArray {
           this.updateScore(nextCell.val)
 
           currentCell.val = 0
-          currentCell.isAvailable = !currentCell.val
+          currentCell.isAvailable = true
 
           let nextRow = row - 1
 
@@ -363,7 +363,7 @@ class BoardArray {
             currentRowCell.isAvailable = !currentRowCell.val
 
             nextRowCell.val = 0
-            nextRowCell.isAvailable = !nextRowCell.val
+            nextRowCell.isAvailable = true
 
             nextRow -= 1
           }
@@ -400,7 +400,7 @@ class BoardArray {
             prevCell.val = currentCell.val
             prevCell.isAvailable = !prevCell.val
             currentCell.val = 0
-            currentCell.isAvailable = !currentCell.val
+            currentCell.isAvailable = true
           }
 
           row += 1
@@ -431,7 +431,7 @@ class BoardArray {
           this.updateScore(prevCell.val)
 
           currentCell.val = 0
-          currentCell.isAvailable = !currentCell.val
+          currentCell.isAvailable = true
 
           let nextCol = col + 1
 
@@ -443,7 +443,7 @@ class BoardArray {
             currentRowCell.isAvailable = !currentRowCell.val
 
             nextRowCell.val = 0
-            nextRowCell.isAvailable = !nextRowCell.val
+            nextRowCell.isAvailable = true
 
             nextCol += 1
           }
@@ -475,7 +475,7 @@ class BoardArray {
             prevCell.val = currentCell.val
             prevCell.isAvailable = !prevCell.val
             currentCell.val = 0
-            currentCell.isAvailable = !currentCell.val
+            currentCell.isAvailable = true
           }
 
           col -= 1
@@ -506,7 +506,7 @@ class BoardArray {
           this.updateScore(nextCell.val)
 
           currentCell.val = 0
-          currentCell.isAvailable = !currentCell.val
+          currentCell.isAvailable = true
 
           let prevCol = col - 1
 
@@ -518,7 +518,7 @@ class BoardArray {
             currentRowCell.isAvailable = !currentRowCell.val
 
             prevRowCol.val = 0
-            prevRowCol.isAvailable = !prevRowCol.val
+            prevRowCol.isAvailable = true
 
             prevCol -= 1
           }
@@ -550,7 +550,7 @@ class BoardArray {
             nextCell.val = currentCell.val
             nextCell.isAvailable = !nextCell.val
             currentCell.val = 0
-            currentCell.isAvailable = !currentCell.val
+            currentCell.isAvailable = true
           }
 
           row += 1
