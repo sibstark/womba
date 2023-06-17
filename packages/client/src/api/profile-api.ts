@@ -1,4 +1,4 @@
-import { User, TPassword } from '@types'
+import { User, TPassword, TProfileForm } from '@types'
 import BaseAPI from './base-api'
 import { TOptions } from '@utils'
 
@@ -6,7 +6,7 @@ class ProfileAPI extends BaseAPI {
   constructor() {
     super('/user')
   }
-  public updateProfile(data: User): Promise<unknown> {
+  public updateProfile(data: TProfileForm): Promise<unknown> {
     return this.http.put(`/profile`, {
       data,
     })
