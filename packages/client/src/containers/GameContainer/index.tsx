@@ -5,7 +5,7 @@ import Game from '../../core/game/Game'
 
 const debug = debugResolve('GameContainer')
 
-type TCanvasProps = {
+type TGameProps = {
   height: string
   width: string
   newGame: boolean
@@ -21,7 +21,7 @@ const KEY_CODE_S = 'KeyS'
 const KEY_CODE_A = 'KeyA'
 const KEY_CODE_D = 'KeyD'
 
-const GameContainer: React.FC<TCanvasProps> = ({
+const GameContainer: React.FC<TGameProps> = ({
   height,
   width,
   newGame,
