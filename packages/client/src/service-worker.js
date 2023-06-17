@@ -1,5 +1,5 @@
 const CACHE_NAME = 'womba-2048-game'
-const URLS = ['/assets/right.5ad4b6c5.png', '/assets/up.b053d646.png', '/assets/left.5bee0684.png', '/assets/down.60e23a8b.png', '/assets/plus.e39fe01c.svg', '/assets/index.2a20decb.js', '/assets/index.fcbe950b.css', '/index.html', '/', '/assets']
+const URLS = []
 this.addEventListener('install', event => {
   event.waitUntil(
     caches
