@@ -8,6 +8,7 @@ import Layout from '../Layout'
 import { Routes } from './routes'
 import { RegistrationPage } from '@pages/registration'
 import { LoginPage } from '@pages/login'
+import { RulesPage } from '@pages/rules'
 import { ApplicationErrorPage } from '@pages/400'
 import { ServerErrorPage } from '@pages/500'
 import { ForumPage } from '@pages/forum'
@@ -21,6 +22,8 @@ const router = createBrowserRouter(
       <Route path={Routes.Forum} element={<ForumPage />} />
       <Route path={Routes.Registration} element={<RegistrationPage />} />
       <Route path={Routes.Login} element={<LoginPage />} />
+      <Route path={Routes.Rules} element={<RulesPage />} />
+      <Route path="*" element={<Error />} />
       <Route
         path={Routes.ApplicationError}
         element={<ApplicationErrorPage />}
