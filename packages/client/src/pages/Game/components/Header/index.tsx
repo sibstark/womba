@@ -6,9 +6,10 @@ import { useFullscreenStatus } from '@utils'
 type HeaderProps = {
   onFullscreen: () => void
 }
+const defaultScore = 340
 export const Header: React.FC<HeaderProps> = ({ onFullscreen }) => {
-  const [score, setScore] = useState(340)
-  const [bestScore] = useState(340)
+  const [score, setScore] = useState(defaultScore)
+  const [bestScore] = useState(defaultScore)
   const isFullscreen = useFullscreenStatus()
   const startNewGame = () => {
     setScore(0)
