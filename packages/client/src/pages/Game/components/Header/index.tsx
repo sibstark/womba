@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import './styles.scss'
 import { Button } from '@ui/components'
+import './styles.scss'
 
 type HeaderProps = {
   onFullscreen: () => void
