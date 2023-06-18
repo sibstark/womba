@@ -1,5 +1,5 @@
-import { State } from '../../../types/state'
+import { RootState } from '../../../store'
 
-export function getLogin(state: State) {
+export function getLogin(state: RootState) {
   return state.user.login
 }

@@ -1,7 +1,7 @@
 import { Button, FormControl } from '@ui/components'
 import { setLogin, setPassword } from '@pages/login/redux/actions'
 import { FormControlInputTemplate, TChildrenArguments, withForm } from '../form'
-import React from 'react'
+import React, { useCallback, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { Routes } from '../Router'
 import { useDispatch } from 'react-redux'
@@ -25,6 +25,27 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
 
   const dispatch = useDispatch()
 
+  const onChangeLogin = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(setLogin(e.target.value))
+    },
+    []
+  )
+
+  const onChangePassword = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(setPassword(e.target.value))
+    },
+    []
+  )
+
+  const options = useMemo(
+    () => ({
+      required: ValidationMessage.Required,
+    }),
+    []
+  )
+
   return (
     <>
       <FormControlInputTemplate<TLoginForm>
@@ -32,27 +53,19 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         title="Логин"
         placeholder="Логин"
         name="login"
-        options={{
-          required: ValidationMessage.Required,
-        }}
-        onChange={e => {
-          dispatch(setLogin(e.target.value))
-        }}
+        options={options}
+        onChange={onChangeLogin}
       />
       <FormControlInputTemplate<TLoginForm>
         {...props}
         title="Пароль"
         placeholder="Пароль"
         name="password"
-        options={{
-          required: ValidationMessage.Required,
-        }}
+        options={options}
         inputProps={{
           type: 'password',
         }}
-        onChange={e => {
-          dispatch(setPassword(e.target.value))
-        }}
+        onChange={onChangePassword}
       />
       <FormControl>
         <Link to={Routes.Registration}>У вас нет аккаунта? Регистрация</Link>
