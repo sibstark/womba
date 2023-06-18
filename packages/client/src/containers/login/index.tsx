@@ -1,8 +1,10 @@
 import { Button, FormControl } from '@ui/components'
+import { setLogin, setPassword } from '@pages/login/redux/actions'
 import { FormControlInputTemplate, TChildrenArguments, withForm } from '../form'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Routes } from '../Router'
+import { useDispatch } from 'react-redux'
 import { authController } from '@controllers'
 import { ValidationMessage } from '@utils'
 
@@ -10,7 +12,9 @@ type TLoginForm = {
   login: string
   password: string
 }
+
 type RenderLoginFormProps = TChildrenArguments<TLoginForm>
+
 const onSubmit = (values: TLoginForm, helpers: RenderLoginFormProps) => {
   authController.signin(values)
   console.log(values)
@@ -18,6 +22,9 @@ const onSubmit = (values: TLoginForm, helpers: RenderLoginFormProps) => {
 
 const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
   const { formState } = props
+
+  const dispatch = useDispatch()
+
   return (
     <>
       <FormControlInputTemplate<TLoginForm>
@@ -27,6 +34,9 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         name="login"
         options={{
           required: ValidationMessage.Required,
+        }}
+        onChange={e => {
+          dispatch(setLogin(e.target.value))
         }}
       />
       <FormControlInputTemplate<TLoginForm>
@@ -40,9 +50,12 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         inputProps={{
           type: 'password',
         }}
+        onChange={e => {
+          dispatch(setPassword(e.target.value))
+        }}
       />
       <FormControl>
-        <Link to={Routes.Registration}>У вас нет аккаунта? Регистриация</Link>
+        <Link to={Routes.Registration}>У вас нет аккаунта? Регистрация</Link>
       </FormControl>
       <Button
         type="submit"

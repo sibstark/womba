@@ -2,7 +2,7 @@ import { FieldValues } from 'react-hook-form/dist/types/fields'
 import { TChildrenArguments } from '@containers'
 import { FieldPath } from 'react-hook-form/dist/types/path'
 import { RegisterOptions } from 'react-hook-form/dist/types/validator'
-import React from 'react'
+import React, { ChangeEventHandler } from 'react'
 import { FormControl, FormError, Input, Label } from '@ui/components'
 import classnames from 'classnames'
 
@@ -13,6 +13,7 @@ type FormControlInputTemplateProps<T extends FieldValues> =
     name: FieldPath<T>
     options?: RegisterOptions<T>
     inputProps?: React.InputHTMLAttributes<HTMLInputElement>
+    onChange?: ChangeEventHandler<HTMLInputElement>
   }
 
 export const FormControlInputTemplate = <T extends FieldValues>({
@@ -23,6 +24,7 @@ export const FormControlInputTemplate = <T extends FieldValues>({
   name,
   options,
   inputProps = {},
+  onChange,
 }: FormControlInputTemplateProps<T>) => {
   const error = errors[name] as Record<string, string> | undefined
   return (
@@ -33,6 +35,7 @@ export const FormControlInputTemplate = <T extends FieldValues>({
         placeholder={placeholder}
         {...register(name, options)}
         className={classnames({ 'input--error': error })}
+        onChange={onChange}
       />
       {error && (
         <FormError className="form-error--shown">{error.message}</FormError>
