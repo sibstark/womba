@@ -13,7 +13,21 @@ class BoardCanvas {
   #SQUARE_GAP = 8
   #BACKGROUND_COLOR = '#bbada0'
   #SQUARE_BACKGROUND_COLOR = '#eee4da59'
-  #SQUARE_TEXT_BACKGROUND_COLOR = '#eee4da'
+  #SQUARE_BOX_WIDTH = this.#SQUARE_WIDTH - this.#SQUARE_GAP
+  #SQUARE_BOX_HEIGHT = this.#SQUARE_HEIGHT - this.#SQUARE_GAP
+  VALUE_TO_COLOR_MAP = {
+    '2': '#eee4da',
+    '4': '#ede0c8',
+    '8': '#f2b179',
+    '16': '#f59563',
+    '32': '#f67c5f',
+    '64': '#f65e3b',
+    '128': '#edcf72',
+    '256': '#edcc61',
+    '512': '#edc850',
+    '1024': '#eee4da',
+    '2048': '#eee4da',
+  }
 
   constructor(canvas: HTMLCanvasElement) {
     this.#canvas = canvas
@@ -32,7 +46,22 @@ class BoardCanvas {
       this.#BACKGROUND_COLOR
     )
 
-    this.setValues()
+    this.setInitialValues()
+    this.drawSquares()
+  }
+
+  updateBoard() {
+    debug('updateBoard')
+
+    this.colorRect(
+      0,
+      0,
+      this.#canvas.width,
+      this.#canvas.height,
+      this.#BACKGROUND_COLOR
+    )
+
+    this.#boardArray.setRandomValue()
     this.drawSquares()
   }
 
@@ -69,38 +98,70 @@ class BoardCanvas {
     )
   }
 
-  setValues() {
+  setInitialValues() {
     this.#boardArray.setRandomValue()
+    this.#boardArray.setRandomValue()
+  }
+
+  reset() {
+    this.#boardArray.resetBoard()
+    this.#boardArray.resetScore()
   }
 
   drawSquares() {
     this.#boardArray.board.forEach((row, rowIdx) => {
+      const topLeftY = this.#SQUARE_HEIGHT * rowIdx + this.#SQUARE_GAP
+
       row.forEach(({ val }, colIdx) => {
         const topLeftX = this.#SQUARE_WIDTH * colIdx + this.#SQUARE_GAP
-        const topLeftY = this.#SQUARE_HEIGHT * rowIdx + this.#SQUARE_GAP
-        const squareBoxWidth = this.#SQUARE_WIDTH - this.#SQUARE_GAP
-        const squareBoxHeight = this.#SQUARE_HEIGHT - this.#SQUARE_GAP
 
         if (val === 0) {
           this.colorRect(
             topLeftX,
             topLeftY,
-            squareBoxWidth,
-            squareBoxHeight,
+            this.#SQUARE_BOX_WIDTH,
+            this.#SQUARE_BOX_HEIGHT,
             this.#SQUARE_BACKGROUND_COLOR
           )
         } else {
+          const textValue = `${val}` as keyof typeof this.VALUE_TO_COLOR_MAP
+          const backgroundColor = this.VALUE_TO_COLOR_MAP[textValue]
+
           this.colorRectWithText(
             topLeftX,
             topLeftY,
-            squareBoxWidth,
-            squareBoxHeight,
-            this.#SQUARE_TEXT_BACKGROUND_COLOR,
-            `${val}`
+            this.#SQUARE_BOX_WIDTH,
+            this.#SQUARE_BOX_HEIGHT,
+            backgroundColor,
+            textValue
           )
         }
       })
     })
+  }
+
+  moveUp() {
+    this.#boardArray.moveUp()
+  }
+
+  moveDown() {
+    this.#boardArray.moveDown()
+  }
+
+  moveLeft() {
+    this.#boardArray.moveLeft()
+  }
+
+  moveRight() {
+    this.#boardArray.moveRight()
+  }
+
+  hasGameOver() {
+    return this.#boardArray.hasGameOver()
+  }
+
+  get currentScore() {
+    return this.#boardArray.score
   }
 }
 

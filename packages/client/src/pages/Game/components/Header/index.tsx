@@ -1,19 +1,22 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button } from '@ui/components'
-import './styles.scss'
 import { useFullscreenStatus } from '@utils'
+import './styles.scss'
 
-type HeaderProps = {
+type THeaderProps = {
+  score: number
+  bestScore: number
+  startNewGame: () => void
   onFullscreen: () => void
 }
-const defaultScore = 340
-export const Header: React.FC<HeaderProps> = ({ onFullscreen }) => {
-  const [score, setScore] = useState(defaultScore)
-  const [bestScore] = useState(defaultScore)
+
+export const Header: React.FC<THeaderProps> = ({
+  startNewGame,
+  score,
+  bestScore,
+  onFullscreen,
+}) => {
   const isFullscreen = useFullscreenStatus()
-  const startNewGame = () => {
-    setScore(0)
-  }
 
   return (
     <div className="header">

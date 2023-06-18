@@ -14,6 +14,9 @@ export default defineConfig({
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   plugins: [react(), serviceWorker()],
+  esbuild: {
+    logOverride: { 'this-is-undefined-in-esm': 'silent' },
+  },
   resolve: {
     alias: {
       '@ui/components': path.resolve(__dirname, './src/ui/components'),
