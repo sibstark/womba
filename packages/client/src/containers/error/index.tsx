@@ -3,7 +3,7 @@ import Layout from '../../ui/components/Layout'
 import Error from '../../ui/components/Error'
 
 type ErrorBoundaryProps = {
-  children: ReactNode
+  children?: ReactNode
 }
 
 type ErrorBoundaryState = {
