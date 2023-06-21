@@ -1,5 +1,5 @@
 import { RootState } from '../../../store'
 
-export function getLogin(state: RootState) {
-  return state.user.login
+export function getUser(state: RootState) {
+  return state.user.user
 }

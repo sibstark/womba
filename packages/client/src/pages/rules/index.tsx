@@ -7,10 +7,15 @@ import rightArrow from '@static/game/rightArrow.png'
 import { RulesItem } from './components/item'
 
 import './styles.scss'
+import { useSelector } from 'react-redux'
+import { getUser } from '@pages/login/redux/selectors'
 
 export const RulesPage = () => {
+  const { login } = useSelector(getUser)
+
   return (
     <div className="container">
+      <p>Привет, {login}!</p>
       <p>
         1. В каждом раунде появляется плитка номинала «2» (с вероятностью 90%)
         или «4» (с вероятностью 10%)

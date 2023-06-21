@@ -3,8 +3,13 @@ import { SigninRequest, SignupRequest } from '@types'
 
 class AuthController {
   private api: AuthAPI
+
   constructor() {
     this.api = new AuthAPI()
+  }
+
+  async signIn(data: SigninRequest) {
+    return this.api.singin(data)
   }
 
   async signup(data: SignupRequest) {
@@ -16,22 +21,16 @@ class AuthController {
     }
   }
 
-  async signin(data: SigninRequest) {
-    try {
-      await this.api.singin(data)
-      alert('Вы залогинены')
-    } catch (e: any) {
-      alert(`Ошибка логина ${e.reason}`)
-      console.log('signed in error', e)
-    }
-  }
-
   async logout() {
     try {
       await this.api.logout()
     } catch (e) {
       console.log('logout error', e)
     }
+  }
+
+  async fetchUser() {
+    return this.api.getUser()
   }
 }
 
