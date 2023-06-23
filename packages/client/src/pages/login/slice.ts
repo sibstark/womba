@@ -1,7 +1,9 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 import { UserState } from './types/state'
-import { User } from '@types'
+import { AuthAPI } from '@api'
+import { SigninRequest } from '@types'
+import { useDispatch } from 'react-redux'
 
 function getInitialState(): UserState {
   return {
@@ -18,13 +20,23 @@ function getInitialState(): UserState {
   }
 }
 
+export const loginUser = createAsyncThunk(
+  'user/login',
+  async (data: SigninRequest) => {
+    const api = new AuthAPI()
+
+    await api.singin(data)
+    return await api.getUser()
+  }
+)
+
 export const userSlice = createSlice({
   initialState: getInitialState(),
   name: 'user',
-  reducers: {
-    setUser(state, action: PayloadAction<User>) {
-      console.log(action.payload)
+  reducers: {},
+  extraReducers: builder => {
+    builder.addCase(loginUser.fulfilled, (state, action) => {
       state.user = action.payload
-    },
+    })
   },
 })

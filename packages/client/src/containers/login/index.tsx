@@ -1,13 +1,11 @@
 import { Button, FormControl } from '@ui/components'
 import { FormControlInputTemplate, TChildrenArguments, withForm } from '../form'
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Routes } from '../Router'
-import { authController } from '@controllers'
 import { ValidationMessage } from '@utils'
-import { User } from '@types'
 import { useDispatch } from 'react-redux'
-import { setUser } from '@pages/login/redux/actions'
+import { loginUser } from '@pages/login/slice'
 
 type TLoginForm = {
   login: string
@@ -16,31 +14,9 @@ type TLoginForm = {
 
 type RenderLoginFormProps = TChildrenArguments<TLoginForm>
 
-const onSubmit = (values: TLoginForm, helpers: RenderLoginFormProps) => {
-  authController
-    .signIn(values)
-    .then(() => {
-      console.log('login')
-    })
-    .catch(err => {
-      console.log('signin error', err)
-    })
-    .finally(() => {
-      authController
-        .fetchUser()
-        .then((user: User) => {
-          const dispatch = useDispatch()
-          dispatch(setUser(user))
-        })
-        .catch(e => {
-          alert(`Ошибка получения информации о пользователе: ${e.reason}`)
-          console.log('Error', e)
-        })
-    })
-}
-
 const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
-  const { formState } = props
+  const dispatch = useDispatch()
+  const [auth, setAuth] = useState({ login: '', password: '' })
 
   const options = useMemo(
     () => ({
@@ -48,6 +24,10 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
     }),
     []
   )
+
+  const onSubmit = () => {
+    dispatch(loginUser(auth))
+  }
 
   return (
     <>
@@ -57,6 +37,12 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         placeholder="Логин"
         name="login"
         options={options}
+        onChange={e => {
+          setAuth({
+            login: e.target.value,
+            password: auth.password,
+          })
+        }}
       />
       <FormControlInputTemplate<TLoginForm>
         {...props}
@@ -67,14 +53,17 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         inputProps={{
           type: 'password',
         }}
+        onChange={e => {
+          setAuth({
+            login: auth.login,
+            password: e.target.value,
+          })
+        }}
       />
       <FormControl>
         <Link to={Routes.Registration}>У вас нет аккаунта? Регистрация</Link>
       </FormControl>
-      <Button
-        type="submit"
-        className="button--blue w-100"
-        disabled={formState.isSubmitting}>
+      <Button type="submit" className="button--blue w-100" onClick={onSubmit}>
         Авторизоваться
       </Button>
     </>
@@ -83,7 +72,7 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
 
 export const LoginForm = withForm<TLoginForm>(
   {
-    onValid: onSubmit,
+    onValid: () => console.log('onValid'),
     props: {
       defaultValues: {
         login: '',
