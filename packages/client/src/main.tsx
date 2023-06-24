@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import Root from './containers/Root/Root'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import * as serviceWorker from './utils/sw-register'
 import './index.scss'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
@@ -12,3 +13,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     </Provider>
   </React.StrictMode>
 )
+
+serviceWorker.startServiceWorker()

@@ -9,7 +9,7 @@ html {
 
 body {
   padding: 0;
-  background-color: #faf8ef;
+  background-color: $yellow-color;
 }
 
 /* Can be redefined if smb minds or wants to change*/
@@ -24,4 +24,17 @@ body {
 
 .w-100 {
   width: 100%;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }

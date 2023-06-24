@@ -111,15 +111,17 @@ function makeRequest({
   }
   const processedHeaders = new Headers(headers)
   defaultHeaders(processedHeaders, !ignoreContentType)
+
   const data =
     contentIs(processedHeaders, 'application/json') &&
     !(body instanceof FormData) &&
     body
       ? JSON.stringify(body)
       : body
+
   return fetch(path + query, {
     method: method,
-    headers: processedHeaders,
+    headers: body instanceof FormData ? {} : processedHeaders,
     body: data,
     credentials: 'include',
   })

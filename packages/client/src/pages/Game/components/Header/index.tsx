@@ -1,14 +1,22 @@
-import React, { useState } from 'react'
-
+import React from 'react'
+import { Button } from '@ui/components'
+import { useFullscreenStatus } from '@utils'
 import './styles.scss'
 
-export const Header: React.FC = () => {
-  const [score, setScore] = useState(340)
-  const [bestScore, setBestScore] = useState(340)
-
-  const startNewGame = () => {
-    setScore(0)
+  type THeaderProps = {
+  score: number
+  bestScore: number
+  startNewGame: () => void
+  onFullscreen: () => void
   }
+
+export const Header: React.FC<THeaderProps> = ({
+  startNewGame,
+  score,
+  bestScore,
+  onFullscreen,
+}) => {
+  const isFullscreen = useFullscreenStatus()
 
   return (
     <div className="header">
@@ -23,7 +31,12 @@ export const Header: React.FC = () => {
       <div className="header__new">
         <button className="header__new_button" onClick={startNewGame}>
           New Game
-        </button>
+        </Button>
+        {!isFullscreen && (
+          <Button className="header__new_button" onClick={onFullscreen}>
+            Full screen
+          </Button>
+        )}
       </div>
     </div>
   )

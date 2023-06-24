@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dotenv from 'dotenv'
 import * as path from 'path'
+import { serviceWorker } from './sw-plugin'
 dotenv.config()
 
 // https://vitejs.dev/config/
@@ -12,7 +13,10 @@ export default defineConfig({
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
-  plugins: [react()],
+  plugins: [react(), serviceWorker()],
+  esbuild: {
+    logOverride: { 'this-is-undefined-in-esm': 'silent' },
+  },
   resolve: {
     alias: {
       '@ui/components': path.resolve(__dirname, './src/ui/components'),
