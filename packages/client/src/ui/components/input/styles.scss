@@ -1,8 +1,8 @@
 .input {
-    border: 1px solid $black-color;
-    border-radius: 0.5rem;
-    height: 2rem;
-    padding: 0.2rem 0.3rem;
+    border: none;
+    border-bottom: 1px solid $purple-dark;
+    border-radius: 0;
+    padding: 7px 0;
     width: 100%;
 
     &--error {
@@ -20,4 +20,8 @@
         margin-left: 5px;
         font-size: 15px;
     }
+}
+
+.input:focus {
+    border-bottom: 1px solid $purple-dark;
 }

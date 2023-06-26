@@ -1,12 +1,12 @@
 import { loginUser } from "@pages/login/slice";
-import { Button, FormControl } from "@ui/components";
+import { Button } from "@ui/components";
 import { ValidationMessage } from "@utils";
 import React, { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
 import { FormControlInputTemplate, TChildrenArguments, withForm } from "../form";
-import { Routes } from "../Router";
+
+import "./styles.scss";
 
 type TLoginForm = {
     login: string;
@@ -34,8 +34,8 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         <>
             <FormControlInputTemplate<TLoginForm>
                 {...props}
-                title="Логин"
-                placeholder="Логин"
+                title="Login"
+                placeholder="Enter your login"
                 name="login"
                 options={options}
                 onChange={e => {
@@ -47,8 +47,8 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
             />
             <FormControlInputTemplate<TLoginForm>
                 {...props}
-                title="Пароль"
-                placeholder="Пароль"
+                title="Password"
+                placeholder="Enter your password"
                 name="password"
                 options={options}
                 inputProps={{
@@ -61,12 +61,11 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
                     });
                 }}
             />
-            <FormControl>
-                <Link to={Routes.Registration}>У вас нет аккаунта? Регистрация</Link>
-            </FormControl>
-            <Button type="submit" className="button--blue w-100" onClick={onSubmit}>
-                Авторизоваться
-            </Button>
+            <div className="button-container">
+                <Button type="submit" className="button--purple w-80" onSubmit={onSubmit}>
+                    Log In
+                </Button>
+            </div>
         </>
     );
 };
