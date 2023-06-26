@@ -4,6 +4,7 @@ import { Header } from './components/header'
 import { Row } from './components/row'
 
 import './styles.scss'
+import { withProtection } from '@containers'
 
 const data: Theme[] = [
   {
@@ -26,7 +27,7 @@ const data: Theme[] = [
   },
 ]
 
-export const ForumPage = () => {
+export const ForumPage = withProtection(() => {
   return (
     <div className="container">
       <Header />
@@ -35,4 +36,4 @@ export const ForumPage = () => {
       ))}
     </div>
   )
-}
+})

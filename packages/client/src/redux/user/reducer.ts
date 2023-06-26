@@ -1,3 +1,3 @@
-import { userSlice } from '../slice'
+import { userSlice } from './slice'
 
 export const reducer = userSlice.reducer

@@ -3,9 +3,8 @@ import {
   createRoutesFromElements,
   Route,
 } from 'react-router-dom'
-import Home from '../Home'
 import Layout from '../Layout'
-import Error from '../Error'
+import Error from '../error'
 import ProfilePage from '@pages/Profile'
 import { Routes } from './routes'
 import { LoginPage } from '@pages/login'
@@ -21,16 +20,14 @@ import { GamePage } from '@pages/Game'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout />}>
-      <Route index element={<Home />} />
+      <Route index element={<RulesPage />} />
       <Route path={Routes.Login} element={<LoginPage />} />
       <Route path={Routes.Forum} element={<ForumPage />} />
       <Route path={Routes.Registration} element={<RegistrationPage />} />
-      <Route path={Routes.Login} element={<LoginPage />} />
       <Route path={Routes.Profile} element={<ProfilePage />} />
       <Route path={Routes.LeaderBoard} element={<LeaderBoardPage />} />
       <Route path={Routes.Start} element={<StartPage />} />
-      <Route path={Routes.Profile} element={<ProfilePage />} />
-      <Route path={Routes.Rules} element={<RulesPage />} />
+      <Route index path={Routes.Rules} element={<RulesPage />} />
       <Route
         path={Routes.ApplicationError}
         element={<ApplicationErrorPage />}

@@ -1,5 +1,5 @@
 import { Card } from '@ui/components'
-import { LeaderBoard } from '@containers'
+import { LeaderBoard, withProtection } from '@containers'
 
 const leaders = [
   {
@@ -14,11 +14,11 @@ const leaders = [
   },
 ]
 
-export const LeaderBoardPage = () => {
+export const LeaderBoardPage = withProtection(() => {
   return (
     <Card className="login-page">
       <h3>Лучшие игроки</h3>
       <LeaderBoard leaders={leaders} />
     </Card>
   )
-}
+})

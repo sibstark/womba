@@ -1,11 +1,12 @@
 import { Button, FormControl } from '@ui/components'
 import { FormControlInputTemplate, TChildrenArguments, withForm } from '../form'
-import React, { useMemo, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { Routes } from '../Router'
+import { Routes } from '../router'
 import { ValidationMessage } from '@utils'
-import { useDispatch } from 'react-redux'
-import { loginUser } from '@pages/login/slice'
+import { loginUser } from '@redux/user'
+import { SigninRequest } from '@types'
+import { dispatch } from '@redux/store'
 
 type TLoginForm = {
   login: string
@@ -13,22 +14,10 @@ type TLoginForm = {
 }
 
 type RenderLoginFormProps = TChildrenArguments<TLoginForm>
-
+const options = {
+  required: ValidationMessage.Required,
+}
 const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
-  const dispatch = useDispatch()
-  const [auth, setAuth] = useState({ login: '', password: '' })
-
-  const options = useMemo(
-    () => ({
-      required: ValidationMessage.Required,
-    }),
-    []
-  )
-
-  const onSubmit = () => {
-    dispatch(loginUser(auth))
-  }
-
   return (
     <>
       <FormControlInputTemplate<TLoginForm>
@@ -37,12 +26,6 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         placeholder="Логин"
         name="login"
         options={options}
-        onChange={e => {
-          setAuth({
-            login: e.target.value,
-            password: auth.password,
-          })
-        }}
       />
       <FormControlInputTemplate<TLoginForm>
         {...props}
@@ -53,26 +36,22 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
         inputProps={{
           type: 'password',
         }}
-        onChange={e => {
-          setAuth({
-            login: auth.login,
-            password: e.target.value,
-          })
-        }}
       />
       <FormControl>
         <Link to={Routes.Registration}>У вас нет аккаунта? Регистрация</Link>
       </FormControl>
-      <Button type="submit" className="button--blue w-100" onClick={onSubmit}>
+      <Button type="submit" className="button--blue w-100">
         Авторизоваться
       </Button>
     </>
   )
 }
 
-export const LoginForm = withForm<TLoginForm>(
+export const LoginForm = withForm<SigninRequest>(
   {
-    onValid: () => console.log('onValid'),
+    onValid: data => {
+      dispatch(loginUser(data))
+    },
     props: {
       defaultValues: {
         login: '',

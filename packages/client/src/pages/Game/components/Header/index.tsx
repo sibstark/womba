@@ -3,12 +3,12 @@ import { Button } from '@ui/components'
 import { useFullscreenStatus } from '@utils'
 import './styles.scss'
 
-  type THeaderProps = {
+type THeaderProps = {
   score: number
   bestScore: number
   startNewGame: () => void
   onFullscreen: () => void
-  }
+}
 
 export const Header: React.FC<THeaderProps> = ({
   startNewGame,
@@ -29,7 +29,7 @@ export const Header: React.FC<THeaderProps> = ({
         <div className="header__block__content">{bestScore}</div>
       </div>
       <div className="header__new">
-        <button className="header__new_button" onClick={startNewGame}>
+        <Button className="header__new_button" onClick={startNewGame}>
           New Game
         </Button>
         {!isFullscreen && (

@@ -6,11 +6,12 @@ import rightArrow from '@static/game/rightArrow.png'
 
 import { RulesItem } from './components/item'
 
-import './styles.scss'
 import { useSelector } from 'react-redux'
-import { getUser } from '@pages/login/redux/selectors'
+import { getUser } from '@redux/user'
+import { withProtection } from '@containers'
+import './styles.scss'
 
-export const RulesPage = () => {
+export const RulesPage = withProtection(() => {
   const { login } = useSelector(getUser)
 
   return (
@@ -64,4 +65,4 @@ export const RulesPage = () => {
       </p>
     </div>
   )
-}
+})

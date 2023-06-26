@@ -6,10 +6,11 @@ import { Footer } from './components/Footer'
 import { useRef } from 'react'
 import { useFullScreen } from '@utils'
 import './styles.scss'
+import { withProtection } from '@containers'
 
 const debug = debugResolve('GamePage')
 
-export const GamePage = () => {
+export const GamePage = withProtection(() => {
   const ref = useRef<HTMLDivElement>(null)
   const { onFullscreen } = useFullScreen(ref)
   const [score, setScore] = useState(0)
@@ -50,4 +51,4 @@ export const GamePage = () => {
       <Footer />
     </div>
   )
-}
+})

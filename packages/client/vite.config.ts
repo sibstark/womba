@@ -27,6 +27,7 @@ export default defineConfig({
       '@api': path.resolve(__dirname, './src/api'),
       '@controllers': path.resolve(__dirname, './src/controllers'),
       '@static': path.resolve(__dirname, './src/static'),
+      '@redux': path.resolve(__dirname, './src/redux'),
     },
   },
   css: {
