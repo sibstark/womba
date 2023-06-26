@@ -1,78 +1,78 @@
-import debugResolve from '../../logger/debugResolve'
-import BoardCanvas from '../board/BoardCanvas'
+import debugResolve from "../../logger/debugResolve";
+import BoardCanvas from "../board/BoardCanvas";
 
-const debug = debugResolve('Game')
+const debug = debugResolve("Game");
 
 class Game {
-  #boardCanvas: BoardCanvas
+    #boardCanvas: BoardCanvas;
 
-  constructor(canvas: HTMLCanvasElement) {
-    this.#boardCanvas = new BoardCanvas(canvas)
-  }
+    constructor(canvas: HTMLCanvasElement) {
+        this.#boardCanvas = new BoardCanvas(canvas);
+    }
 
-  start() {
-    debug('start')
+    start() {
+        debug("start");
 
-    this.drawBoard()
-  }
+        this.drawBoard();
+    }
 
-  restart() {
-    debug('restart')
+    restart() {
+        debug("restart");
 
-    this.#boardCanvas.reset()
+        this.#boardCanvas.reset();
 
-    this.drawBoard()
-  }
+        this.drawBoard();
+    }
 
-  drawBoard() {
-    this.#boardCanvas.drawBoard()
-  }
+    drawBoard() {
+        this.#boardCanvas.drawBoard();
+    }
 
-  moveUp() {
-    debug('moveUp')
+    moveUp() {
+        debug("moveUp");
 
-    this.#boardCanvas.moveUp()
-    this.updateBoard()
-  }
+        this.#boardCanvas.moveUp();
+        this.updateBoard();
+    }
 
-  moveDown() {
-    debug('moveDown')
+    moveDown() {
+        debug("moveDown");
 
-    this.#boardCanvas.moveDown()
-    this.updateBoard()
-  }
+        this.#boardCanvas.moveDown();
+        this.updateBoard();
+    }
 
-  moveLeft() {
-    debug('moveLeft')
+    moveLeft() {
+        debug("moveLeft");
 
-    this.#boardCanvas.moveLeft()
-    this.updateBoard()
-  }
+        this.#boardCanvas.moveLeft();
+        this.updateBoard();
+    }
 
-  moveRight() {
-    debug('moveRight')
+    moveRight() {
+        debug("moveRight");
 
-    this.#boardCanvas.moveRight()
-    this.updateBoard()
-  }
+        this.#boardCanvas.moveRight();
+        this.updateBoard();
+    }
 
-  updateBoard() {
-    debug('updateBoard')
+    updateBoard() {
+        debug("updateBoard");
 
-    this.#boardCanvas.updateBoard()
-  }
+        this.#boardCanvas.updateBoard();
+    }
 
-  updateScore(): number {
-    debug('updateScore')
+    updateScore(): number {
+        debug("updateScore");
 
-    return this.#boardCanvas.currentScore
-  }
+        return this.#boardCanvas.currentScore;
+    }
 
-  checkEndConditions(): boolean {
-    debug('checkEndConditions')
+    checkEndConditions(): boolean {
+        debug("checkEndConditions");
 
-    return this.#boardCanvas.hasGameOver()
-  }
+        return this.#boardCanvas.hasGameOver();
+    }
 }
 
-export default Game
+export default Game;

@@ -1,5 +1,5 @@
-import { RootState } from '../../../store'
+import { RootState } from "../../../store";
 
 export function getUser(state: RootState) {
-  return state.user.user
+    return state.user.user;
 }

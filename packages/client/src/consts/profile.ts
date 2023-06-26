@@ -1,2 +1,2 @@
-export const MIN_LENGTH = 6
-export const MIN_LENGTH_NAME = 2
+export const MIN_LENGTH = 6;
+export const MIN_LENGTH_NAME = 2;
