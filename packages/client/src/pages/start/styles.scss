@@ -31,13 +31,13 @@
                 &:nth-child(1),
                 &:nth-child(4) {
                     background: $black-color;
-                    color: $white-color;
+                    color: $white-primary;;
                 }
 
                 &:nth-child(2),
                 &:nth-child(3) {
                     background: $blue-color;
-                    color: $white-color;
+                    color: $white-primary;;
                 }
             }
         }
