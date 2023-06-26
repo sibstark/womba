@@ -1,32 +1,32 @@
 .button {
-  border: none;
-  border-radius: 0.5rem;
-  height: 2rem;
-  padding: 0.2rem 0.3rem;
-  cursor: pointer;
-
-  &--blue {
-    background-color: $blue-color;
-    color: $white-color;
-  }
-
-  &--black {
-    background-color: $black-color;
-    color: $white-color;
-  }
-
-  &--black {
-    background-color: $black-color;
-    color: $white-color;
-  }
-
-  &--center {
-    min-width: 200px;
-  }
-
-  &--link {
     border: none;
-    background-color: transparent;
+    border-radius: 0.5rem;
+    height: 2rem;
+    padding: 0.2rem 0.3rem;
     cursor: pointer;
-  }
+
+    &--blue {
+        background-color: $blue-color;
+        color: $white-color;
+    }
+
+    &--black {
+        background-color: $black-color;
+        color: $white-color;
+    }
+
+    &--black {
+        background-color: $black-color;
+        color: $white-color;
+    }
+
+    &--center {
+        min-width: 200px;
+    }
+
+    &--link {
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+    }
 }
