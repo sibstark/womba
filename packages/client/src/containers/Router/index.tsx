@@ -1,28 +1,43 @@
+import { ApplicationErrorPage } from '@pages/400'
+import { ServerErrorPage } from '@pages/500'
+import { ForumPage } from '@pages/forum'
+import { GamePage } from '@pages/Game'
+import { LeaderBoardPage } from '@pages/Leaderboard'
+import { LoginPage } from '@pages/login'
+import ProfilePage from '@pages/Profile'
+import { RegistrationPage } from '@pages/registration'
+import { RulesPage } from '@pages/rules'
+import { StartPage } from '@pages/start'
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
 } from 'react-router-dom'
-import Home from '../Home'
-import Forum from '../Forum'
-import Layout from '../Layout'
-import Error from '../Error'
+
 import { Routes } from './routes'
-import { RegistrationPage } from '@pages/registration'
-import { LoginPage } from '@pages/login'
-import { StartPage } from '@pages/start'
-import { EndPage } from '@pages/end'
+
+import Home from '../Home'
+import Layout from '../Layout'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout />}>
       <Route index element={<Home />} />
-      <Route path={Routes.Forum} element={<Forum />} />
+      <Route path={Routes.Login} element={<LoginPage />} />
+      <Route path={Routes.Forum} element={<ForumPage />} />
       <Route path={Routes.Registration} element={<RegistrationPage />} />
       <Route path={Routes.Login} element={<LoginPage />} />
+      <Route path={Routes.Profile} element={<ProfilePage />} />
+      <Route path={Routes.LeaderBoard} element={<LeaderBoardPage />} />
       <Route path={Routes.Start} element={<StartPage />} />
-      <Route path={Routes.End} element={<EndPage />} />
-      <Route path="*" element={<Error />} />
+      <Route path={Routes.Profile} element={<ProfilePage />} />
+      <Route path={Routes.Rules} element={<RulesPage />} />
+      <Route
+        path={Routes.ApplicationError}
+        element={<ApplicationErrorPage />}
+      />
+      <Route path={Routes.ServerError} element={<ServerErrorPage />} />
+      <Route path={Routes.Game} element={<GamePage />} />
     </Route>
   )
 )

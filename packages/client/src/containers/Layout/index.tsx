@@ -5,17 +5,29 @@ import { Routes } from '../Router'
 const RootLayout = () => {
   return (
     <>
-      <header>
-        <nav>
-          <h1>WOMBA 2048</h1>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to={Routes.Login}>Login</NavLink>
-          <NavLink to={Routes.Forum}>Forum</NavLink>
-          <NavLink to={Routes.Registration}>Registration</NavLink>
-          <NavLink to={Routes.Start}>Start</NavLink>
-          <NavLink to={Routes.End}>End</NavLink>
-        </nav>
-      </header>
+      <div className="header">
+        <div className="header_logo">WOMBA 2048</div>
+        <div className="header_nav">
+          <NavLink className="header_nav__item" to="/">
+            Home
+          </NavLink>
+          <NavLink className="header_nav__item" to={Routes.Login}>
+            Sign In
+          </NavLink>
+          <NavLink className="header_nav__item" to={Routes.Registration}>
+            Sign Up
+          </NavLink>
+          <NavLink className="header_nav__item" to={Routes.Forum}>
+            Forum
+          </NavLink>
+          <NavLink className="header_nav__item" to={Routes.Rules}>
+            Rules
+          </NavLink>
+          <NavLink className="header_nav__item" to={Routes.Game}>
+            Game
+          </NavLink>
+        </div>
+      </div>
       <Layout>
         <Outlet />
       </Layout>
