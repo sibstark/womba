@@ -1,4 +1,15 @@
 .form-control {
-  width: 100%;
-  margin-bottom: 0.5rem;
+    width: 100%;
+    margin-bottom: 30px;
+
+    &--profile {
+        display: flex;
+        flex-direction: row;
+    }
+
+    &--button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
 }

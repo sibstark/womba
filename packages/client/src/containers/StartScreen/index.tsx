@@ -1,20 +1,32 @@
-import { Button } from '@ui/components'
+import { Button } from "@ui/components";
+
+import { Typography } from "../../ui/components/Typography";
 
 export const StartScreen = () => {
-  return (
-    <>
-      <div className="start__wrapper">
-        <div className="logo__wrapper">
-          <h2>WOMBA</h2>
-          <div className="logo">
-            <p>2</p>
-            <p>0</p>
-            <p>4</p>
-            <p>8</p>
-          </div>
-        </div>
-        <Button className={'start__btn'}>Начать играть</Button>
-      </div>
-    </>
-  )
-}
+    return (
+        <>
+            <div className="start__wrapper">
+                <div className="logo__wrapper">
+                    <Typography variant="h2" component="h2">
+                        WOMBA
+                    </Typography>
+                    <div className="logo">
+                        <Typography variant="p" component="p">
+                            2
+                        </Typography>
+                        <Typography variant="p" component="p">
+                            0
+                        </Typography>
+                        <Typography variant="p" component="p">
+                            4
+                        </Typography>
+                        <Typography variant="p" component="p">
+                            8
+                        </Typography>
+                    </div>
+                </div>
+                <Button>Начать играть</Button>
+            </div>
+        </>
+    );
+};

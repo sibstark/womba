@@ -1,0 +1,13 @@
+.footer {
+    max-width: 500px;
+
+    &__title {
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    &__text {
+        text-transform: uppercase;
+        font-size: 14px;
+    }
+}
