@@ -1,63 +1,57 @@
-import { Button, FormControl } from '@ui/components'
-import { FormControlInputTemplate, TChildrenArguments, withForm } from '../form'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Routes } from '../router'
-import { ValidationMessage } from '@utils'
-import { loginUser } from '@redux/user'
-import { SigninRequest } from '@types'
-import { dispatch } from '@redux/store'
+import { dispatch } from "@redux/store";
+import { loginUser } from "@redux/user";
+import { SigninRequest } from "@types";
+import { Button } from "@ui/components";
+import { ValidationMessage } from "@utils";
+import React from "react";
 
-type TLoginForm = {
-  login: string
-  password: string
-}
+import { FormControlInputTemplate, TChildrenArguments, withForm } from "../form";
+import "./styles.scss";
 
-type RenderLoginFormProps = TChildrenArguments<TLoginForm>
+type RenderLoginFormProps = TChildrenArguments<SigninRequest>;
 const options = {
-  required: ValidationMessage.Required,
-}
+    required: ValidationMessage.Required
+};
 const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
-  return (
-    <>
-      <FormControlInputTemplate<TLoginForm>
-        {...props}
-        title="Логин"
-        placeholder="Логин"
-        name="login"
-        options={options}
-      />
-      <FormControlInputTemplate<TLoginForm>
-        {...props}
-        title="Пароль"
-        placeholder="Пароль"
-        name="password"
-        options={options}
-        inputProps={{
-          type: 'password',
-        }}
-      />
-      <FormControl>
-        <Link to={Routes.Registration}>У вас нет аккаунта? Регистрация</Link>
-      </FormControl>
-      <Button type="submit" className="button--blue w-100">
-        Авторизоваться
-      </Button>
-    </>
-  )
-}
+    return (
+        <>
+            <FormControlInputTemplate<SigninRequest>
+                {...props}
+                title="Логин"
+                placeholder="Enter your login"
+                name="login"
+                options={options}
+            />
+            <FormControlInputTemplate<SigninRequest>
+                {...props}
+                title="Password"
+                placeholder="Enter your password"
+                name="password"
+                options={options}
+                inputProps={{
+                    type: "password"
+                }}
+            />
+            <div className="button-container">
+                <Button type="submit" className="button--purple w-80">
+                    Авторизоваться
+                </Button>
+            </div>
+        </>
+    );
+};
 
 export const LoginForm = withForm<SigninRequest>(
-  {
-    onValid: data => {
-      dispatch(loginUser(data))
+    {
+        onValid: data => {
+            dispatch(loginUser(data));
+        },
+        props: {
+            defaultValues: {
+                login: "",
+                password: ""
+            }
+        }
     },
-    props: {
-      defaultValues: {
-        login: '',
-        password: '',
-      },
-    },
-  },
-  RenderLoginForm
-)
+    RenderLoginForm
+);

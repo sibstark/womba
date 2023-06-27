@@ -1,22 +1,22 @@
 $leaderBoardPadding: 5px;
 .leader-board {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  width: 100%;
-  list-style: none;
-  padding: $leaderBoardPadding;
-  margin: 0;
-
-  &_nickname {
-    margin: 0 10px;
-    margin-right: auto;
-  }
-
-  li {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 100%;
+    list-style: none;
     padding: $leaderBoardPadding;
-    align-items: center;
-  }
+    margin: 0;
+
+    &_nickname {
+        margin: 0 10px;
+        margin-right: auto;
+    }
+
+    li {
+        display: flex;
+        justify-content: flex-start;
+        padding: $leaderBoardPadding;
+        align-items: center;
+    }
 }

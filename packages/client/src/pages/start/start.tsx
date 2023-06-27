@@ -1,7 +1,8 @@
-import { StartScreen } from '../../containers/StartScreen'
-import { withProtection } from '@containers'
-import './styles.scss'
+import { withProtection } from "@containers";
+
+import { StartScreen } from "../../containers/StartScreen";
+import "./styles.scss";
 
 export const StartPage = withProtection(() => {
-  return <StartScreen />
-})
+    return <StartScreen />;
+});

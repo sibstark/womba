@@ -1,12 +1,11 @@
-import { Card } from '@ui/components'
-import { LoginForm, withAnonymous } from '@containers'
-import './styles.scss'
+import { LoginForm, withAnonymous } from "@containers";
+import "./styles.scss";
 
 export const LoginPage = withAnonymous(() => {
-  return (
-    <Card className="login-page">
-      <h3>Вход</h3>
-      <LoginForm />
-    </Card>
-  )
-})
+    return (
+        <div className="login">
+            <div className="login__title">Sign in</div>
+            <LoginForm />
+        </div>
+    );
+});

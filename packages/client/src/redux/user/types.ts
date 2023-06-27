@@ -1,6 +1,6 @@
-import { ILoadable, User } from '@types'
+import { ILoadable, User } from "@types";
 
 export interface UserState extends ILoadable {
-  authorized: boolean
-  user: User
+    authorized: boolean;
+    user: User;
 }

@@ -1,50 +1,56 @@
-import { NavLink, Outlet } from 'react-router-dom'
-import Layout from '../../ui/components/Layout'
-import { Routes } from '../router'
-import { useEffect } from 'react'
-import { loadUser, userInitialization } from '@redux/user'
-import { dispatch } from '@redux/store'
-import { useSelector } from 'react-redux'
-import { Anonymous, Protection } from '@containers'
-import './styles.scss'
+import { Anonymous, Protection } from "@containers";
+import { dispatch } from "@redux/store";
+import { loadUser, userInitialization } from "@redux/user";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { NavLink, Outlet } from "react-router-dom";
+
+import Layout from "../../ui/components/Layout";
+import { Routes } from "../router";
+import "./styles.scss";
 
 const RootLayout = () => {
-  useEffect(() => {
-    dispatch(loadUser())
-  }, [dispatch])
+    useEffect(() => {
+        dispatch(loadUser());
+    }, [dispatch]);
 
-  const fetching = useSelector(userInitialization)
+    const fetching = useSelector(userInitialization);
 
-  if (fetching) {
-    return <div>Загрузка</div>
-  }
+    if (fetching) {
+        return <div>Загрузка</div>;
+    }
 
-  return (
-    <>
-      <header>
-        <nav className="header-navigation">
-          <h1>WOMBA 2048</h1>
-          <Anonymous>
-            <NavLink to={Routes.Login}>Login</NavLink>
-            <NavLink to={Routes.Registration}>Registration</NavLink>
-          </Anonymous>
-          <Protection>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to={Routes.Forum}>Forum</NavLink>
-            <NavLink to={Routes.Profile}>Profile</NavLink>
-            <NavLink to={Routes.LeaderBoard}>LeaderBoard</NavLink>
-            <NavLink to={Routes.Start}>Start</NavLink>
-            <NavLink to={Routes.Profile}>Profile</NavLink>
-            <NavLink to={Routes.Rules}>Rules</NavLink>
-            <NavLink to={Routes.Game}>Game</NavLink>
-          </Protection>
-        </nav>
-      </header>
-      <Layout>
-        <Outlet />
-      </Layout>
-    </>
-  )
-}
+    return (
+        <>
+            <div className="header">
+                <div className="header_logo">WOMBA 2048</div>
+                <div className="header_nav">
+                    <Anonymous>
+                        <NavLink className="header_nav__item" to={Routes.Login}>
+                            Sign In
+                        </NavLink>
+                        <NavLink className="header_nav__item" to={Routes.Registration}>
+                            Sign Up
+                        </NavLink>
+                    </Anonymous>
+                    <Protection>
+                        <NavLink className="header_nav__item" to={Routes.Forum}>
+                            Forum
+                        </NavLink>
+                        <NavLink className="header_nav__item" to={Routes.Rules}>
+                            Rules
+                        </NavLink>
+                        <NavLink className="header_nav__item" to={Routes.Game}>
+                            Game
+                        </NavLink>
+                    </Protection>
+                </div>
+            </div>
+            <Layout>
+                <Outlet />
+            </Layout>
+        </>
+    );
+};
 
-export default RootLayout
+export default RootLayout;
