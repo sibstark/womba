@@ -1,5 +1,6 @@
-import { reducer as userReducer } from "@pages/login";
 import { configureStore } from "@reduxjs/toolkit";
+
+import { reducer as userReducer } from "./user";
 
 const reducer = {
     user: userReducer
@@ -7,4 +8,5 @@ const reducer = {
 
 export const store = configureStore({ reducer });
 
+export const dispatch = store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

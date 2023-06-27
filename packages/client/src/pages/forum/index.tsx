@@ -1,8 +1,9 @@
+import { withProtection } from "@containers";
+
 import { Header } from "./components/header";
 import { Row } from "./components/row";
 
 import { Theme } from "../../types/forum";
-
 import "./styles.scss";
 
 const data: Theme[] = [
@@ -26,7 +27,7 @@ const data: Theme[] = [
     }
 ];
 
-export const ForumPage = () => {
+export const ForumPage = withProtection(() => {
     return (
         <div className="container">
             <Header />
@@ -35,4 +36,4 @@ export const ForumPage = () => {
             ))}
         </div>
     );
-};
+});

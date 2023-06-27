@@ -29,9 +29,9 @@ export const Header: React.FC<THeaderProps> = ({
                 <div className="header__block__content">{bestScore}</div>
             </div>
             <div className="header__new">
-                <button className="header__new_button" onClick={startNewGame}>
+                <Button className="header__new_button" onClick={startNewGame}>
                     New Game
-                </button>
+                </Button>
                 {!isFullscreen && (
                     <Button className="header__new_button" onClick={onFullscreen}>
                         Full screen

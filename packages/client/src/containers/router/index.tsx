@@ -12,25 +12,24 @@ import { createBrowserRouter, createRoutesFromElements, Route } from "react-rout
 
 import { Routes } from "./routes";
 
-import Home from "../Home";
+import Error from "../error";
 import Layout from "../Layout";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route element={<Layout />}>
-            <Route index element={<Home />} />
+            <Route index element={<RulesPage />} />
             <Route path={Routes.Login} element={<LoginPage />} />
             <Route path={Routes.Forum} element={<ForumPage />} />
             <Route path={Routes.Registration} element={<RegistrationPage />} />
-            <Route path={Routes.Login} element={<LoginPage />} />
             <Route path={Routes.Profile} element={<ProfilePage />} />
             <Route path={Routes.LeaderBoard} element={<LeaderBoardPage />} />
             <Route path={Routes.Start} element={<StartPage />} />
-            <Route path={Routes.Profile} element={<ProfilePage />} />
-            <Route path={Routes.Rules} element={<RulesPage />} />
+            <Route index path={Routes.Rules} element={<RulesPage />} />
             <Route path={Routes.ApplicationError} element={<ApplicationErrorPage />} />
             <Route path={Routes.ServerError} element={<ServerErrorPage />} />
             <Route path={Routes.Game} element={<GamePage />} />
+            <Route path="*" element={<Error />} />
         </Route>
     )
 );

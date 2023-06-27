@@ -1,3 +1,4 @@
+import { withProtection } from "@containers";
 import { useFullScreen } from "@utils";
 import { useEffect, useState, useCallback } from "react";
 import { useRef } from "react";
@@ -7,12 +8,11 @@ import { Header } from "./components/Header";
 import { Main } from "./components/Main";
 
 import debugResolve from "../../logger/debugResolve";
-
 import "./styles.scss";
 
 const debug = debugResolve("GamePage");
 
-export const GamePage = () => {
+export const GamePage = withProtection(() => {
     const ref = useRef<HTMLDivElement>(null);
     const { onFullscreen } = useFullScreen(ref);
     const [score, setScore] = useState(0);
@@ -53,4 +53,4 @@ export const GamePage = () => {
             <Footer />
         </div>
     );
-};
+});

@@ -22,3 +22,7 @@ export type User = {
     phone: string;
     avatar: string;
 };
+
+export interface ILoadable {
+    fetching: boolean;
+}

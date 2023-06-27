@@ -1,4 +1,5 @@
-import { getUser } from "@pages/login/redux/selectors";
+import { withProtection } from "@containers";
+import { getUser } from "@redux/user";
 import down from "@static/game/down.png";
 import left from "@static/game/left.png";
 import right from "@static/game/right.png";
@@ -10,7 +11,7 @@ import { RulesItem } from "./components/item";
 
 import "./styles.scss";
 
-export const RulesPage = () => {
+export const RulesPage = withProtection(() => {
     const { login } = useSelector(getUser);
 
     return (
@@ -60,4 +61,4 @@ export const RulesPage = () => {
             </p>
         </div>
     );
-};
+});

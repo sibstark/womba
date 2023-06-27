@@ -1,4 +1,4 @@
-import { ProfileForm } from "../../containers/Profile/profile";
+import { ProfileForm, withProtection } from "@containers";
 import "./styles.scss";
 
 const ProfilePage = () => {
@@ -10,4 +10,4 @@ const ProfilePage = () => {
     );
 };
 
-export default ProfilePage;
+export default withProtection(ProfilePage);

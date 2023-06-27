@@ -1,9 +1,9 @@
+import { store } from "@redux/store";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { Provider } from "react-redux";
 
 import Root from "./containers/Root/Root";
-import { store } from "./store";
 import * as serviceWorker from "./utils/sw-register";
 import "./index.scss";
 
