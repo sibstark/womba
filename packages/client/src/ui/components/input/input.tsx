@@ -1,11 +1,13 @@
-import classnames from 'classnames'
-import React, { forwardRef } from 'react'
-import './styles.scss'
+import classnames from "classnames";
+import React, { forwardRef } from "react";
+import "./styles.scss";
 
-type InputProps = React.InputHTMLAttributes<HTMLInputElement>
+type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
+
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, ...rest }, ref) => {
-    const classes = classnames(className, 'input')
-    return <input {...rest} ref={ref} className={classes} />
-  }
-)
+    ({ className, onChange, ...rest }, ref) => {
+        const classes = classnames(className, "input");
+
+        return <input {...rest} ref={ref} className={classes} onChange={onChange} />;
+    }
+);

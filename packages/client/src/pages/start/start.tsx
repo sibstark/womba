@@ -1,10 +1,6 @@
-import { StartScreen } from '../../containers/StartScreen/index'
-import './styles.scss'
+import { StartScreen } from "../../containers/StartScreen/index";
+import "./styles.scss";
 
 export const StartPage = () => {
-  return (
-    <>
-      <StartScreen />
-    </>
-  )
-}
+    return <StartScreen />;
+};
