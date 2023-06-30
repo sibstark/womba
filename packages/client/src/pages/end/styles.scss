@@ -1,0 +1,14 @@
+.end__wrapper {
+  box-shadow: $box-shadow;
+  min-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  row-gap: 20px;
+
+  p {
+    margin: 0;
+  }
+}
