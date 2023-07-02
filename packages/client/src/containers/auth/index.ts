@@ -1,1 +1,1 @@
-export * from './with-protection'
+export * from "./with-protection";
