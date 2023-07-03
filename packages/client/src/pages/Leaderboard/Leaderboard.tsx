@@ -1,4 +1,4 @@
-import { LeaderBoard, withProtection } from "@containers";
+import { Leaderboard, withProtection } from "@containers";
 import { Card } from "@ui/components";
 
 const leaders = [
@@ -18,7 +18,7 @@ export const LeaderBoardPage = withProtection(() => {
     return (
         <Card className="login-page">
             <h3>Лучшие игроки</h3>
-            <LeaderBoard leaders={leaders} />
+            <Leaderboard leaders={leaders} />
         </Card>
     );
 });

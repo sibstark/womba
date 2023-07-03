@@ -1,13 +1,16 @@
+// import { Root } from "client";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 
 import { createClientAndConnect } from "./db";
+
 dotenv.config();
 
 const app = express();
 
 app.use(cors());
+// app.use(render);
 const port = Number(process.env.SERVER_PORT) || 3001;
 
 createClientAndConnect();

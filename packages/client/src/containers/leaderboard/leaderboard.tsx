@@ -10,7 +10,7 @@ type TLeaderBoardProps = {
     leaders: TLeader[];
 };
 
-const LeaderBoard: React.FC<TLeaderBoardProps> = props => {
+const Leaderboard: React.FC<TLeaderBoardProps> = props => {
     const { leaders } = props;
 
     return (
@@ -28,4 +28,4 @@ const LeaderBoard: React.FC<TLeaderBoardProps> = props => {
     );
 };
 
-export { LeaderBoard };
+export { Leaderboard };
