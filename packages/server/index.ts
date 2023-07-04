@@ -22,13 +22,15 @@ async function startServer() {
     app.get("/api", (_, res) => {
         res.json("👋 Howdy from the server :)");
     });
+    const distPath = path.dirname(require.resolve("client/dist/index.html"));
+    const ssrClientPath = require.resolve("client/ssr-dist/client.cjs");
+
+    app.use("/assets", express.static(path.resolve(distPath, "assets")));
 
     // https://vitejs.dev/guide/ssr.html
     app.use("*", async (req, res, next) => {
         const url = req.originalUrl;
-        const distPath = path.dirname(require.resolve("client/dist/index.html"));
         // const srcPath = path.dirname(require.resolve("client"));
-        const ssrClientPath = require.resolve("client/ssr-dist/client.cjs");
 
         try {
             // 1. Read index.html
