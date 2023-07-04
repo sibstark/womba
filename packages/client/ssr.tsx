@@ -1,11 +1,20 @@
+// @ts-ignore
+import React from "react";
 import { renderToString } from "react-dom/server";
+import { Provider } from "react-redux";
 import { StaticRouter } from "react-router-dom/server";
 
-import { Root } from "./src/containers/root";
+import { Root } from "./src/containers/router";
+import { store } from "./src/redux/store";
+
 export function render(url: string) {
     return renderToString(
-        <StaticRouter location={url}>
-            <Root />
-        </StaticRouter>
+        <React.StrictMode>
+            <Provider store={store}>
+                <StaticRouter location={url}>
+                    <Root />
+                </StaticRouter>
+            </Provider>
+        </React.StrictMode>
     );
 }
