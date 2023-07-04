@@ -6,6 +6,7 @@ import { StaticRouter } from "react-router-dom/server";
 
 import { Root } from "./src/containers/router";
 import { store } from "./src/redux/store";
+import "./src/index.scss";
 
 export function render(url: string) {
     return renderToString(

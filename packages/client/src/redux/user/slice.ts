@@ -6,14 +6,14 @@ import { UserState } from "./types";
 
 function getInitialState(): UserState {
     return {
-        fetching: true,
-        authorized: false,
+        fetching: false,
+        authorized: true,
         user: {
-            id: 0,
-            first_name: "",
-            second_name: "",
-            display_name: "",
-            login: "",
+            id: 1,
+            first_name: "Oleg",
+            second_name: "Oleg",
+            display_name: "Oleg",
+            login: "Oleg",
             avatar: "",
             email: "",
             phone: ""

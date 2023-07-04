@@ -4,8 +4,8 @@ import react from "@vitejs/plugin-react";
 import { UserConfigExport } from "vite";
 
 // @ts-ignore
+// @ts-ignore
 import { serviceWorker } from "./sw-plugin";
-
 export const config: UserConfigExport = {
     plugins: [react(), serviceWorker()],
     esbuild: {
