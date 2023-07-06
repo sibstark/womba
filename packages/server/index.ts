@@ -8,6 +8,7 @@ import express, { Request, Response } from "express";
 import { createServer as createViteServer, ViteDevServer } from "vite";
 
 import { isDev, isProduction } from "./env";
+import { fetchUserData } from "./user";
 dotenv.config();
 
 async function startServer() {
@@ -73,10 +74,12 @@ async function startServer() {
             // console.log(userData);
             let preloadedState: unknown;
 
+            const user = await fetchUserData({ Cookie: req.headers.cookie || "" });
+
             if (isProduction()) {
                 const ssrClientPath = require.resolve("client/ssr-dist/client.cjs");
                 const render = (await import(ssrClientPath)).render;
-                const { html, state } = await render(url, { Cookie: req.headers.cookie });
+                const { html, state } = await render(url, user);
 
                 preloadedState = state;
                 appHtml = html;
@@ -84,7 +87,7 @@ async function startServer() {
 
             if (isDev()) {
                 const render = (await vite!.ssrLoadModule("ssr.tsx")).render;
-                const { html, state } = await render(url, { Cookie: req.headers.cookie });
+                const { html, state } = await render(url, user);
 
                 preloadedState = state;
                 appHtml = html;

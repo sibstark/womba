@@ -10,7 +10,7 @@ import "./index.scss";
 
 const store = createStore(window.__REDUX_STATE__);
 
-// delete window.__REDUX_STATE__;
+delete window.__REDUX_STATE__;
 
 ReactDOM.hydrateRoot(
     document.getElementById("root") as HTMLElement,
