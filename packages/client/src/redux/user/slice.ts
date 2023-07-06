@@ -4,20 +4,21 @@ import { SigninRequest } from "@types";
 
 import { UserState } from "./types";
 
-function getInitialState(): UserState {
+function getInitialState(state: Partial<UserState>): UserState {
     return {
-        fetching: false,
-        authorized: true,
+        fetching: true,
+        authorized: false,
         user: {
             id: 1,
-            first_name: "Oleg",
-            second_name: "Oleg",
-            display_name: "Oleg",
-            login: "Oleg",
+            first_name: "",
+            second_name: "",
+            display_name: "",
+            login: "",
             avatar: "",
             email: "",
             phone: ""
-        }
+        },
+        ...state
     };
 }
 
@@ -35,33 +36,35 @@ export const loadUser = createAsyncThunk("user/load", () => {
     return api.getUser();
 });
 
-export const userSlice = createSlice({
-    initialState: getInitialState(),
-    name: "user",
-    reducers: {},
-    extraReducers: builder => {
-        builder
-            .addCase(loginUser.fulfilled, (state, action) => {
-                state.fetching = false;
-                state.authorized = true;
-                state.user = action.payload;
-            })
-            .addCase(loadUser.fulfilled, (state, action) => {
-                state.fetching = false;
-                state.authorized = true;
-                state.user = action.payload;
-            })
-            .addCase(loginUser.rejected, state => {
-                state.fetching = false;
-            })
-            .addCase(loadUser.rejected, state => {
-                state.fetching = false;
-            })
-            .addCase(loginUser.pending, state => {
-                state.fetching = true;
-            })
-            .addCase(loadUser.pending, state => {
-                state.fetching = true;
-            });
-    }
-});
+export function createUserSlice(data: Partial<UserState> | undefined = {}) {
+    return createSlice({
+        initialState: getInitialState(data),
+        name: "user",
+        reducers: {},
+        extraReducers: builder => {
+            builder
+                .addCase(loginUser.fulfilled, (state, action) => {
+                    state.fetching = false;
+                    state.authorized = true;
+                    state.user = action.payload;
+                })
+                .addCase(loadUser.fulfilled, (state, action) => {
+                    state.fetching = false;
+                    state.authorized = true;
+                    state.user = action.payload;
+                })
+                .addCase(loginUser.rejected, state => {
+                    state.fetching = false;
+                })
+                .addCase(loadUser.rejected, state => {
+                    state.fetching = false;
+                })
+                .addCase(loginUser.pending, state => {
+                    state.fetching = true;
+                })
+                .addCase(loadUser.pending, state => {
+                    state.fetching = true;
+                });
+        }
+    });
+}

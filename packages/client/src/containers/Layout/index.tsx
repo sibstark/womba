@@ -1,15 +1,16 @@
 import { Anonymous, Protection } from "@containers";
-import { dispatch } from "@redux/store";
 import { getUserAuthorized, loadUser, userInitialization } from "@redux/user";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet } from "react-router-dom";
 
 import Layout from "../../ui/components/Layout";
 import { Routes } from "../router";
+
 import "./styles.scss";
 
 const RootLayout = () => {
+    const dispatch = useDispatch<any>();
     const fetching = useSelector(userInitialization);
     const isAuthorized = useSelector(getUserAuthorized);
 

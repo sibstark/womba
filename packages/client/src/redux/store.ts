@@ -1,15 +1,21 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, EnhancedStore } from "@reduxjs/toolkit";
 
-import { reducer as userReducer } from "./user";
+import { createUserSlice, UserState } from "./user";
 
-const reducer = {
-    user: userReducer
-};
+export type RootState = { user: UserState };
 
-if (typeof window !== "undefined") {
-    delete window.__REDUX_STATE__;
+export let store: EnhancedStore<RootState, any>;
+
+export function createStore(data: Partial<RootState> = {}) {
+    console.log("store", store);
+    if (store) {
+        return store;
+    }
+    const reducer = {
+        user: createUserSlice(data.user).reducer
+    };
+
+    store = configureStore<RootState>({ reducer });
+
+    return store;
 }
-export const store = configureStore({ reducer });
-
-export const dispatch = store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;

@@ -1,9 +1,10 @@
 import fs from "fs";
 import path from "path";
+import * as process from "process";
 
 import cors from "cors";
 import dotenv from "dotenv";
-import express from "express";
+import express, { Request, Response } from "express";
 import { createServer as createViteServer, ViteDevServer } from "vite";
 
 import { isDev, isProduction } from "./env";
@@ -22,7 +23,7 @@ async function startServer() {
     // Use vite's connect instance as middleware. If you use your own
     // express router (express.Router()), you should use router.use
     let vite: ViteDevServer | undefined;
-    const srcPath = path.dirname(require.resolve("client"));
+    const libPath = path.dirname(require.resolve("client"));
     let distPath = "";
 
     if (isProduction()) {
@@ -31,7 +32,7 @@ async function startServer() {
     if (isDev()) {
         vite = await createViteServer({
             server: { middlewareMode: true },
-            root: srcPath,
+            root: libPath,
             appType: "custom"
         });
 
@@ -44,12 +45,12 @@ async function startServer() {
     }
 
     // https://vitejs.dev/guide/ssr.html
-    app.use("*", async (req, res, next) => {
+    app.use("*", async (req: Request, res: Response, next) => {
         const url = req.originalUrl;
 
         try {
             // 1. Read index.html
-            const htmlPath = isProduction() ? distPath : srcPath;
+            const htmlPath = isProduction() ? distPath : libPath;
             let template = fs.readFileSync(path.resolve(htmlPath, "index.html"), "utf-8");
 
             // 2. Apply Vite HTML transforms. This injects the Vite HMR client,
@@ -67,21 +68,36 @@ async function startServer() {
             // 4. render the app HTML. This assumes entry-server.js's exported
             //     `render` function calls appropriate framework SSR APIs,
             //    e.g. ReactDOMServer.renderToString()
+            // const userData = await fetchUserData();
+
+            // console.log(userData);
+            let preloadedState: unknown;
 
             if (isProduction()) {
                 const ssrClientPath = require.resolve("client/ssr-dist/client.cjs");
                 const render = (await import(ssrClientPath)).render;
+                const { html, state } = await render(url, { Cookie: req.headers.cookie });
 
-                appHtml = await render(url);
+                preloadedState = state;
+                appHtml = html;
             }
-            if (isDev()) {
-                const render = (await vite!.ssrLoadModule(path.resolve(srcPath, "ssr.tsx"))).render;
 
-                appHtml = await render(url);
+            if (isDev()) {
+                const render = (await vite!.ssrLoadModule("ssr.tsx")).render;
+                const { html, state } = await render(url, { Cookie: req.headers.cookie });
+
+                preloadedState = state;
+                appHtml = html;
             }
 
             // 5. Inject the app-rendered HTML into the template.
-            const html = template.replace(`<!--ssr-outlet-->`, appHtml);
+            const reduxState = `<script>
+          window.__REDUX_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, "\\u003c")}
+        </script>`;
+
+            const html = template
+                .replace(`<!--ssr-outlet-->`, appHtml)
+                .replace(`<!--redux-outlet-->`, reduxState);
 
             // 6. Send the rendered HTML back.
             res.status(200).set({ "Content-Type": "text/html" }).end(html);
