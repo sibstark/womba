@@ -1,11 +1,11 @@
 import { withProtection } from "@containers";
+import { ButtonsBoard } from "@pages/Game/components/ButtonsBoard";
 import { useFullScreen } from "@utils";
 import { useEffect, useState, useCallback } from "react";
 import { useRef } from "react";
 
-import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
 import { Main } from "./components/Main";
+import { ScoreBoard } from "./components/ScoreBoard";
 
 import debugResolve from "../../logger/debugResolve";
 import "./styles.scss";
@@ -42,15 +42,10 @@ export const GamePage = withProtection(() => {
     }, [score]);
 
     return (
-        <div ref={ref} className="container">
-            <Header
-                score={score}
-                bestScore={bestScore}
-                startNewGame={handleStartNewGame}
-                onFullscreen={onFullscreen}
-            />
+        <div ref={ref} className="game">
+            <ScoreBoard score={score} bestScore={bestScore} />
             <Main setScore={setScore} newGame={newGame} />
-            <Footer />
+            <ButtonsBoard startNewGame={handleStartNewGame} onFullscreen={onFullscreen} />
         </div>
     );
 });

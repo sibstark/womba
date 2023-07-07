@@ -1,7 +1,9 @@
-.container {
+.game {
     display: grid;
     grid-template-rows: repeat(3, max-content);
     gap: 10px;
+    width: 400px;
+
     &:fullscreen {
         background-color: $yellow-color;
         padding: 2rem;
