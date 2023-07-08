@@ -44,10 +44,10 @@ const resolveNotificator = async () => {
                     tag: TAG_GAME_ENDED_NOTIFICATION
                 });
 
-                notificator.addEventListener("ended", resetPermission);
+                notificator.addEventListener("error", resetPermission);
 
                 return () => {
-                    notificator.addEventListener("ended", resetPermission);
+                    notificator.addEventListener("error", resetPermission);
                 };
             }
         }
