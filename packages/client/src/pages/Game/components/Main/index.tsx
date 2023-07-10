@@ -1,6 +1,12 @@
+import { sendScore } from "@redux/leaders";
+import { dispatch } from "@redux/store";
+import { getUser } from "@redux/user";
+import { SendScoreRequest } from "@types";
 import type { Dispatch, SetStateAction } from "react";
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 
+import { RATING_FIELD_NAME } from "../../../../consts/leaders";
 import GameContainer from "../../../../containers/GameContainer";
 import { resolveNotifications } from "../../../../utils/notifications";
 
@@ -8,6 +14,7 @@ import "./styles.scss";
 
 type TMainProps = {
     score: number;
+    bestScore: number;
     newGame: boolean;
     setScore: Dispatch<SetStateAction<number>>;
 };
@@ -17,7 +24,9 @@ type TNotificator = (
     cb: (isAllowedNotify: boolean) => void
 ) => (() => void) | undefined;
 
-export const Main: React.FC<TMainProps> = ({ score, setScore, newGame }) => {
+export const Main: React.FC<TMainProps> = ({ score, bestScore, setScore, newGame }) => {
+    const user = useSelector(getUser);
+
     const [isGameOver, setIsGameOver] = useState<boolean>(false);
     const [isPermissionGranted, setIsPermissionGranted] = useState<boolean>(false);
     const notificatorRef = useRef<TNotificator>();
@@ -29,6 +38,22 @@ export const Main: React.FC<TMainProps> = ({ score, setScore, newGame }) => {
             notificatorRef.current = notifyGameEnd;
         });
     }, []);
+
+    useEffect(() => {
+        if (isGameOver) {
+            const data: SendScoreRequest = {
+                data: {
+                    avatar: user.avatar,
+                    id: user.id,
+                    login: user.login,
+                    womba: bestScore
+                },
+                ratingFieldName: RATING_FIELD_NAME
+            };
+
+            dispatch(sendScore(data));
+        }
+    }, [isGameOver]);
 
     useEffect(() => {
         if (isGameOver) {
