@@ -25,7 +25,6 @@ this.addEventListener("install", event => {
 });
 
 this.addEventListener("fetch", event => {
-    return;
     if (String(event.request.url).indexOf("chrome-extension") + 1 > 0) return;
     event.respondWith(
         caches.match(event.request).then(response => {
