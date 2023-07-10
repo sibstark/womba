@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import { reducer as leadersReducer } from "./leaders";
 import { reducer as userReducer } from "./user";
 
 const reducer = {
+    leaders: leadersReducer,
     user: userReducer
 };
 
