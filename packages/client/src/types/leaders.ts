@@ -16,4 +16,11 @@ export type SendScoreRequest = {
     ratingFieldName: string;
 };
 
-export type Leader = {};
+export type Leader = {
+    data: {
+        id: number;
+        login: string;
+        womba: number;
+        avatar: string;
+    };
+};

@@ -3,6 +3,8 @@ import { dispatch } from "@redux/store";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
+import { Row } from "./components/Row";
+
 import "./styles.scss";
 
 export const LeaderBoard: React.FC = () => {
@@ -18,19 +20,19 @@ export const LeaderBoard: React.FC = () => {
             {isLoading ? (
                 <div>Загрузка</div>
             ) : (
-                <ul className="leader-board">
-                    {leaders.map(leader => {
-                        return (
-                            <li>
-                                {/*
-                        <img src={leader.avatar} />
-                        <p className="leader-board_nickname">{leader.nickName}</p>
-                        <p>{leader.score}</p>
-*/}
-                            </li>
-                        );
-                    })}
-                </ul>
+                <div className="leaders">
+                    <div className="leaders__header">
+                        <div className="leaders__header__cell">Лучшие игроки</div>
+                        <div className="leaders__header__cell">Счет</div>
+                    </div>
+                    {leaders.map(leader => (
+                        <Row
+                            avatar={leader.data.avatar}
+                            login={leader.data.login}
+                            womba={leader.data.womba}
+                        />
+                    ))}
+                </div>
             )}
         </>
     );
