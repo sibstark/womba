@@ -9,7 +9,7 @@ function getInitialState(state: Partial<UserState>): UserState {
         fetching: true,
         authorized: false,
         user: {
-            id: 1,
+            id: 0,
             first_name: "",
             second_name: "",
             display_name: "",

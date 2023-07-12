@@ -11,7 +11,7 @@ export async function fetchUserData(headers: HeadersInit) {
             throw new Error(`Failed to fetch user data: code ${response.status}`);
         }
 
-        return await response.json();
+        return response.json();
     } catch (error) {
         console.error("Error fetching user data:", error);
 
