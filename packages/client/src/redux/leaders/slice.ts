@@ -1,9 +1,9 @@
-import { LeadersApi } from "@api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { GetLeadersRequest, SendScoreRequest } from "@types";
 
 import { LeadersState } from "./types";
 
+import leadersApi from "../../api/leaders-api";
 import { RATING_FIELD_NAME } from "../../consts/leaders";
 
 function getInitialState(): LeadersState {
@@ -20,15 +20,11 @@ export const loadLeaders = createAsyncThunk("leaders/load", async () => {
         ratingFieldName: RATING_FIELD_NAME
     };
 
-    const api = new LeadersApi();
-
-    return await api.getLeaders(data);
+    return await leadersApi.getLeaders(data);
 });
 
 export const sendScore = createAsyncThunk("leaders/add", async (data: SendScoreRequest) => {
-    const api = new LeadersApi();
-
-    return await api.sendScore(data);
+    return await leadersApi.sendScore(data);
 });
 
 export const leadersSlice = createSlice({

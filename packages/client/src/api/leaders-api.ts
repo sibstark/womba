@@ -19,3 +19,5 @@ export class LeadersApi extends BaseAPI {
         });
     }
 }
+
+export default new LeadersApi();
