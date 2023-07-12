@@ -1,24 +1,13 @@
-import { LeaderBoard, withProtection } from "@containers";
-import { Card } from "@ui/components";
+import { withProtection } from "@containers";
 
-const leaders = [
-    {
-        avatar: "https://dummyimage.com/50.jpg",
-        nickName: "Nick_A",
-        score: 50
-    },
-    {
-        avatar: "https://dummyimage.com/50.jpg",
-        nickName: "Nick_B",
-        score: 10
-    }
-];
+import { LeaderBoard } from "../../containers/Leaderboard/LeaderBoard";
+
+import "./styles.scss";
 
 export const LeaderBoardPage = withProtection(() => {
     return (
-        <Card className="login-page">
-            <h3>Лучшие игроки</h3>
-            <LeaderBoard leaders={leaders} />
-        </Card>
+        <div className="leaders-page">
+            <LeaderBoard />
+        </div>
     );
 });

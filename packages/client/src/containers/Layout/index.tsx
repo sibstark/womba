@@ -34,6 +34,9 @@ const RootLayout = () => {
                         </NavLink>
                     </Anonymous>
                     <Protection>
+                        <NavLink className="header_nav__item" to={Routes.LeaderBoard}>
+                            Leaderboard
+                        </NavLink>
                         <NavLink className="header_nav__item" to={Routes.Forum}>
                             Forum
                         </NavLink>

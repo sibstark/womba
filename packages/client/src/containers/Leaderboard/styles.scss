@@ -1,22 +1,25 @@
-$leaderBoardPadding: 5px;
-.leader-board {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+.leaders {
+    display: grid;
+    row-gap: 15px;
+    margin: 0 10%;
     width: 100%;
-    list-style: none;
-    padding: $leaderBoardPadding;
-    margin: 0;
 
-    &_nickname {
-        margin: 0 10px;
-        margin-right: auto;
-    }
+    &__header {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 9.5fr 1.5fr;
 
-    li {
-        display: flex;
-        justify-content: flex-start;
-        padding: $leaderBoardPadding;
-        align-items: center;
+        &__cell {
+            text-transform: uppercase;
+            color: $purple-dark;
+            text-align: center;
+            line-height: 42px;
+            font-weight: bold;
+            font-size: 18px;
+
+            &:first-child {
+                text-align: left;
+            }
+        }
     }
 }
