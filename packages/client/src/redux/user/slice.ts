@@ -1,4 +1,4 @@
-import { AuthAPI, OAuthAPI } from "@api";
+import OAuthAPIinst, { AuthAPI } from "@api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SigninRequest, TOAuthCredentials } from "@types";
 
@@ -39,18 +39,15 @@ export const loadUser = createAsyncThunk("user/load", () => {
 });
 
 export const loadOAuthId = createAsyncThunk("user/oauthid", () => {
-    const api = new OAuthAPI();
-
-    return api.loadOAuthId();
+    return OAuthAPIinst.loadOAuthId();
 });
 
 export const loginUserOAuth = createAsyncThunk(
     "user/loginOauth",
     async (data: TOAuthCredentials) => {
-        const OAuthApi = new OAuthAPI();
         const api = new AuthAPI();
 
-        await OAuthApi.signIn(data);
+        await OAuthAPIinst.signIn(data);
 
         return await api.getUser();
     }

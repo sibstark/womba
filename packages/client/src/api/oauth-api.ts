@@ -17,3 +17,5 @@ export class OAuthAPI extends BaseAPI {
         return this.http.post(`/yandex`, { data: credentials });
     }
 }
+
+export default new OAuthAPI();
