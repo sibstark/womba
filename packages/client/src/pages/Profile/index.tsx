@@ -1,4 +1,5 @@
 import { ProfileForm, withProtection } from "@containers";
+
 import "./styles.scss";
 
 const ProfilePage = () => {
