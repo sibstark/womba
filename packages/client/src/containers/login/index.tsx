@@ -16,7 +16,7 @@ const options = {
     required: ValidationMessage.Required
 };
 const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
-    const OAuthId = useSelector(getOAuthId);
+    const oAuthId = useSelector(getOAuthId);
 
     return (
         <>
@@ -42,11 +42,11 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
                     Авторизоваться
                 </Button>
             </div>
-            {OAuthId && (
+            {oAuthId && (
                 <div className="button-container">
                     <Link
                         className="button--purple w-80 button"
-                        to={`https://oauth.yandex.ru/authorize?response_type=code&client_id=${OAuthId}&redirect_uri=${DEFAULT_REDIRECT_URI}`}
+                        to={`https://oauth.yandex.ru/authorize?response_type=code&client_id=${oAuthId}&redirect_uri=${DEFAULT_REDIRECT_URI}`}
                     >
                         OAuth
                     </Link>

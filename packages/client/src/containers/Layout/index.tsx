@@ -15,11 +15,11 @@ const RootLayout = () => {
         dispatch(loadUser());
     }, [dispatch]);
 
-    const OAuthId = useSelector(getOAuthId);
+    const oAuthId = useSelector(getOAuthId);
 
     useEffect(() => {
         dispatch(loadOAuthId());
-    }, [dispatch, OAuthId]);
+    }, [dispatch, oAuthId]);
 
     const [searchParams] = useSearchParams();
     const code = searchParams.get("code");

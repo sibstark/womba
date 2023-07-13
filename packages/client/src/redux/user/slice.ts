@@ -1,4 +1,4 @@
-import OAuthAPIinst, { AuthAPI } from "@api";
+import { authApi, oAuthApi } from "@api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { SigninRequest, TOAuthCredentials } from "@types";
 
@@ -25,31 +25,27 @@ function getInitialState(): UserState {
 }
 
 export const loginUser = createAsyncThunk("user/login", async (data: SigninRequest) => {
-    const api = new AuthAPI();
+    await authApi.singin(data);
+    const response = await authApi.getUser();
 
-    await api.singin(data);
-
-    return await api.getUser();
+    return response;
 });
 
 export const loadUser = createAsyncThunk("user/load", () => {
-    const api = new AuthAPI();
-
-    return api.getUser();
+    return authApi.getUser();
 });
 
 export const loadOAuthId = createAsyncThunk("user/oauthid", () => {
-    return OAuthAPIinst.loadOAuthId();
+    return oAuthApi.loadOAuthId();
 });
 
 export const loginUserOAuth = createAsyncThunk(
     "user/loginOauth",
     async (data: TOAuthCredentials) => {
-        const api = new AuthAPI();
+        await oAuthApi.signIn(data);
+        const response = await authApi.getUser();
 
-        await OAuthAPIinst.signIn(data);
-
-        return await api.getUser();
+        return response;
     }
 );
 

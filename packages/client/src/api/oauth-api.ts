@@ -4,7 +4,7 @@ import BaseAPI from "./base-api";
 
 import { DEFAULT_REDIRECT_URI } from "../consts/auth";
 
-export class OAuthAPI extends BaseAPI {
+class OAuthAPI extends BaseAPI {
     constructor() {
         super("/oauth");
     }
@@ -17,5 +17,6 @@ export class OAuthAPI extends BaseAPI {
         return this.http.post(`/yandex`, { data: credentials });
     }
 }
+const oAuthApi = new OAuthAPI();
 
-export default new OAuthAPI();
+export { oAuthApi };
