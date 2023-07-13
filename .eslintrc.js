@@ -45,7 +45,7 @@ module.exports = {
             "error",
             {
                 singleline: {
-                    requireLast: true
+                    requireLast: false
                 }
             }
         ],

@@ -28,6 +28,6 @@
         "noEmit": true,
         "jsx": "react-jsx"
     },
-    "include": ["src", "sw-plugin.js"],
+    "include": ["src", "sw-plugin.js", "config.ts"],
     "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -1,5 +1,5 @@
 import { getIsFetching, getLeaders, loadLeaders } from "@redux/leaders";
-import { dispatch } from "@redux/store";
+import { store } from "@redux/store";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -9,7 +9,7 @@ import "./styles.scss";
 
 export const LeaderBoard: React.FC = () => {
     useEffect(() => {
-        dispatch(loadLeaders());
+        store.dispatch(loadLeaders());
     }, []);
 
     const leaders = useSelector(getLeaders);
