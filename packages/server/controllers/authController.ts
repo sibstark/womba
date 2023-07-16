@@ -38,7 +38,10 @@ export const loginController = async (request: Request, response: Response) => {
 
         const token = createToken(user.id);
 
-        response.cookie("forumjwt", token, { httpOnly: true, maxAge: JWT_MAX_AGE * 1000 });
+        response.cookie(`${process.env.JWT_COOKIE_NAME}`, token, {
+            httpOnly: true,
+            maxAge: JWT_MAX_AGE * 1000
+        });
 
         response.status(201).json({ email: user.email, id: user.id });
     } catch (error) {

@@ -9,6 +9,8 @@ const authMiddleware = (request: Request, response: Response, next: NextFunction
     if (token) {
         jwt.verify(token, `${process.env.JWT_SECRET}`, async (error: any, decodedToken: any) => {
             if (error) {
+                response.locals.user = null;
+
                 response.status(403);
             } else {
                 console.log("decodedToken", decodedToken);
@@ -24,6 +26,8 @@ const authMiddleware = (request: Request, response: Response, next: NextFunction
                         response.status(403).json({ error: "User not found" });
                     }
                 } catch (error) {
+                    response.locals.user = null;
+
                     response.status(500).json({ error: "Unexpected server error" });
                 }
             }
