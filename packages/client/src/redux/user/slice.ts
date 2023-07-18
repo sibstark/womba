@@ -1,6 +1,6 @@
 import { AuthAPI } from "@api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { SigninRequest } from "@types";
+import { SigninRequest, SignupRequest } from "@types";
 
 import { UserState } from "./types";
 
@@ -30,6 +30,18 @@ export const loginUser = createAsyncThunk("user/login", async (data: SigninReque
     return await api.getUser();
 });
 
+export const registerUser = createAsyncThunk("user/registration", async (data: SignupRequest) => {
+    const api = new AuthAPI();
+
+    try {
+        await api.signup(data);
+
+        return await api.getUser();
+    } catch (e: any) {
+        alert(e.reason);
+        throw e;
+    }
+});
 export const loadUser = createAsyncThunk("user/load", () => {
     const api = new AuthAPI();
 
@@ -53,13 +65,24 @@ export function createUserSlice(data: Partial<UserState> | undefined = {}) {
                     state.authorized = true;
                     state.user = action.payload;
                 })
+                .addCase(registerUser.fulfilled, (state, action) => {
+                    state.fetching = false;
+                    state.authorized = true;
+                    state.user = action.payload;
+                })
                 .addCase(loginUser.rejected, state => {
+                    state.fetching = false;
+                })
+                .addCase(registerUser.rejected, state => {
                     state.fetching = false;
                 })
                 .addCase(loadUser.rejected, state => {
                     state.fetching = false;
                 })
                 .addCase(loginUser.pending, state => {
+                    state.fetching = true;
+                })
+                .addCase(registerUser.pending, state => {
                     state.fetching = true;
                 })
                 .addCase(loadUser.pending, state => {
