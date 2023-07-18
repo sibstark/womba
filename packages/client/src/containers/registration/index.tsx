@@ -1,3 +1,6 @@
+import { store } from "@redux/store";
+import { registerUser } from "@redux/user";
+import { SignupRequest } from "@types";
 import { Button } from "@ui/components";
 import {
     emailValidation,
@@ -13,18 +16,12 @@ import "./styles.scss";
 
 import { TChildrenArguments, withForm, FormControlInputTemplate } from "../form";
 
-type TRegistrationForm = {
-    name: string;
-    surname: string;
-    email: string;
-    phone: string;
-    login: string;
-    password: string;
+type TRegistrationForm = SignupRequest & {
     confirmPassword: string;
 };
 type RenderRegistrationFormProps = TChildrenArguments<TRegistrationForm>;
-const onSubmit = (values: TRegistrationForm, helpers: RenderRegistrationFormProps) => {
-    console.log(values);
+const onSubmit = (data: TRegistrationForm) => {
+    store.dispatch(registerUser(data));
 };
 
 const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
@@ -35,7 +32,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
             <FormControlInputTemplate<TRegistrationForm>
                 {...props}
                 placeholder="Enter your name"
-                name="name"
+                name="first_name"
                 title="Name"
                 options={{
                     required: ValidationMessage.Required,
@@ -45,7 +42,7 @@ const RenderRegistrationForm: React.FC<RenderRegistrationFormProps> = props => {
             <FormControlInputTemplate<TRegistrationForm>
                 {...props}
                 placeholder="Enter your surname"
-                name="surname"
+                name="second_name"
                 title="Surname"
                 options={{
                     required: ValidationMessage.Required,
@@ -132,8 +129,8 @@ export const RegistrationForm = withForm<TRegistrationForm>(
         onValid: onSubmit,
         props: {
             defaultValues: {
-                name: "",
-                surname: "",
+                first_name: "",
+                second_name: "",
                 email: "",
                 phone: "",
                 login: "",
