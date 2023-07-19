@@ -10,7 +10,7 @@ import { createServer as createViteServer, ViteDevServer } from "vite";
 
 import { isDev, isProduction } from "./env";
 import apiRoutes from "./routes/apiRoutes";
-// import connection from './services/SequelizeClient';
+import connection from "./services/SequelizeClient";
 import { fetchUserData } from "./user";
 
 dotenv.config();
@@ -119,7 +119,7 @@ async function startServer() {
     });
 
     try {
-        // await connection.sync();
+        await connection.sync();
 
         app.listen(port, () => {
             console.log("process.env", process.env);
