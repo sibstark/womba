@@ -119,7 +119,8 @@ async function startServer() {
     });
 
     try {
-        await connection.sync();
+        await connection.authenticate();
+        await connection.sync({ force: true });
 
         app.listen(port, () => {
             console.log("process.env", process.env);

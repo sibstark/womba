@@ -1,17 +1,24 @@
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
 
-import { dbHost, dbUser, dbPassword, dbName } from "../env";
+import { dbUser, dbPassword, dbName } from "../env";
+import Comment from "../models/Comment";
+import Post from "../models/Post";
+import Reaction from "../models/Reaction";
+import Reply from "../models/Reply";
+import User, { userBeforeCreate } from "../models/User";
 
 const sequelizeOptions: SequelizeOptions = {
     database: dbName,
     dialect: "postgres",
-    host: dbHost,
-    logging: false,
-    models: [__dirname + "../models/**.ts"],
+    host: "localhost",
+    logging: true,
+    models: [User, Comment, Post, Reaction, Reply],
     password: dbPassword,
     username: dbUser
 };
 
 const connection = new Sequelize(sequelizeOptions);
+
+userBeforeCreate();
 
 export default connection;

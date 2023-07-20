@@ -37,7 +37,7 @@ class User extends Model {
                 msg: "Password is required"
             },
             len: {
-                args: [20, 5],
+                args: [5, 20],
                 msg: "Password should be from 5 to 20 characters long"
             }
         }
@@ -61,10 +61,14 @@ class User extends Model {
     }
 }
 
-User.beforeCreate(async user => {
-    const salt = await bcrypt.genSalt();
+export const userBeforeCreate = () => {
+    User.beforeCreate(async user => {
+        const salt = await bcrypt.genSalt();
 
-    user.password = await bcrypt.hash(user.password, salt);
-});
+        const hashedPassword = await bcrypt.hash(user.password, salt);
+
+        user.password = hashedPassword;
+    });
+};
 
 export default User;
