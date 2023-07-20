@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-import { Table, Model, Column, DataType, ForeignKey } from "sequelize-typescript";
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
 
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import Reply from "./Reply";
@@ -36,6 +36,11 @@ class Reaction extends Model {
         type: DataType.INTEGER
     })
     replyId!: number;
+
+    @BelongsTo(() => {
+        return Reply;
+    })
+    reply!: Reply;
 }
 
 export default Reaction;

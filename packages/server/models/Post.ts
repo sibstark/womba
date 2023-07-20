@@ -1,7 +1,24 @@
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-import { Table, Model, Column, DataType, ForeignKey } from "sequelize-typescript";
+import {
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+    Table,
+    Model,
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+    Column,
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+    DataType,
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+    ForeignKey,
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+    BelongsTo,
+    // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+    HasMany
+} from "sequelize-typescript";
 
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+import Comment from "./Comment";
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+import Reply from "./Reply";
 import User from "./User";
 
 @Table({
@@ -27,6 +44,21 @@ class Post extends Model {
         type: DataType.INTEGER
     })
     userId!: number;
+
+    @BelongsTo(() => {
+        return User;
+    })
+    user!: User;
+
+    @HasMany(() => {
+        return Comment;
+    })
+    comment!: Comment;
+
+    @HasMany(() => {
+        return Reply;
+    })
+    reply!: Reply;
 }
 
 export default Post;

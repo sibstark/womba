@@ -1,6 +1,13 @@
 import bcrypt from "bcrypt";
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-import { Table, Model, Column, DataType } from "sequelize-typescript";
+import { Table, Model, Column, DataType, HasMany } from "sequelize-typescript";
+
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+import Comment from "./Comment";
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+import Post from "./Post";
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+import Reply from "./Reply";
 
 @Table({
     tableName: "users"
@@ -43,6 +50,21 @@ class User extends Model {
         }
     })
     password!: string;
+
+    @HasMany(() => {
+        return Post;
+    })
+    post!: Post;
+
+    @HasMany(() => {
+        return Comment;
+    })
+    comment!: Comment;
+
+    @HasMany(() => {
+        return Reply;
+    })
+    reply!: Reply;
 
     static async login({ email, password }: { email: string; password: string }) {
         const user = await this.findOne({ where: { email } });
