@@ -1,12 +1,13 @@
 import type { Request, Response } from "express";
 
+import Comment from "../models/Comment";
 import Post from "../models/Post";
+import Reaction from "../models/Reaction";
+import Reply from "../models/Reply";
 
 export const getPosts = async (_request: Request, response: Response) => {
-    const { user } = response.locals;
-
     try {
-        const posts = await Post.findAll({ where: { userId: user.id } });
+        const posts = await Post.findAll();
 
         response.status(201).json({ posts });
     } catch (error) {
@@ -16,10 +17,14 @@ export const getPosts = async (_request: Request, response: Response) => {
 
 export const getPost = async (request: Request, response: Response) => {
     const postId = request.params["id"];
-    const { user } = response.locals;
 
     try {
-        const post = await Post.findOne({ where: { id: postId, userId: user.id } });
+        const post = await Post.findOne({
+            include: [
+                { include: [{ include: [{ model: Reaction }], model: Reply }], model: Comment }
+            ],
+            where: { id: postId }
+        });
 
         response.status(201).json({ post });
     } catch (error) {
