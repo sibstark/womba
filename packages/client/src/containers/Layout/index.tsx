@@ -1,8 +1,14 @@
 import { Anonymous, Protection } from "@containers";
-import { dispatch } from "@redux/store";
-import { loadUser, userInitialization, loadOAuthId, loginUserOAuth, getOAuthId } from "@redux/user";
+import {
+    getUserAuthorized,
+    loadUser,
+    userInitialization,
+    loadOAuthId,
+    loginUserOAuth,
+    getOAuthId
+} from "@redux/user";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Outlet, useSearchParams } from "react-router-dom";
 
 import { DEFAULT_REDIRECT_URI } from "../../consts/auth";
@@ -11,6 +17,8 @@ import { Routes } from "../router";
 import "./styles.scss";
 
 const RootLayout = () => {
+    const dispatch = useDispatch<any>();
+
     useEffect(() => {
         dispatch(loadUser());
     }, [dispatch]);
@@ -31,6 +39,13 @@ const RootLayout = () => {
     }, [dispatch, code]);
 
     const fetching = useSelector(userInitialization);
+    const isAuthorized = useSelector(getUserAuthorized);
+
+    useEffect(() => {
+        if (!isAuthorized) {
+            dispatch(loadUser());
+        }
+    }, [isAuthorized]);
 
     if (fetching) {
         return <div>Загрузка</div>;

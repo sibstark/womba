@@ -1,4 +1,4 @@
-import { dispatch } from "@redux/store";
+import { store } from "@redux/store";
 import { loginUser, getOAuthId } from "@redux/user";
 import { SigninRequest } from "@types";
 import { Button } from "@ui/components";
@@ -59,7 +59,7 @@ const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
 export const LoginForm = withForm<SigninRequest>(
     {
         onValid: data => {
-            dispatch(loginUser(data));
+            store.dispatch(loginUser(data));
         },
         props: {
             defaultValues: {

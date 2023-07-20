@@ -1,5 +1,5 @@
 import { sendScore } from "@redux/leaders";
-import { dispatch } from "@redux/store";
+import { store } from "@redux/store";
 import { getUser } from "@redux/user";
 import { SendScoreRequest } from "@types";
 import type { Dispatch, SetStateAction } from "react";
@@ -51,7 +51,7 @@ export const Main: React.FC<TMainProps> = ({ score, bestScore, setScore, newGame
                 ratingFieldName: RATING_FIELD_NAME
             };
 
-            dispatch(sendScore(data));
+            store.dispatch(sendScore(data));
         }
     }, [isGameOver]);
 

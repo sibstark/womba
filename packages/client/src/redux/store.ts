@@ -1,14 +1,19 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, EnhancedStore } from "@reduxjs/toolkit";
 
-import { reducer as leadersReducer } from "./leaders";
-import { reducer as userReducer } from "./user";
+import { LeadersState, reducer as leadersReducer } from "./leaders";
+import { createUserSlice, UserState } from "./user";
 
-const reducer = {
-    leaders: leadersReducer,
-    user: userReducer
-};
+export type RootState = { user: UserState; leaders: LeadersState };
 
-export const store = configureStore({ reducer });
+export let store: EnhancedStore<RootState, any>;
 
-export const dispatch = store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export function createStore(data: Partial<RootState> = {}) {
+    const reducer = {
+        leaders: leadersReducer,
+        user: createUserSlice(data.user).reducer
+    };
+
+    store = configureStore<RootState>({ reducer });
+
+    return store;
+}

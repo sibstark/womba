@@ -1,6 +1,4 @@
-import { withProtection } from "@containers";
-
-import { LeaderBoard } from "../../containers/Leaderboard/LeaderBoard";
+import { withProtection, LeaderBoard } from "@containers";
 
 import "./styles.scss";
 

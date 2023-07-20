@@ -8,15 +8,14 @@ import ProfilePage from "@pages/Profile";
 import { RegistrationPage } from "@pages/registration";
 import { RulesPage } from "@pages/rules";
 import { StartPage } from "@pages/start";
-import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom";
+import { Routes as RoutesRoot, Route } from "react-router-dom";
 
 import { Routes } from "./routes";
 
 import Error from "../error";
 import Layout from "../Layout";
-
-const router = createBrowserRouter(
-    createRoutesFromElements(
+export const Root = () => (
+    <RoutesRoot>
         <Route element={<Layout />}>
             <Route index element={<RulesPage />} />
             <Route path={Routes.Login} element={<LoginPage />} />
@@ -31,8 +30,7 @@ const router = createBrowserRouter(
             <Route path={Routes.Game} element={<GamePage />} />
             <Route path="*" element={<Error />} />
         </Route>
-    )
+    </RoutesRoot>
 );
 
 export * from "./routes";
-export default router;
