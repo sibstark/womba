@@ -27,3 +27,7 @@ export class AuthAPI extends BaseAPI {
         return this.http.get<User>("/user");
     }
 }
+
+const authApi = new AuthAPI();
+
+export { authApi };

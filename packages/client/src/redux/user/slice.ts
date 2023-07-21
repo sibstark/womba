@@ -1,6 +1,6 @@
-import { AuthAPI } from "@api";
+import { authApi, oAuthApi } from "@api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { SigninRequest, SignupRequest } from "@types";
+import { SigninRequest, TOAuthCredentials, SignupRequest } from "@types";
 
 import { UserState } from "./types";
 
@@ -18,35 +18,49 @@ function getInitialState(state: Partial<UserState>): UserState {
             email: "",
             phone: ""
         },
+        OAuthId: {
+            service_id: null
+        },
         ...state
     };
 }
 
 export const loginUser = createAsyncThunk("user/login", async (data: SigninRequest) => {
-    const api = new AuthAPI();
+    await authApi.singin(data);
+    const response = await authApi.getUser();
 
-    await api.singin(data);
-
-    return await api.getUser();
+    return response;
 });
 
 export const registerUser = createAsyncThunk("user/registration", async (data: SignupRequest) => {
-    const api = new AuthAPI();
+    // const api = new AuthAPI();
 
     try {
-        await api.signup(data);
+        await authApi.signup(data);
 
-        return await api.getUser();
+        return await authApi.getUser();
     } catch (e: any) {
         alert(e.reason);
         throw e;
     }
 });
 export const loadUser = createAsyncThunk("user/load", () => {
-    const api = new AuthAPI();
-
-    return api.getUser();
+    return authApi.getUser();
 });
+
+export const loadOAuthId = createAsyncThunk("user/oauthid", () => {
+    return oAuthApi.loadOAuthId();
+});
+
+export const loginUserOAuth = createAsyncThunk(
+    "user/loginOauth",
+    async (data: TOAuthCredentials) => {
+        await oAuthApi.signIn(data);
+        const response = await authApi.getUser();
+
+        return response;
+    }
+);
 
 export function createUserSlice(data: Partial<UserState> | undefined = {}) {
     return createSlice({
@@ -70,6 +84,15 @@ export function createUserSlice(data: Partial<UserState> | undefined = {}) {
                     state.authorized = true;
                     state.user = action.payload;
                 })
+                .addCase(loadOAuthId.fulfilled, (state, action) => {
+                    state.fetching = false;
+                    state.OAuthId = action.payload;
+                })
+                .addCase(loginUserOAuth.fulfilled, (state, action) => {
+                    state.fetching = false;
+                    state.authorized = true;
+                    state.user = action.payload;
+                })
                 .addCase(loginUser.rejected, state => {
                     state.fetching = false;
                 })
@@ -79,6 +102,12 @@ export function createUserSlice(data: Partial<UserState> | undefined = {}) {
                 .addCase(loadUser.rejected, state => {
                     state.fetching = false;
                 })
+                .addCase(loadOAuthId.rejected, state => {
+                    state.fetching = false;
+                })
+                .addCase(loginUserOAuth.rejected, state => {
+                    state.fetching = false;
+                })
                 .addCase(loginUser.pending, state => {
                     state.fetching = true;
                 })
@@ -86,6 +115,12 @@ export function createUserSlice(data: Partial<UserState> | undefined = {}) {
                     state.fetching = true;
                 })
                 .addCase(loadUser.pending, state => {
+                    state.fetching = true;
+                })
+                .addCase(loadOAuthId.pending, state => {
+                    state.fetching = true;
+                })
+                .addCase(loginUserOAuth.pending, state => {
                     state.fetching = true;
                 });
         }
