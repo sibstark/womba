@@ -18,16 +18,12 @@ RUN rm -rf /app/packages/server/dist/ && yarn build:server
 
 FROM node:$NODE_VERSION-buster-slim as production
 WORKDIR /app
-
 RUN apt-get update && apt-get install -y bash
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
-COPY --from=builder /app/packages/client/ /app/node_modules/client/
-COPY --from=builder /app/packages/client/ /client/
 COPY --from=builder /app/srv.js /app/srv.js
-
 RUN yarn install --production=true
-
+COPY --from=builder /app/packages/client /app/node_modules
 EXPOSE $SERVER_PORT
 # CMD [ "node", "/app/index.js" ]
 CMD ["node", "/app/srv.js"]
