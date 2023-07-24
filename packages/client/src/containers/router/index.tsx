@@ -7,7 +7,6 @@ import { LoginPage } from "@pages/login";
 import ProfilePage from "@pages/Profile";
 import { RegistrationPage } from "@pages/registration";
 import { RulesPage } from "@pages/rules";
-import { StartPage } from "@pages/start";
 import { Routes as RoutesRoot, Route } from "react-router-dom";
 
 import { Routes } from "./routes";
@@ -23,7 +22,6 @@ export const Root = () => (
             <Route path={Routes.Registration} element={<RegistrationPage />} />
             <Route path={Routes.Profile} element={<ProfilePage />} />
             <Route path={Routes.LeaderBoard} element={<LeaderBoardPage />} />
-            <Route path={Routes.Start} element={<StartPage />} />
             <Route index path={Routes.Rules} element={<RulesPage />} />
             <Route path={Routes.ApplicationError} element={<ApplicationErrorPage />} />
             <Route path={Routes.ServerError} element={<ServerErrorPage />} />
