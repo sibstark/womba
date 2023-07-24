@@ -87,5 +87,8 @@ export const loginController = async (request: Request, response: Response) => {
 };
 
 export const logoutController = async (_request: Request, response: Response) => {
-    response.cookie(`${process.env.JWT_COOKIE_NAME}`, "", { maxAge: 1 }).status(201);
+    response
+        .cookie(`${process.env.JWT_COOKIE_NAME}`, "", { maxAge: 1 })
+        .status(201)
+        .json({ logout: "OK" });
 };
