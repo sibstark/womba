@@ -19,10 +19,6 @@ const sequelizeOptions: SequelizeOptions = {
 
 const connection = new Sequelize(sequelizeOptions);
 
-connection.addHook("beforeFind", options => {
-    console.log("Executing SQL query:", options?.plain);
-});
-
 userBeforeCreate();
 
 export default connection;
