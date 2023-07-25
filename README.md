@@ -45,3 +45,9 @@ PGADMIN_DEFAULT_EMAIL=admin@womba.com - имя пользователя
 PGADMIN_DEFAULT_PASSWORD=admin - пароль
 PGADMIN_LISTEN_PORT=80 - порт внутри контейнера
 PGADMIN_EXTERNAL_LISTEN_PORT=8080 - порт снаружи
+
+
+#### memoryleaks
+
+При тестировании приложения на учтечки памяти, учтечек не было обнаружено
+![img.png](img.png)
