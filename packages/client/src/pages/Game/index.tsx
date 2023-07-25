@@ -34,6 +34,7 @@ export const GamePage = withProtection(() => {
     const [newGame, setNewGame] = useState(false);
 
     const user = useSelector(getUser);
+    const [isPermissionGranted, setIsPermissionGranted] = useState<boolean>(false);
     const [isGameOver, setIsGameOver] = useState<boolean>(false);
     const notificatorRef = useRef<TNotificator>();
 
@@ -53,17 +54,23 @@ export const GamePage = withProtection(() => {
     }, [startNewGame]);
 
     const handleGameOver = useCallback(() => {
-        const message = `Game is over! Your score is ${score}`;
-
-        if (notificatorRef.current) {
-            // @ts-ignore
-            notificatorRef.current(message, () => {
-                /**/
-            });
-        }
         setIsGameOver(true);
         setNewGame(false);
-    }, [score]);
+    }, []);
+
+    useEffect(() => {
+        if (isGameOver) {
+            const message = `Game is over! Your score is ${score}`;
+
+            if (notificatorRef.current) {
+                notificatorRef.current(message, setIsPermissionGranted);
+            }
+
+            if (!isPermissionGranted) {
+                alert(message);
+            }
+        }
+    }, [isGameOver, isPermissionGranted, score]);
 
     useEffect(() => {
         if (score > bestScore) {
