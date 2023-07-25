@@ -1,24 +1,11 @@
-import { Card } from '@ui/components'
-import { LeaderBoard } from '@containers'
+import { withProtection, LeaderBoard } from "@containers";
 
-const leaders = [
-  {
-    avatar: 'https://dummyimage.com/50.jpg',
-    nickName: 'Nick_A',
-    score: 50,
-  },
-  {
-    avatar: 'https://dummyimage.com/50.jpg',
-    nickName: 'Nick_B',
-    score: 10,
-  },
-]
+import "./styles.scss";
 
-export const LeaderBoardPage = () => {
-  return (
-    <Card className="login-page">
-      <h3>Лучшие игроки</h3>
-      <LeaderBoard leaders={leaders} />
-    </Card>
-  )
-}
+export const LeaderBoardPage = withProtection(() => {
+    return (
+        <div className="leaders-page">
+            <LeaderBoard />
+        </div>
+    );
+});

@@ -1,53 +1,130 @@
-import { useEffect, useState, useCallback } from 'react'
-import debugResolve from '../../logger/debugResolve'
-import { Header } from './components/Header'
-import { Main } from './components/Main'
-import { Footer } from './components/Footer'
-import { useRef } from 'react'
-import { useFullScreen } from '@utils'
-import './styles.scss'
+import { withProtection } from "@containers";
+import { sendScore } from "@redux/leaders";
+import { store } from "@redux/store";
+import { getUser } from "@redux/user";
+import { SendScoreRequest } from "@types";
+import { Button } from "@ui/components";
+import { useFullScreen, useFullscreenStatus } from "@utils";
+import classnames from "classnames";
+import React, { useEffect, useState, useCallback } from "react";
+import { useRef } from "react";
+import { useSelector } from "react-redux";
 
-const debug = debugResolve('GamePage')
+import { ScoreBoard } from "./components/ScoreBoard";
 
-export const GamePage = () => {
-  const ref = useRef<HTMLDivElement>(null)
-  const { onFullscreen } = useFullScreen(ref)
-  const [score, setScore] = useState(0)
-  const [bestScore, setBestScore] = useState(0)
-  const [newGame, setNewGame] = useState(false)
+import { RATING_FIELD_NAME } from "../../consts/leaders";
+import GameContainer, { GameForwardProps } from "../../containers/GameContainer";
+import debugResolve from "../../logger/debugResolve";
+import { resolveNotifications } from "../../utils/notifications";
+import "./styles.scss";
 
-  const startNewGame = useCallback(() => {
-    setNewGame(true)
+const debug = debugResolve("GamePage");
 
-    setTimeout(() => {
-      setNewGame(false)
-    }, 100)
-  }, [])
+type TNotificator = (
+    body: string,
+    cb: (isAllowedNotify: boolean) => void
+) => (() => void) | undefined;
+export const GamePage = withProtection(() => {
+    const gameRef = useRef<GameForwardProps>(null);
+    const ref = useRef<HTMLDivElement>(null);
+    const { onFullscreen } = useFullScreen(ref);
+    const isFullscreen = useFullscreenStatus();
+    const [score, setScore] = useState(0);
+    const [bestScore, setBestScore] = useState(0);
+    const [newGame, setNewGame] = useState(false);
 
-  const handleStartNewGame = useCallback(() => {
-    debug('handleStartNewGame')
+    const user = useSelector(getUser);
+    const [isGameOver, setIsGameOver] = useState<boolean>(false);
+    const notificatorRef = useRef<TNotificator>();
 
-    setScore(0)
+    const startNewGame = useCallback(() => {
+        setNewGame(true);
+        setIsGameOver(false);
 
-    startNewGame()
-  }, [])
+        gameRef.current?.start();
+    }, []);
 
-  useEffect(() => {
-    if (score > bestScore) {
-      setBestScore(score)
-    }
-  }, [score])
+    const handleStartNewGame = useCallback(() => {
+        debug("handleStartNewGame");
 
-  return (
-    <div ref={ref} className="container">
-      <Header
-        score={score}
-        bestScore={bestScore}
-        startNewGame={handleStartNewGame}
-        onFullscreen={onFullscreen}
-      />
-      <Main setScore={setScore} newGame={newGame} />
-      <Footer />
-    </div>
-  )
-}
+        setScore(0);
+
+        startNewGame();
+    }, [startNewGame]);
+
+    const handleGameOver = useCallback(() => {
+        const message = `Game is over! Your score is ${score}`;
+
+        if (notificatorRef.current) {
+            // @ts-ignore
+            notificatorRef.current(message, () => {
+                /**/
+            });
+        }
+        setIsGameOver(true);
+        setNewGame(false);
+    }, [score]);
+
+    useEffect(() => {
+        if (score > bestScore) {
+            setBestScore(score);
+        }
+    }, [score, bestScore]);
+
+    useEffect(() => {
+        if (isGameOver) {
+            const data: SendScoreRequest = {
+                data: {
+                    avatar: user.avatar,
+                    id: user.id,
+                    login: user.login,
+                    womba: bestScore
+                },
+                ratingFieldName: RATING_FIELD_NAME
+            };
+
+            store.dispatch(sendScore(data));
+        }
+    }, [isGameOver, bestScore]);
+
+    useEffect(() => {
+        resolveNotifications().then(notificator => {
+            const { notifyGameEnd } = notificator;
+
+            notificatorRef.current = notifyGameEnd;
+        });
+        gameRef.current?.start();
+    }, []);
+
+    return (
+        <div ref={ref} className="game">
+            <ScoreBoard score={score} bestScore={bestScore} />
+            <div className={classnames("game-filter", { "game-filter--off": newGame })}>
+                <div className="game-window__filter" />
+                <GameContainer
+                    ref={gameRef}
+                    height="400px"
+                    width="400px"
+                    setScore={setScore}
+                    onGameOver={handleGameOver}
+                />
+            </div>
+            {isGameOver && <div className="game-over">It's over! Your score is {score}</div>}
+            {!newGame && (
+                <Button
+                    className="buttonsBoard__button buttonsBoard__button--start"
+                    onClick={handleStartNewGame}
+                >
+                    Start game
+                </Button>
+            )}
+            <div className="buttonsBoard">
+                {!isFullscreen && (
+                    <Button className="buttonsBoard__button" onClick={onFullscreen}>
+                        Full screen
+                    </Button>
+                )}
+            </div>
+        </div>
+    );
+});

@@ -1,68 +1,72 @@
-import { Button, FormControl } from '@ui/components'
-import { FormControlInputTemplate, TChildrenArguments, withForm } from '../form'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Routes } from '../Router'
-import { authController } from '@controllers'
-import { ValidationMessage } from '@utils'
+import { store } from "@redux/store";
+import { loginUser, getOAuthId } from "@redux/user";
+import { SigninRequest } from "@types";
+import { Button } from "@ui/components";
+import { ValidationMessage } from "@utils";
+import React from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
-type TLoginForm = {
-  login: string
-  password: string
-}
-type RenderLoginFormProps = TChildrenArguments<TLoginForm>
-const onSubmit = (values: TLoginForm, helpers: RenderLoginFormProps) => {
-  authController.signin(values)
-  console.log(values)
-}
+import { DEFAULT_REDIRECT_URI } from "../../consts/auth";
+import { FormControlInputTemplate, TChildrenArguments, withForm } from "../form";
+import "./styles.scss";
 
+type RenderLoginFormProps = TChildrenArguments<SigninRequest>;
+const options = {
+    required: ValidationMessage.Required
+};
 const RenderLoginForm: React.FC<RenderLoginFormProps> = props => {
-  const { formState } = props
-  return (
-    <>
-      <FormControlInputTemplate<TLoginForm>
-        {...props}
-        title="Логин"
-        placeholder="Логин"
-        name="login"
-        options={{
-          required: ValidationMessage.Required,
-        }}
-      />
-      <FormControlInputTemplate<TLoginForm>
-        {...props}
-        title="Пароль"
-        placeholder="Пароль"
-        name="password"
-        options={{
-          required: ValidationMessage.Required,
-        }}
-        inputProps={{
-          type: 'password',
-        }}
-      />
-      <FormControl>
-        <Link to={Routes.Registration}>У вас нет аккаунта? Регистриация</Link>
-      </FormControl>
-      <Button
-        type="submit"
-        className="button--blue w-100"
-        disabled={formState.isSubmitting}>
-        Авторизоваться
-      </Button>
-    </>
-  )
-}
+    const oAuthId = useSelector(getOAuthId);
 
-export const LoginForm = withForm<TLoginForm>(
-  {
-    onValid: onSubmit,
-    props: {
-      defaultValues: {
-        login: '',
-        password: '',
-      },
+    return (
+        <>
+            <FormControlInputTemplate<SigninRequest>
+                {...props}
+                title="Логин"
+                placeholder="Enter your login"
+                name="login"
+                options={options}
+            />
+            <FormControlInputTemplate<SigninRequest>
+                {...props}
+                title="Password"
+                placeholder="Enter your password"
+                name="password"
+                options={options}
+                inputProps={{
+                    type: "password"
+                }}
+            />
+            <div className="button-container">
+                <Button type="submit" className="button--purple w-80">
+                    Авторизоваться
+                </Button>
+            </div>
+            {oAuthId && (
+                <div className="button-container">
+                    <Link
+                        className="button--purple w-80 button"
+                        to={`https://oauth.yandex.ru/authorize?response_type=code&client_id=${oAuthId}&redirect_uri=${DEFAULT_REDIRECT_URI}`}
+                    >
+                        OAuth
+                    </Link>
+                </div>
+            )}
+        </>
+    );
+};
+
+export const LoginForm = withForm<SigninRequest>(
+    {
+        onValid: data => {
+            store.dispatch(loginUser(data));
+        },
+        props: {
+            defaultValues: {
+                login: "",
+                password: ""
+            }
+        }
     },
-  },
-  RenderLoginForm
-)
+    RenderLoginForm
+);

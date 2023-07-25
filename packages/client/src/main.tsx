@@ -1,13 +1,26 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import Root from './containers/Root/Root'
-import * as serviceWorker from './utils/sw-register'
-import './index.scss'
+import { createStore } from "@redux/store";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Provider } from "react-redux";
+import { BrowserRouter } from "react-router-dom";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <Root />
-  </React.StrictMode>
-)
+import { Root } from "./containers/router";
+import * as serviceWorker from "./utils/sw-register";
+import "./index.scss";
 
-serviceWorker.startServiceWorker()
+const store = createStore(window.__REDUX_STATE__);
+
+delete window.__REDUX_STATE__;
+
+ReactDOM.hydrateRoot(
+    document.getElementById("root") as HTMLElement,
+    <React.StrictMode>
+        <Provider store={store}>
+            <BrowserRouter>
+                <Root />
+            </BrowserRouter>
+        </Provider>
+    </React.StrictMode>
+);
+
+serviceWorker.startServiceWorker();
