@@ -81,7 +81,7 @@ class Reply extends Model {
     @HasMany(() => {
         return Reaction;
     })
-    reaction!: Reaction;
+    reactions!: Reaction;
 }
 
 export default Reply;

@@ -21,7 +21,14 @@ export const getPost = async (request: Request, response: Response) => {
     try {
         const post = await Post.findOne({
             include: [
-                { include: [{ include: [{ model: Reaction }], model: Reply }], model: Comment }
+                {
+                    include: [
+                        { include: [{ model: Reaction }], model: Reply },
+                        { model: Reaction }
+                    ],
+                    model: Comment
+                },
+                { model: Reaction }
             ],
             where: { id: postId }
         });

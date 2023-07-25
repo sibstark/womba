@@ -17,6 +17,7 @@ import {
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import Post from "./Post";
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+import Reaction from "./Reaction";
 import Reply from "./Reply";
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import User from "./User";
@@ -67,6 +68,11 @@ class Comment extends Model {
         return Reply;
     })
     reply!: Reply;
+
+    @HasMany(() => {
+        return Reaction;
+    })
+    reactions!: Reaction;
 }
 
 export default Comment;
