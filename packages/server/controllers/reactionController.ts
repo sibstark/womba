@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { WhereOptions } from "sequelize/types/model";
 
 import Reaction from "../models/Reaction";
 
@@ -53,12 +54,26 @@ export const getReactions = async (request: Request, response: Response) => {
     const { user } = response.locals;
 
     try {
+        const whereCondition: WhereOptions<Reaction> = { userId: user.id };
+
+        if (typeof commentId === "string") {
+            whereCondition.commentId = commentId;
+        }
+
+        if (typeof postId === "string") {
+            whereCondition.postId = postId;
+        }
+
+        if (typeof replyId === "string") {
+            whereCondition.replyId = replyId;
+        }
+
         const reactions = await Reaction.findAll({
-            where: { commentId, postId, replyId, userId: user.id }
+            where: whereCondition
         });
 
         response.status(201).json({ reactions });
     } catch (error) {
-        response.status(500).json({ error: "Failed to delete reaction" });
+        response.status(500).json({ error: "Failed to get reactions" });
     }
 };
