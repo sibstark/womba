@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo, Index } from "sequelize-typescript";
 
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+import Comment from "./Comment";
+import Post from "./Post";
 import Reply from "./Reply";
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import User from "./User";
@@ -29,18 +30,56 @@ class Reaction extends Model {
     })
     userId!: number;
 
+    // reply
+    @Index
     @ForeignKey(() => {
         return Reply;
     })
     @Column({
-        type: DataType.INTEGER
+        type: DataType.INTEGER,
+        allowNull: true
     })
-    replyId!: number;
+    replyId?: number;
 
-    @BelongsTo(() => {
-        return Reply;
+    @BelongsTo(() => Reply, {
+        foreignKey: "replyId",
+        constraints: false // Make the association optional
     })
-    reply!: Reply;
+    reply?: Reply;
+
+    // post
+    @Index
+    @ForeignKey(() => {
+        return Post;
+    })
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: true
+    })
+    postId?: number;
+
+    @BelongsTo(() => Post, {
+        foreignKey: "postId",
+        constraints: false // Make the association optional
+    })
+    post?: Post;
+
+    // comment
+    @Index
+    @ForeignKey(() => {
+        return Comment;
+    })
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: true
+    })
+    commentId?: number;
+
+    @BelongsTo(() => Comment, {
+        foreignKey: "commentId",
+        constraints: false // Make the association optional
+    })
+    comment?: Comment;
 }
 
 export default Reaction;

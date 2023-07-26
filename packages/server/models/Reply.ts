@@ -78,10 +78,15 @@ class Reply extends Model {
     })
     comment!: Comment;
 
-    @HasMany(() => {
-        return Reaction;
-    })
-    reaction!: Reaction;
+    @HasMany(
+        () => {
+            return Reaction;
+        },
+        {
+            onDelete: "CASCADE"
+        }
+    )
+    reactions!: Reaction;
 }
 
 export default Reply;
