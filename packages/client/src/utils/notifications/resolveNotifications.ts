@@ -47,7 +47,7 @@ const resolveNotificator = async () => {
                 notificator.addEventListener("error", resetPermission);
 
                 return () => {
-                    notificator.addEventListener("error", resetPermission);
+                    notificator.removeEventListener("error", resetPermission);
                 };
             }
         }
