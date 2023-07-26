@@ -3,20 +3,17 @@ import { WhereOptions } from "sequelize/types/model";
 
 import Reaction from "../models/Reaction";
 
+function filterChecker(postId: unknown, replyId: unknown, commentId: unknown) {
+    return [postId, replyId, commentId].filter(i => !!i).length === 1;
+}
 export const createReaction = async (request: Request, response: Response) => {
     const { reaction, replyId, commentId, postId } = request.body;
 
-    const belongingError = "Reaction can only belong to one entity";
+    if (!filterChecker(postId, replyId, commentId)) {
+        response.status(500).json({ error: "Reaction can only belong to one entity" });
+        // Have got Error: Can't render headers after they are sent to the client if don't return
 
-    if (replyId && (commentId || postId)) {
-        response.status(500).json({ error: belongingError });
-    }
-    if (commentId && (replyId || postId)) {
-        response.status(500).json({ error: belongingError });
-    }
-
-    if (postId && (replyId || commentId)) {
-        response.status(500).json({ error: belongingError });
+        return;
     }
     const { user } = response.locals;
 
@@ -48,10 +45,15 @@ export const deleteReaction = async (request: Request, response: Response) => {
 };
 
 export const getReactions = async (request: Request, response: Response) => {
-    const replyId = request.query["replyId"];
-    const commentId = request.query["commentId"];
-    const postId = request.query["postId"];
+    const { replyId, commentId, postId } = request.query;
     const { user } = response.locals;
+
+    if (!filterChecker(postId, replyId, commentId)) {
+        response.status(500).json({ error: "Filter can be applied only for one entity" });
+        // Have got Error: Can't render headers after they are sent to the client if don't return
+
+        return;
+    }
 
     try {
         const whereCondition: WhereOptions<Reaction> = { userId: user.id };

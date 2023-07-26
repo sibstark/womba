@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo, Index } from "sequelize-typescript";
 
 import Comment from "./Comment";
 import Post from "./Post";
@@ -31,6 +31,7 @@ class Reaction extends Model {
     userId!: number;
 
     // reply
+    @Index
     @ForeignKey(() => {
         return Reply;
     })
@@ -47,6 +48,7 @@ class Reaction extends Model {
     reply?: Reply;
 
     // post
+    @Index
     @ForeignKey(() => {
         return Post;
     })
@@ -63,6 +65,7 @@ class Reaction extends Model {
     post?: Post;
 
     // comment
+    @Index
     @ForeignKey(() => {
         return Comment;
     })
