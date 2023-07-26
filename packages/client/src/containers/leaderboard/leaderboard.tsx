@@ -7,7 +7,7 @@ import { Row } from "./components/Row";
 
 import "./styles.scss";
 
-export const LeaderBoard: React.FC = () => {
+export const Leaderboard: React.FC = () => {
     useEffect(() => {
         store.dispatch(loadLeaders());
     }, []);
