@@ -2,24 +2,28 @@ import fs from "fs";
 import path from "path";
 import * as process from "process";
 
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import { createServer as createViteServer, ViteDevServer } from "vite";
 
 import { isDev, isProduction } from "./env";
+import apiRoutes from "./routes/apiRoutes";
+import connection from "./services/SequelizeClient";
 import { fetchUserData } from "./user";
+
 dotenv.config();
 
 async function startServer() {
     const app = express();
 
     app.use(cors());
+    app.use(cookieParser());
+    app.use(express.json());
     const port = Number(process.env.SERVER_PORT) || 3001;
 
-    app.get("/api", (_, res) => {
-        res.json("👋 Howdy from the server :)");
-    });
+    app.use("/api", apiRoutes);
 
     // Use vite's connect instance as middleware. If you use your own
     // express router (express.Router()), you should use router.use
@@ -114,9 +118,18 @@ async function startServer() {
         }
     });
 
-    app.listen(port, () => {
-        console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
-    });
+    try {
+        await connection.authenticate();
+        await connection.sync({ force: true });
+
+        app.listen(port, () => {
+            console.log("process.env", process.env);
+
+            console.log(`  ➜ 🎸 Server is listening on port: ${port}`);
+        });
+    } catch (error: any) {
+        console.error(`Error occurred: ${error.message}`);
+    }
 }
 
 startServer();

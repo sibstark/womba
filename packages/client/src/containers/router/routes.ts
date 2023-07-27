@@ -4,7 +4,6 @@ export enum Routes {
     Registration = "/registration",
     Profile = "/profile",
     LeaderBoard = "/leaders",
-    Start = "/start",
     Rules = "/rules",
     ApplicationError = "/application-error",
     ServerError = "/server-error",
