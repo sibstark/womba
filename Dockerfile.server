@@ -8,20 +8,24 @@ WORKDIR /app
 FROM base as builder
 
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install --immutable
 
 COPY . .
-
 RUN yarn lerna bootstrap
-RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
+RUN rm -rf /app/packages/server/dist/ && yarn build:server
 
+RUN tar -cf cl.tar /app/packages/client
 
 FROM node:$NODE_VERSION-buster-slim as production
 WORKDIR /app
-
+RUN apt-get update && apt-get install -y bash tar
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
+
 RUN yarn install --production=true
 
+COPY --from=builder /app/cl.tar .
+RUN tar -xf cl.tar && mv ./app/packages/client ./node_modules
 EXPOSE $SERVER_PORT
+
 CMD [ "node", "/app/index.js" ]
