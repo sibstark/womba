@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-import { Table, Model, Column, DataType, Index, AllowNull, Unique, ForeignKey, BelongsTo } from "sequelize-typescript";
+import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
 
 import User from "./User";
 
@@ -19,9 +18,6 @@ class Theme extends Model {
     })
     override id!: number;
 
-    @Index
-    @AllowNull(false)
-    @Unique
     @Column(DataType.ENUM(ETheme.DARK, ETheme.LIGHT))
     theme!: ETheme;
 

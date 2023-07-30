@@ -1,14 +1,9 @@
 import bcrypt from "bcrypt";
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import { Table, Model, Column, DataType, HasMany, HasOne } from "sequelize-typescript";
 
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import Comment from "./Comment";
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import Post from "./Post";
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import Reply from "./Reply";
-// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import Theme from "./Theme";
 
 @Table({
