@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 import { Table, Model, Column, DataType, ForeignKey, BelongsTo } from "sequelize-typescript";
 
 import User from "./User";
