@@ -26,7 +26,9 @@ class Theme extends Model {
         return User;
     })
     @Column({
-        type: DataType.INTEGER
+        type: DataType.INTEGER,
+        allowNull: false,
+        unique: true
     })
     userId!: number;
 
