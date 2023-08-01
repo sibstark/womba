@@ -5,6 +5,7 @@ import commentRoutes from "./commentRoutes";
 import postRoutes from "./postRoutes";
 import reactionRoutes from "./reactionRoutes";
 import replyRoutes from "./replyRoutes";
+import themeRoutes from "./themeRoutes";
 
 const rootRouter = Router();
 
@@ -13,5 +14,6 @@ rootRouter.use("/post", postRoutes);
 rootRouter.use("/comment", commentRoutes);
 rootRouter.use("/reactions", reactionRoutes);
 rootRouter.use("/reply", replyRoutes);
+rootRouter.use("/theme", themeRoutes);
 
 export default rootRouter;
