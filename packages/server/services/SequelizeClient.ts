@@ -5,6 +5,7 @@ import Comment from "../models/Comment";
 import Post from "../models/Post";
 import Reaction from "../models/Reaction";
 import Reply from "../models/Reply";
+import Theme from "../models/Theme";
 import User, { userBeforeCreate } from "../models/User";
 
 const sequelizeOptions: SequelizeOptions = {
@@ -12,7 +13,7 @@ const sequelizeOptions: SequelizeOptions = {
     dialect: "postgres",
     host: "localhost",
     logging: true,
-    models: [User, Comment, Post, Reaction, Reply],
+    models: [User, Comment, Post, Reaction, Reply, Theme],
     password: dbPassword,
     username: dbUser
 };
