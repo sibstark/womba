@@ -1,6 +1,6 @@
 import { Sequelize, SequelizeOptions } from "sequelize-typescript";
 
-import { dbUser, dbPassword, dbName } from "../env";
+import { dbUser, dbPassword, dbName, dbHost } from "../env";
 import Comment from "../models/Comment";
 import Post from "../models/Post";
 import Reaction from "../models/Reaction";
@@ -11,7 +11,7 @@ import User, { userBeforeCreate } from "../models/User";
 const sequelizeOptions: SequelizeOptions = {
     database: dbName,
     dialect: "postgres",
-    host: "localhost",
+    host: dbHost,
     logging: true,
     models: [User, Comment, Post, Reaction, Reply, Theme],
     password: dbPassword,
