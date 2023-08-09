@@ -19,27 +19,27 @@ services:
         volumes:
             - ./tmp/pgdata:/var/lib/postgresql/data
         networks:
-            wombaNet:
-                ipv4_address: ${POSTGRES_IP}
+            - wombaNet
+              # ipv4_address: ${POSTGRES_IP}
 
-    pgadmin:
-        container_name: pgadmin
-        image: dpage/pgadmin4:latest
-        restart: always
-        environment:
-            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-            PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
-        ports:
-            - "${PGADMIN_EXTERNAL_LISTEN_PORT}:${PGADMIN_LISTEN_PORT}"
-        volumes:
-            - pgadmin-store:/var/lib/pgadmin
-        depends_on:
-            postgres:
-                condition: service_healthy
-        networks:
-            wombaNet:
-                ipv4_address: ${PGADMIN_IP}
+    # pgadmin:
+    #     container_name: pgadmin
+    #     image: dpage/pgadmin4:latest
+    #     restart: always
+    #     environment:
+    #         PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+    #         PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+    #         PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
+    #     ports:
+    #         - "${PGADMIN_EXTERNAL_LISTEN_PORT}:${PGADMIN_LISTEN_PORT}"
+    #     volumes:
+    #         - pgadmin-store:/var/lib/pgadmin
+    #     depends_on:
+    #         postgres:
+    #             condition: service_healthy
+    #     networks:
+    #         wombaNet:
+    #             ipv4_address: ${PGADMIN_IP}
 
     client:
         container_name: prakticum-client
@@ -58,8 +58,8 @@ services:
         depends_on:
             - server
         networks:
-            wombaNet:
-                ipv4_address: ${CLIENT_IP}
+            - wombaNet
+              # ipv4_address: ${CLIENT_IP}
 
     server:
         container_name: prakticum-server
@@ -74,12 +74,14 @@ services:
             - "${SERVER_PORT}:${SERVER_PORT}"
         environment:
             SERVER_PORT: ${SERVER_PORT}
+        env_file:
+            - .env
         depends_on:
             postgres:
                 condition: service_healthy
         networks:
-            wombaNet:
-                ipv4_address: ${SERVER_IP}
+            - wombaNet
+              # ipv4_address: ${SERVER_IP}
 
 volumes:
     pgadmin-store:
@@ -87,7 +89,7 @@ volumes:
 networks:
     wombaNet:
         driver: bridge
-        ipam:
-            driver: default
-            config:
-                - subnet: ${SUBNET}
+        # ipam:
+        #     driver: default
+        #     config:
+        #         - subnet: ${SUBNET}
