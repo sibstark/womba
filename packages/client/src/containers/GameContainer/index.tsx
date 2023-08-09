@@ -1,8 +1,17 @@
-import React, { useRef, useEffect, useCallback, forwardRef, useImperativeHandle } from "react";
+import React, {
+    useRef,
+    useEffect,
+    useLayoutEffect,
+    useCallback,
+    forwardRef,
+    useImperativeHandle
+} from "react";
 import type { Dispatch, SetStateAction } from "react";
 
 import Game from "../../core/game/Game";
+import { isDev } from "../../env";
 import debugResolve from "../../logger/debugResolve";
+import { measurePaint } from "../../utils/performance";
 
 const debug = debugResolve("GameContainer");
 
@@ -86,6 +95,12 @@ const GameContainer = forwardRef<GameForwardProps, TGameProps>(
             },
             [setScore]
         );
+
+        useLayoutEffect(() => {
+            if (isDev()) {
+                measurePaint();
+            }
+        }, []);
 
         useEffect(() => {
             document.addEventListener("keydown", handleKeyPress);

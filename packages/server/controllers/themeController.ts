@@ -8,8 +8,8 @@ export const setTheme = async (request: Request, response: Response) => {
 
     try {
         await Theme.upsert({
-          theme,
-          userId: user.id
+            theme,
+            userId: user.id
         });
 
         response.status(201).json({ success: true });
