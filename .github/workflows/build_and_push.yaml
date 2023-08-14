@@ -20,4 +20,4 @@ jobs:
           host: 62.84.123.70
           username: dda
           port: 22
-          privateKey: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL4RRNpTcgMW910Qy9xkFCRAMNCStmZhRd6uHPZo2BwE daniladenisov@daniladenisov-o'
+          privateKey: ${{ secrets.DEPLOY_SSH_KEY }}
