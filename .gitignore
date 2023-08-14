@@ -10,3 +10,6 @@ tmp
 .DS_Store
 yarn-error.log
 /packages/client/ssr-dist/
+/nginx/logs/access.log
+/nginx/ssl/dhparams.pem
+/nginx/logs/error.log

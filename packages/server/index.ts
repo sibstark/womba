@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import { createServer as createViteServer, ViteDevServer } from "vite";
 
-import { isDev, isProduction } from "./env";
+import { isDev, isProduction, dbUser, dbPassword, dbName } from "./env";
 import apiRoutes from "./routes/apiRoutes";
 import connection from "./services/SequelizeClient";
 import { fetchUserData } from "./user";
@@ -98,6 +98,8 @@ async function startServer() {
             }
 
             // 5. Inject the app-rendered HTML into the template.
+            console.log("preloadedState", preloadedState);
+            console.log("JSON preloadedState", JSON.stringify(preloadedState));
             const reduxState = `<script>
           window.__REDUX_STATE__ = ${JSON.stringify(preloadedState).replace(/</g, "\\u003c")}
         </script>`;
@@ -119,9 +121,11 @@ async function startServer() {
     });
 
     try {
+        console.log("connection");
+        console.log("pg", dbUser, dbPassword, dbName);
         await connection.authenticate();
         await connection.sync({ force: true });
-
+        console.log("connection end");
         app.listen(port, () => {
             console.log("process.env", process.env);
 

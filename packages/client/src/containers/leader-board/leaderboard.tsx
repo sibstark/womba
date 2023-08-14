@@ -3,7 +3,7 @@ import { store } from "@redux/store";
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
-import { Row } from "./components/Row";
+import { Row } from "./components/row";
 
 import "./styles.scss";
 
