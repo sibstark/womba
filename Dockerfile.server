@@ -21,11 +21,13 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y bash tar
 COPY --from=builder /app/packages/server/dist/ /app/
 COPY --from=builder /app/packages/server/package.json /app/package.json
+COPY --from=builder /app/srv.js .
 
 RUN yarn install --production=true
 
 COPY --from=builder /app/cl.tar .
 RUN tar -xf cl.tar && mv ./app/packages/client ./node_modules
 EXPOSE $SERVER_PORT
-
+ENV NODE_ENV production
+# CMD [ "node", "/app/srv.js" ]
 CMD [ "node", "/app/index.js" ]
