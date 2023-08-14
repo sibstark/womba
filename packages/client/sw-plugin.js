@@ -20,7 +20,7 @@ const _generateBundle = async (_, data, options = {}) => {
     const swWithChunks = sw.replace("const URLS = []", `const URLS = ['${chunkList.join(`','`)}']`);
 
     fs.writeFile(`${_dist}/${SW_FILENAME}`, swWithChunks).then(() =>
-        console.log("service worker written")
+        console.log("\nservice worker written.");
     );
 };
 
