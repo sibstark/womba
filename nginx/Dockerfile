@@ -1,3 +1,4 @@
-FROM umputun/nginx-le:v1.4.3
+FROM nginx:1.21-alpine
 
-COPY service.conf /etc/nginx/service.conf
+RUN rm -rf /etc/nginx/conf.d/*
+COPY site.conf /etc/nginx/conf.d/

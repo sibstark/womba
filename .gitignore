@@ -13,3 +13,5 @@ yarn-error.log
 /nginx/logs/access.log
 /nginx/ssl/dhparams.pem
 /nginx/logs/error.log
+/womba.pub
+/womba
