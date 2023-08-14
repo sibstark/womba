@@ -1,4 +1,4 @@
-name: Push to GitHub Container Registry
+name: CI
 
 on:
   push:
@@ -7,11 +7,12 @@ on:
 
 jobs:
   build-and-push:
+    name: Build and push docker image
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: set lower case owner name
         run: |
           echo "OWNER_LC=${OWNER,,}" >>${GITHUB_ENV}
@@ -39,4 +40,19 @@ jobs:
           file: Dockerfile.server
           push: true
           tags: ghcr.io/${{ env.OWNER_LC }}/${{ github.event.repository.name }}/server:${{ github.sha }}
-          
+
+  deploy:
+    name: Deploy
+    needs: [ build-and-push ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Copy docker-compose.yml
+        uses: garygrossgarten/github-action-scp@release
+        with:
+          local: docker-compose.yml
+          remote: /var/snap/docker-compose.yml
+          host: 62.84.123.70
+          username: dda
+          port: 22
+          privateKey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIL4RRNpTcgMW910Qy9xkFCRAMNCStmZhRd6uHPZo2BwE daniladenisov@daniladenisov-o
