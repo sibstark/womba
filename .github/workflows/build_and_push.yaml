@@ -27,14 +27,14 @@ jobs:
           context: .
           file: Dockerfile.client
           push: true
-          tags: cr.yandex/${{ secrets.DOCKERHUB_USERNAME }}/client:${{ github.sha }}
+          tags: cr.yandex/oauth/client:${{ github.sha }}
       - name: Build and push server image
         uses: docker/build-push-action@v4
         with:
           context: .
           file: Dockerfile.server
           push: true
-          tags: cr.yandex/${{ secrets.DOCKERHUB_USERNAME }}/server:${{ github.sha }}
+          tags: cr.yandex/oauth/server:${{ github.sha }}
 
   deploy:
     name: Deploy
