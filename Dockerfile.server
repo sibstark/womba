@@ -8,6 +8,7 @@ WORKDIR /app
 FROM base as builder
 
 COPY . .
+RUN yarn install
 RUN yarn lerna bootstrap
 RUN rm -rf /app/packages/client/dist/
 RUN rm -rf /app/packages/server/dist/
