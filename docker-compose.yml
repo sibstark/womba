@@ -21,20 +21,21 @@ services:
         networks:
             - wombaNet
 
-    client:
-        container_name: prakticum-client
-        image: cr.yandex/${CONTAINER_REGISTRY_ID}/client:latest
-        build:
-            context: .
-            dockerfile: Dockerfile.client
-            args:
-                CLIENT_PORT: ${CLIENT_PORT}
-        restart: always
+    nginx:
+        container_name: prakticum-nginx
+        build: ./nginx
         ports:
-            - "${CLIENT_PORT}:80"
-        environment:
-            - CLIENT_PORT=${CLIENT_PORT}
-            - SERVER_PORT=${SERVER_PORT}
+            - "80:80"
+            - "443:443"
+        expose:
+            - "80"
+            - "443"
+        env_file:
+            - .env
+        volumes:
+            - ./nginx/ssl:/etc/nginx/ssl
+            - ./nginx/logs:/var/log/nginx
+        restart: always
         depends_on:
             - server
         networks:
