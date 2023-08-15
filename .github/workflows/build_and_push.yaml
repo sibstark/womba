@@ -27,14 +27,14 @@ jobs:
           context: .
           file: Dockerfile.client
           push: true
-          tags: cr.yandex/crp2jel18l88ub4qre44/client:${{ github.sha }}
+          tags: cr.yandex/crp2jel18l88ub4qre44/client:latest
       - name: Build and push server image
         uses: docker/build-push-action@v4
         with:
           context: .
           file: Dockerfile.server
           push: true
-          tags: cr.yandex/crp2jel18l88ub4qre44/server:${{ github.sha }}
+          tags: cr.yandex/crp2jel18l88ub4qre44/server:latest
 
   deploy:
     name: Deploy
