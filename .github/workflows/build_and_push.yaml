@@ -22,19 +22,19 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
       - name: Build and push client image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v2
         with:
           context: .
           file: Dockerfile.client
           push: true
-          tags: cr.yandex/crp2jel18l88ub4qre44/client:latest
+          tags: cr.yandex/crp2jel18l88ub4qre44/client:${{ github.sha }}
       - name: Build and push server image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v2
         with:
           context: .
           file: Dockerfile.server
           push: true
-          tags: cr.yandex/crp2jel18l88ub4qre44/server:latest
+          tags: cr.yandex/crp2jel18l88ub4qre44/server:${{ github.sha }}
 
   deploy:
     name: Deploy
