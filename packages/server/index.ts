@@ -18,6 +18,15 @@ dotenv.config();
 async function startServer() {
     const app = express();
 
+    // @ts-ignore
+    app.use(function (req, res, next) {
+        res.setHeader(
+            "Content-Security-Policy",
+            "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self'; frame-src 'self'; connect-src https://ya-praktikum.tech"
+        );
+        next();
+    });
+
     app.use(cors());
     app.use(cookieParser());
     app.use(express.json());

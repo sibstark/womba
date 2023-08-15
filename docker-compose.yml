@@ -15,31 +15,11 @@ services:
             POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
             POSTGRES_USER: ${POSTGRES_USER}
             POSTGRES_DB: ${POSTGRES_DB}
-            POSTGRES_HOST_AUTH_METHOD: password # required for pgadmin
+            POSTGRES_HOST_AUTH_METHOD: password
         volumes:
             - ./tmp/pgdata:/var/lib/postgresql/data
         networks:
             - wombaNet
-              # ipv4_address: ${POSTGRES_IP}
-
-    # pgadmin:
-    #     container_name: pgadmin
-    #     image: dpage/pgadmin4:latest
-    #     restart: always
-    #     environment:
-    #         PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-    #         PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-    #         PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
-    #     ports:
-    #         - "${PGADMIN_EXTERNAL_LISTEN_PORT}:${PGADMIN_LISTEN_PORT}"
-    #     volumes:
-    #         - pgadmin-store:/var/lib/pgadmin
-    #     depends_on:
-    #         postgres:
-    #             condition: service_healthy
-    #     networks:
-    #         wombaNet:
-    #             ipv4_address: ${PGADMIN_IP}
 
     client:
         container_name: prakticum-client
@@ -59,7 +39,6 @@ services:
             - server
         networks:
             - wombaNet
-              # ipv4_address: ${CLIENT_IP}
 
     server:
         container_name: prakticum-server
@@ -81,15 +60,7 @@ services:
                 condition: service_healthy
         networks:
             - wombaNet
-              # ipv4_address: ${SERVER_IP}
-
-volumes:
-    pgadmin-store:
 
 networks:
     wombaNet:
         driver: bridge
-        # ipam:
-        #     driver: default
-        #     config:
-        #         - subnet: ${SUBNET}
