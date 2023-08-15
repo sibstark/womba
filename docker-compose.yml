@@ -23,6 +23,7 @@ services:
 
     nginx:
         container_name: prakticum-nginx
+        image: cr.yandex/${CONTAINER_REGISTRY_ID}/nginx:latest
         build: ./nginx
         ports:
             - "80:80"
