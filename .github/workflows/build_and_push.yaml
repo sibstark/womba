@@ -6,7 +6,6 @@ on:
       - main
 
 jobs:
-
   deploy:
     name: Deploy
     needs: [ build-and-push ]
