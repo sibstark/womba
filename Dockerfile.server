@@ -29,5 +29,5 @@ COPY --from=builder /app/cl.tar .
 RUN tar -xf cl.tar && mv ./app/packages/client ./node_modules
 EXPOSE $SERVER_PORT
 ENV NODE_ENV production
-CMD [ "node", "/app/srv.js" ]
-# CMD [ "node", "/app/index.js" ]
+# CMD [ "node", "/app/srv.js" ]
+CMD [ "node", "/app/index.js" ]
