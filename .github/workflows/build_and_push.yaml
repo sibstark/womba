@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     name: Deploy
-    needs: [ build-and-push ]
+    #needs: [ build-and-push ]
     runs-on: ubuntu-latest
 
     steps:
