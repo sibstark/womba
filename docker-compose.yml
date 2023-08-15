@@ -36,6 +36,7 @@ services:
         volumes:
             - ./nginx/ssl:/etc/nginx/ssl
             - ./nginx/logs:/var/log/nginx
+            - ${CERTBOT_CONF_DIR}:/etc/letsencrypt
         restart: always
         depends_on:
             - server
