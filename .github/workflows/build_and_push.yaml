@@ -23,6 +23,13 @@ jobs:
         uses: docker/setup-buildx-action@v2
         with:
           provenance: false
+      - name: Build and push nginx image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: nginx/Dockerfile
+          push: true
+          tags: cr.yandex/${{ secrets.CONTAINER_REGISTRY_ID }}/nginx:latest
       - name: Build and push server image
         uses: docker/build-push-action@v3
         with:
